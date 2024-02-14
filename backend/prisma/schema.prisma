@@ -1,0 +1,105 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  user_id             Int       @id @default(autoincrement())
+  email               String    @unique @db.VarChar(360)
+  passwordHash        String    @db.VarChar(64)
+  created_at          DateTime  @default(now())
+  email_confirmed_at  DateTime?
+  profile             Profile?
+  savedQuotes         SavedQuote[]
+  goals               Goal[]
+}
+
+model Profile {
+  profile_id          Int       @id @default(autoincrement())
+  display_name        String    @db.VarChar(40)
+  user                User      @relation(fields: [user_id], references: [user_id])
+  user_id             Int       @unique
+}
+
+model Quote {
+  quote_id            Int       @id @default(autoincrement())
+  quote_text          String    @db.Text
+  quote_author        String    @db.Text
+  generated_at        DateTime  @default(now())
+  users_who_saved     SavedQuote[]
+}
+
+model SavedQuote {
+  user                User      @relation(fields: [user_id], references: [user_id])
+  user_id             Int
+  quote               Quote     @relation(fields: [quote_id], references: [quote_id])
+  quote_id            Int
+  saved_at            DateTime  @default(now())
+
+  @@id([user_id, quote_id])
+}
+
+model Goal {
+  goal_id             Int       @id @default(autoincrement())
+  goal_name           String    @db.Text
+  goal_description    String?   @db.Text
+  created_at          DateTime  @default(now())
+  deployed_at         DateTime?
+  user                User      @relation(fields: [user_id], references: [user_id])
+  user_id             Int
+  tasks               Task[]
+  habits              Habit[]
+}
+
+model Task {
+  task_id             Int       @id @default(autoincrement())
+  task_name           String    @db.Text
+  task_description    String?   @db.Text
+  scheduled_at        DateTime?
+  ends_at             DateTime?
+  commited_at         DateTime?
+  goal                Goal      @relation(fields: [goal_id], references: [goal_id])
+  goal_id             Int
+}
+
+model Habit {
+  habit_id            Int       @id @default(autoincrement())
+  habit_name          String    @db.Text
+  habit_description   String?   @db.Text
+  start_at            DateTime  @db.Time
+  ends_at             DateTime  @db.Time
+  frequency           HabitFrequency
+  days_of_week        DayOfWeek[]
+  deployed_at         DateTime  @default(now())
+  goal                Goal      @relation(fields: [goal_id], references: [goal_id])
+  goal_id             Int
+  commits             HabitCommit[]
+}
+
+model HabitCommit {
+  habit_commit_id     Int       @id @default(autoincrement())
+  habit               Habit     @relation(fields: [habit_id], references: [habit_id])
+  habit_id            Int
+  commited_at         DateTime  @default(now())
+}
+
+enum DayOfWeek {
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
+  SUNDAY
+}
+
+enum HabitFrequency {
+  DAILY
+  WEEKLY
+  MONTHLY
+  YEARLY
+}
