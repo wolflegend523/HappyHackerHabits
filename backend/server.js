@@ -18,7 +18,7 @@ app.use("/api/quotes", require("./api/quoteApi"));
 app.use("/api/debuggingduck", require("./api/debuggingDuckApi"));
 
 // Start up the server
-const port = 8000;
+const port = process.env.PORT || 8000;
 app.listen(port, () => console.log(`Server listening on port ${port}`));
 
 // Export the app
