@@ -58,7 +58,15 @@ router.post("/logins/", async (req, res) => {
     // Find the user by email
     const user = await prisma.user.findUnique({
       where: { email: req.body.email },
-      include: { profile: true },
+      select: {
+        user_id: true,
+        passwordHash: true,
+        profile: {
+          select: {
+            display_name: true,
+          },
+        },
+      },
     });
 
     // If the user is not found
@@ -70,7 +78,7 @@ router.post("/logins/", async (req, res) => {
     // If the password is correct
     if (bcrypt.compareSync(req.body.password, user.passwordHash)) {
       // send back a token and the user's profile
-      const token = jwt.encode({ id: user.id }, secret);
+      const token = jwt.encode({ id: user.user_id }, secret);
       res.json({ token: token, profile: user.profile });
       console.log("User logged in with token: ", token);
     // If the password is incorrect
@@ -82,5 +90,9 @@ router.post("/logins/", async (req, res) => {
     res.status(400).json(err);
   }
 });
+
+/**
+ * TODO: update a users profile
+ */
 
 module.exports = router;

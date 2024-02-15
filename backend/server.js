@@ -9,9 +9,16 @@ app.use(express.json());
 // CORS to allow requests from any origin
 app.use(cors());
 
+// Add the userID from the URL to the request object
+// so that the API endpoints can use it
+app.use('/users/:userId', (req, res, next) => {
+  req.userId = req.params.userId
+  router(req, res, next)
+})
+
 // Create API endpoints
 app.use("/api/users", require("./api/userApi"));
-//app.use("/api/users/:id/goals", require("./api/goalApi"));
+app.use("/api/users/:userId/goals", require("./api/goalApi"));
 //app.use("/api/quotes", require("./api/quoteApi"));
 app.use("/api/debuggingduck", require("./api/debuggingDuckApi"));
 
