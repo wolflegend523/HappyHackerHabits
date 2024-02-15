@@ -1,6 +1,6 @@
 const router = require("express").Router();
 
-router.get("/", function (req, res) {
+router.get("/", async (req, res) => {
   res.json({ message: "Hello from debugging duck!" });
 });
 
