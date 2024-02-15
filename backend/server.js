@@ -12,9 +12,9 @@ app.use(express.json());
 app.use(cors());
 
 // Create API endpoints
-app.use("/api/users", require("./api/userApi"));
-app.use("/api/users/:id/goals", require("./api/goalApi"));
-app.use("/api/quotes", require("./api/quoteApi"));
+//app.use("/api/users", require("./api/userApi"));
+//app.use("/api/users/:id/goals", require("./api/goalApi"));
+//app.use("/api/quotes", require("./api/quoteApi"));
 app.use("/api/debuggingduck", require("./api/debuggingDuckApi"));
 
 // Start up the server
