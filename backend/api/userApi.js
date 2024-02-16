@@ -1,10 +1,8 @@
-const jwt = require("jwt-simple");
 const bcrypt = require("bcryptjs");
 const router = require("express").Router();
 const { PrismaClient } = require('@prisma/client');
+const {createToken} = require("../authToken");
 
-// Secret for encoding and decoding JWTs
-const secret = process.env.JWT_SECRET;
 // prisma client to interact with the database
 const prisma = new PrismaClient();
 
@@ -45,7 +43,7 @@ router.post("/", async (req, res) => {
 
 
 /**
- * Login a user
+ * Login a user, send back a token and the user's profile
  */
 router.post("/logins/", async (req, res) => {
   // If the request does not have a username or password
@@ -78,7 +76,7 @@ router.post("/logins/", async (req, res) => {
     // If the password is correct
     if (bcrypt.compareSync(req.body.password, user.passwordHash)) {
       // send back a token and the user's profile
-      const token = jwt.encode({ id: user.user_id }, secret);
+      const token = createToken(user.user_id);
       res.json({ token: token, profile: user.profile });
       console.log("User logged in with token: ", token);
     // If the password is incorrect
@@ -91,8 +89,19 @@ router.post("/logins/", async (req, res) => {
   }
 });
 
+
 /**
- * TODO: update a users profile
+ * TODO: update a user (password, email, etc.)
+ */
+
+
+/**
+ * TODO: delete a user (and their profile, goals, etc.)
+ */
+
+
+/**
+ * TODO: update a users profile (display name, etc.)
  */
 
 module.exports = router;
