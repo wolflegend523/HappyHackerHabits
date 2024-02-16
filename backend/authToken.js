@@ -26,7 +26,6 @@ function authorizeToken(req, res, next) {
 
   // X-Auth should contain the token value
   const token = req.headers["x-auth"];
-  console.log("token: ", token);
 
   // Decode the token to get the user id
   try {

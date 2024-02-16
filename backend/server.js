@@ -1,3 +1,6 @@
+//TODO: after doing lots of testing, change error messages to not 
+// have the actual prisma error message, but instead a generic error message
+
 const express = require("express");
 const cors = require("cors");
 

@@ -70,23 +70,101 @@ router.get("/daily/", async (req, res) => {
 
 
 /**
- * TODO: get a user's favorite quotes
+ * get a user's favorite quotes
  */
 router.get("/favorites/", async (req, res) => {
+  // Check if the user has a valid token
+  if (!authorizeToken(req, res)) {
+    return;
+  }
+
+  try {
+    // get the user's favorite quotes
+    const favoriteQuotes = await prisma.quote.findMany({
+      select: {
+        quote_id: true,
+        quote_author: true,
+        quote_text: true,
+      },
+      where: {
+        users_who_saved: {
+          some: {
+            user_id: req.userId,
+          },
+        },
+      },
+    });
+
+    res.json(favoriteQuotes);
+  } catch (err) {
+    res.status(400).json(err); // Error when getting the favorite quotes
+  }
 });
 
 
 /**
- * TODO: post to user's favorite quotes
+ * post to user's favorite quotes
  */
 router.post("/favorites/", async (req, res) => {
+  // Check if the user has a valid token
+  if (!authorizeToken(req, res)) {
+    return;
+  }
+
+  // If the request does not have a quote id
+  if (!req.body.quoteId) {
+    res.status(400).json({ error: "Missing Quote ID" });
+    return;
+  }
+
+  try {
+    // Create a new favorite quote
+    const favoriteQuote = await prisma.savedQuote.create({
+      data: {
+        quote: {
+          connect: { quote_id: req.body.quoteId },
+        },
+        user: {
+          connect: { user_id: req.userId },
+        },
+      },
+    });
+
+    res.sendStatus(201)
+  } catch (err) {
+    res.status(400).json(err); // Error when creating the favorite quote
+  }
 });
 
 
 /**
- * TODO: delete from the user's favorite quotes
+ * delete from the user's favorite quotes
  */
-router.delete("/favorites/", async (req, res) => {
+router.delete("/favorites/:quoteId/", async (req, res) => {
+  // Check if the user has a valid token
+  if (!authorizeToken(req, res)) {
+    return;
+  }
+
+  try {
+    // Delete the favorite quote
+    const deletedFavoriteQuote = await prisma.savedQuote.delete({
+      where: {
+        user_id_quote_id: {
+          user_id: req.userId,
+          quote_id: parseInt(req.params.quoteId),
+        },
+      },
+    });
+
+    res.sendStatus(204);
+  } catch (err) {
+    if (err.code === "P2025") { // if the favorite quote does not exist
+      res.status(404).json({ error: "Favorite quote not found" });
+      return;
+    }
+    res.status(400).json(err); // Error when deleting the favorite quote
+  }
 });
 
 
