@@ -1,3 +1,5 @@
+//TODO: add useful comments to the schema
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -25,7 +27,7 @@ model Profile {
   user_id             Int       @unique
 }
 
-// TODO: should qoute text be unique?
+// TODO: should qoute text be unique? (we might run out of qoutes from the API though?)
 model Quote {
   quote_id            Int       @id @default(autoincrement())
   quote_text          String    @db.Text
@@ -56,28 +58,29 @@ model Goal {
   habits              Habit[]
 }
 
-// TODO: fix commited_at spelling
 model Task {
   task_id             Int       @id @default(autoincrement())
   task_name           String    @db.Text
   task_description    String?   @db.Text
+  created_at          DateTime  @default(now())
   scheduled_at        DateTime?
   ends_at             DateTime?
-  commited_at         DateTime?
+  committed_at        DateTime?
   goal                Goal      @relation(fields: [goal_id], references: [goal_id])
   goal_id             Int
 }
 
 model Habit {
-  habit_id            Int       @id @default(autoincrement())
-  habit_name          String    @db.Text
-  habit_description   String?   @db.Text
-  start_at            DateTime  @db.Time
-  ends_at             DateTime  @db.Time
-  frequency           HabitFrequency
+  habit_id            Int             @id @default(autoincrement())
+  habit_name          String          @db.Text
+  habit_description   String?         @db.Text
+  created_at          DateTime        @default(now())
+  start_at            DateTime?       
+  ends_at             DateTime?       
+  frequency           HabitFrequency  @default(DAILY)
   days_of_week        DayOfWeek[]
-  deployed_at         DateTime  @default(now())
-  goal                Goal      @relation(fields: [goal_id], references: [goal_id])
+  deployed_at         DateTime?  
+  goal                Goal            @relation(fields: [goal_id], references: [goal_id])
   goal_id             Int
   commits             HabitCommit[]
 }
@@ -86,7 +89,7 @@ model HabitCommit {
   habit_commit_id     Int       @id @default(autoincrement())
   habit               Habit     @relation(fields: [habit_id], references: [habit_id])
   habit_id            Int
-  commited_at         DateTime  @default(now())
+  committed_at        DateTime  @default(now())
 }
 
 enum DayOfWeek {

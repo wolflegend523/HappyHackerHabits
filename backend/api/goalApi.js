@@ -20,7 +20,7 @@ router.get("/", async (req, res) => {
   }
 
   // initial query parameter thoughts TODO: figure it out
-  // const queryGoals = req.query.deployed; // DEPLOYED or UNDEPLOYED or ALL (if not provided, show all goals)
+  // const GoalStatus = req.query.status; // DEPLOYED or UNDEPLOYED or ALL (if not provided, show all goals)
   // const queryHabits = req.query.habits; // NONE or COMMITTED or UNCOMMITTED or ALL (if not provided, show all habits)
   // const queryTasks = req.query.tasks; // NONE or COMMITTED or UNCOMMITTED or ALL (if not provided, show all tasks)
   // const queryDate = req.query.date; // YYYY-MM-DD (if not provided, show all days)
@@ -61,7 +61,7 @@ router.get("/", async (req, res) => {
     //     tasks: {
     //       where: {
     //         scheduled_at: queryDate ? { gte: new Date(queryDate), lt: new Date(queryDate + "T23:59:59") } : undefined,
-    //         commited_at: (queryTasks === "COMMITTED" && queryDate) ? { gte: new Date(queryDate), lt: new Date(queryDate + "T23:59:59") } :  queryTasks === "COMMITTED" ? {not: null} : queryTasks === "UNCOMMITTED" ? null : undefined,
+    //         committed_at: (queryTasks === "COMMITTED" && queryDate) ? { gte: new Date(queryDate), lt: new Date(queryDate + "T23:59:59") } :  queryTasks === "COMMITTED" ? {not: null} : queryTasks === "UNCOMMITTED" ? null : undefined,
     //       },
     //     },
     //   },
@@ -106,6 +106,75 @@ router.post("/", async (req, res) => {
     console.log("Goal created: ", goal);
   } catch (err) {
     res.status(400).json(err); // Error when creating the goal
+  }
+});
+
+
+/**
+ * TODO: Get a goal and all of its tasks and habits
+ */
+// TODO: Add Query Parameters to filter what to include in the response
+router.get("/:goalId/", async (req, res) => {
+  // Check if the user has a valid token
+  if (!authorizeToken(req, res)) {
+    return;
+  }
+
+  try {
+    // Get the goal
+    const goal = await prisma.goal.findUnique({
+      where: {
+        goal_id: parseInt(req.params.goalId),
+      },
+      select: {
+        goal_id: true,
+        goal_name: true,
+        goal_description: true,
+        created_at: true,
+        deployed_at: true,
+        habits: {
+          select: {
+            habit_id: true,
+            habit_name: true,
+            habit_description: true,
+            created_at: true,
+            start_at: true,
+            ends_at: true,
+            frequency: true,
+            days_of_week: true,
+            deployed_at: true,
+            commits: {
+              select: {
+                habit_commit_id: true,
+                committed_at: true,
+              }
+            }
+          },
+        },
+        tasks: {
+          select: {
+            task_id: true,
+            task_name: true,
+            task_description: true,
+            created_at: true,
+            scheduled_at: true,
+            ends_at: true,
+            committed_at: true,
+          },
+        },
+      },
+    });
+
+    // if the goal does not exist
+    if (!goal) {
+      res.status(404).json({ error: "Goal not found" });
+      return;
+    }
+
+    res.json(goal);
+    console.log("Goal retrieved: ", goal);
+  } catch (err) {
+    res.status(400).json(err); // Error when getting the goal
   }
 });
 
@@ -195,8 +264,44 @@ router.delete("/:goalId/", async (req, res) => {
 
 
 /**
- * TODO: Add a habit to a goal
+ * Add a habit to a goal
  */ 
+// TODO: Figure out how to properly handle the start and end times for the habits
+//       Do we need to deal with timezones?
+router.post("/:goalId/habits/", async (req, res) => {
+  // Check if the user has a valid token
+  if (!authorizeToken(req, res)) {
+    return;
+  }
+
+  // If the request does not have a name
+  if (!req.body.habitName) {
+    res.status(400).json({ error: "Missing Habit name" });
+    return;
+  }
+
+  try {
+    // Create a new habit
+    const habit = await prisma.habit.create({
+      data: {
+        habit_name: req.body.habitName,
+        habit_description: req.body.habitDescription,
+        start_at: req.body.startAt ? new Date(req.body.startAt) : undefined,
+        ends_at: req.body.endsAt ? new Date(req.body.endsAt) : undefined,
+        frequency: req.body.frequency || undefined,
+        days_of_week: req.body.daysOfWeek,
+        goal: {
+          connect: { goal_id: parseInt(req.params.goalId) },
+        },
+      },
+    });
+
+    res.status(201).json(habit); // Created
+    console.log("Habit created: ", habit);
+  } catch (err) {
+    res.status(400).json(err); // Error when creating the habit
+  }
+});
 
 
 /**

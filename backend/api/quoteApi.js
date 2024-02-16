@@ -23,6 +23,8 @@ router.get("/daily/", async (req, res) => {
     // check if there is a quote in the database for today
     const today = new Date();
     const todayNoTime = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    const tomorrowNoTime = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
+
     const dbQuote = await prisma.quote.findFirst({
       select: {
         quote_id: true,
@@ -30,7 +32,7 @@ router.get("/daily/", async (req, res) => {
         quote_text: true,
       },
       where: {
-        generated_at: todayNoTime,
+        generated_at: {gte: todayNoTime, lt: tomorrowNoTime},
       },
     });
 
@@ -52,7 +54,7 @@ router.get("/daily/", async (req, res) => {
       data: {
         quote_author: newQuote.author,
         quote_text: newQuote.content,
-        generated_at: todayNoTime,
+        generated_at: today,
       },
       select: {
         quote_id: true,
@@ -116,6 +118,9 @@ router.post("/favorites/", async (req, res) => {
     res.status(400).json({ error: "Missing Quote ID" });
     return;
   }
+
+  // TODO: check if they have already saved a quote with the same text and author
+  // if they have just update the saved date? 
 
   try {
     // Create a new favorite quote
