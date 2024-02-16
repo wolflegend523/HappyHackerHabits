@@ -96,7 +96,7 @@ router.post("/logins/", async (req, res) => {
 
 
 /**
- * TODO: delete a user (and their profile, goals, etc.)
+ * delete a user (and their profile, goals, etc.)
  */
 router.delete("/:userId/", async (req, res) => {
   // Check if the user has a valid token

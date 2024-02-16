@@ -25,6 +25,7 @@ model Profile {
   user_id             Int       @unique
 }
 
+// TODO: should qoute text be unique?
 model Quote {
   quote_id            Int       @id @default(autoincrement())
   quote_text          String    @db.Text
@@ -55,6 +56,7 @@ model Goal {
   habits              Habit[]
 }
 
+// TODO: fix commited_at spelling
 model Task {
   task_id             Int       @id @default(autoincrement())
   task_name           String    @db.Text

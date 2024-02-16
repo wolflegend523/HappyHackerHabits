@@ -10,12 +10,21 @@ const prisma = new PrismaClient();
  * Get goals of a user
  * TODO: Add Query Parameters to filter the goals
  * TODO: Add Query Parameters to filter what to include in the response
+ * TODO: think about how to best determine if a habit should be included 
+ *       in the response regarding its schedule (monthly weekly daily, ect)
  */
 router.get("/", async (req, res) => {
   // Check if the user has a valid token
   if (!authorizeToken(req, res)) {
     return;
   }
+
+  // initial query parameter thoughts TODO: figure it out
+  // const queryGoals = req.query.deployed; // DEPLOYED or UNDEPLOYED or ALL (if not provided, show all goals)
+  // const queryHabits = req.query.habits; // NONE or COMMITTED or UNCOMMITTED or ALL (if not provided, show all habits)
+  // const queryTasks = req.query.tasks; // NONE or COMMITTED or UNCOMMITTED or ALL (if not provided, show all tasks)
+  // const queryDate = req.query.date; // YYYY-MM-DD (if not provided, show all days)
+
 
   try {
     // Get all goals of the user
@@ -31,6 +40,32 @@ router.get("/", async (req, res) => {
         deployed_at: true,
       },
     });
+
+    // some initial thoughts on how to filter the goals TODO: figure it out
+    // const goals2 = await prisma.goal.findMany({
+    //   where: {
+    //     user_id: req.userId,
+    //     deployed_at: queryGoals === "DEPLOYED" ? { not: null } : queryGoals === "UNDEPLOYED" ? null : undefined,
+    //   },
+    //   select: {
+    //     goal_id: true,
+    //     goal_name: true,
+    //     goal_description: true,
+    //     created_at: true,
+    //     deployed_at: true,
+    //     habits: {
+    //       where: {
+
+    //       },
+    //     },
+    //     tasks: {
+    //       where: {
+    //         scheduled_at: queryDate ? { gte: new Date(queryDate), lt: new Date(queryDate + "T23:59:59") } : undefined,
+    //         commited_at: (queryTasks === "COMMITTED" && queryDate) ? { gte: new Date(queryDate), lt: new Date(queryDate + "T23:59:59") } :  queryTasks === "COMMITTED" ? {not: null} : queryTasks === "UNCOMMITTED" ? null : undefined,
+    //       },
+    //     },
+    //   },
+    // });
 
     res.json(goals);
     console.log("Goals retrieved: ", goals);
