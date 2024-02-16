@@ -1,7 +1,7 @@
 const bcrypt = require("bcryptjs");
 const router = require("express").Router();
 const { PrismaClient } = require('@prisma/client');
-const {createToken} = require("../authToken");
+const {createToken, authorizeToken} = require("../authToken");
 
 // prisma client to interact with the database
 const prisma = new PrismaClient();
@@ -98,6 +98,94 @@ router.post("/logins/", async (req, res) => {
 /**
  * TODO: delete a user (and their profile, goals, etc.)
  */
+router.delete("/:userId/", async (req, res) => {
+  // Check if the user has a valid token
+  if (!authorizeToken(req, res)) {
+    return;
+  }
+
+  console.log("Deleting user: ", req.userId);
+
+  try {
+    // Delete the user's tasks
+    const deleteTasks = prisma.task.deleteMany({
+      where: { 
+        goal: {
+          user_id: req.userId,
+        },
+      },
+    });
+
+    // Delete the user's habit commits
+    const deleteHabitCommits = prisma.habitCommit.deleteMany({
+      where: {
+        habit: {
+          goal: {
+            user_id: req.userId,
+          },
+        },
+      },
+    });
+
+    // Delete the user's habits
+    const deleteHabits = prisma.habit.deleteMany({
+      where: {
+        goal: {
+          user_id: req.userId,
+        },
+      },
+    });
+
+    // Delete the user's goals
+    const deleteGoals = prisma.goal.deleteMany({
+      where: {
+        user_id: req.userId,
+      },
+    });
+
+    // Delete the user's saved quotes
+    const deleteSavedQuotes = prisma.savedQuote.deleteMany({
+      where: {
+        user_id: req.userId,
+      },
+    });
+
+    // Delete the user's profile
+    const deleteProfile = prisma.profile.delete({
+      where: {
+        user_id: req.userId,
+      },
+    });
+
+    // Delete the user
+    const deleteUser = prisma.user.delete({
+      where: {
+        user_id: req.userId,
+      },
+    });
+
+    // Delete all the user's data in a transaction
+    const transaction = await prisma.$transaction([
+      deleteTasks,
+      deleteHabitCommits,
+      deleteHabits,
+      deleteGoals,
+      deleteSavedQuotes,
+      deleteProfile,
+      deleteUser,
+    ]);
+
+    console.log("User deleted: ", transaction);
+
+    res.sendStatus(204); // No Content
+  } catch (err) {
+    if (err.code === "P2025") {
+      res.status(404).json({ error: "User not found" });
+      return;
+    }
+    res.status(400).json(err); // Error when deleting the user
+  }
+});
 
 
 /**
