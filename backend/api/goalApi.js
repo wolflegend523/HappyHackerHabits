@@ -76,13 +76,72 @@ router.post("/", async (req, res) => {
 
 
 /**
- * TODO: update a goal
+ * update a goal
  */
+router.put("/:goalId/", async (req, res) => {
+  // Check if the user has a valid token
+  if (!authorizeToken(req, res)) {
+    return;
+  }
+
+  try {
+    // Update the goal
+    const goal = await prisma.goal.update({
+      where: {
+        goal_id: parseInt(req.params.goalId),
+      },
+      data: {
+        goal_name: req.body.goalName || undefined,
+        goal_description: req.body.goalDescription || undefined,
+        deployed_at: req.body.deployedAt ? new Date(req.body.deployedAt) : undefined,
+      },
+    });
+
+    // goal successfully updated
+    res.sendStatus(204);
+    console.log("Goal updated: ", goal);
+  } catch (err) {
+    // if the goal does not exist
+    if (err.code === "P2025") {
+      res.status(404).json({ error: "Goal not found" });
+      return;
+    }
+
+    res.status(400).json(err); // Error when updating the goal
+  }
+});
 
 
 /**
- * TODO: delete a goal
+ * delete a goal
  */
+router.delete("/:goalId/", async (req, res) => {
+  // Check if the user has a valid token
+  if (!authorizeToken(req, res)) {
+    return;
+  }
+
+  try {
+    // Delete the goal
+    const goal = await prisma.goal.delete({
+      where: {
+        goal_id: parseInt(req.params.goalId),
+      },
+    });
+
+    // goal successfully deleted
+    res.sendStatus(204);
+    console.log("Goal deleted: ", goal);
+  } catch (err) {
+    // if the goal does not exist
+    if (err.code === "P2025") {
+      res.status(404).json({ error: "Goal not found" });
+      return;
+    }
+
+    res.status(400).json(err); // Error when deleting the goal
+  }
+});
 
 
 /**
