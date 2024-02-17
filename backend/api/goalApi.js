@@ -386,17 +386,137 @@ router.delete("/:goalId/habits/:habitId/", async (req, res) => {
 
 
 /**
- * TODO: Get a habit's commit history
+ * check that a given habit exists for a given goal
  */
+async function habitExists(habitId, goalId) {
+  // Check if the habit exists
+  try {
+    const habit = await prisma.habit.findUnique({
+      where: {
+        habit_id: parseInt(habitId),
+        goal_id: parseInt(goalId),
+      },
+    });
+
+    return habit !== null;
+  } catch (err) {
+    return false;
+  }
+}
 
 
 /**
- * TODO: Commit a habit
+ * Get a habit's commit history
  */
+router.get("/:goalId/habits/:habitId/commits/", async (req, res) => {
+  // Check if the user has a valid token
+  if (!authorizeToken(req, res)) {
+    return;
+  }
+
+  // Check if the habit exists
+  habitExistsResults = await habitExists(req.params.habitId, req.params.goalId);
+  if (!habitExistsResults) {
+    res.status(404).json({ error: "Habit not found" });
+    return;
+  }
+
+  try {
+    // Get the habit's commit history
+    const commits = await prisma.habitCommit.findMany({
+      where: {
+        habit_id: parseInt(req.params.habitId),
+        habit: {
+          goal_id: parseInt(req.params.goalId),
+        },
+      },
+      select: {
+        habit_commit_id: true,
+        committed_at: true,
+      },
+    });
+
+    res.json(commits);
+    console.log("Commits retrieved: ", commits);
+  } catch (err) {
+    res.status(400).json(err); // Error when getting the commits
+  }
+});
 
 
 /**
- * TODO: Delete a habit Commit
+ * Commit a habit
  */
+router.post("/:goalId/habits/:habitId/commits/", async (req, res) => {
+  // Check if the user has a valid token
+  if (!authorizeToken(req, res)) {
+    return;
+  }
+
+  // Check if the habit exists
+  habitExistsResults = await habitExists(req.params.habitId, req.params.goalId);
+  if (!habitExistsResults) {
+    res.status(404).json({ error: "Habit not found" });
+    return;
+  }
+
+  try {
+    // Commit the habit
+    // TODO: do we want a user to be able to commit to a habit multiple times in a day?
+    // I think so, but if not we need to check before creating the commit
+    const commit = await prisma.habitCommit.create({
+      data: {
+        habit: {
+          connect: { habit_id: parseInt(req.params.habitId) },
+        },
+      },
+    });
+
+    res.status(201).json(commit); // Created
+    console.log("Commit created: ", commit);
+  } catch (err) {
+    if (err.code === "P2025") {
+      res.status(404).json({ error: "Habit not found" });
+      return;
+    }
+    res.status(400).json(err); // Error when creating the commit
+  }
+});
+
+
+/**
+ * Delete a habit Commit
+ */
+router.delete("/:goalId/habits/:habitId/commits/:commitId/", async (req, res) => {
+  // Check if the user has a valid token
+  if (!authorizeToken(req, res)) {
+    return;
+  }
+
+  try {
+    // Delete the commit
+    const commit = await prisma.habitCommit.delete({
+      where: {
+        habit_commit_id: parseInt(req.params.commitId),
+        habit_id: parseInt(req.params.habitId),
+        habit: {
+          goal_id: parseInt(req.params.goalId),
+        },
+      },
+    });
+
+    // commit successfully deleted
+    res.sendStatus(204);
+    console.log("Commit deleted: ", commit);
+  } catch (err) {
+    // if the commit does not exist
+    if (err.code === "P2025") {
+      res.status(404).json({ error: "Commit not found" });
+      return;
+    }
+
+    res.status(400).json(err); // Error when deleting the commit
+  }
+});
 
 module.exports = router;
