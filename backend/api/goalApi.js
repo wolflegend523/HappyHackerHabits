@@ -1,3 +1,6 @@
+// TODO: Do we want to move the habit and task endpoints to their own files?
+// would then need to change some of the request params to be a part of the request
+
 const router = require("express").Router();
 const { PrismaClient } = require('@prisma/client');
 const { authorizeToken } = require("../authToken");
@@ -249,18 +252,128 @@ router.delete("/:goalId/", async (req, res) => {
 
 
 /**
- * TODO: Add a Task to a goal
- */ 
-
-
-/**
- * TODO: Update a Task
+ * TODO: get a task
  */
 
 
 /**
- * TODO: delete a task
+ * Add a Task to a goal
  */ 
+router.post("/:goalId/tasks/", async (req, res) => {
+  // Check if the user has a valid token
+  if (!authorizeToken(req, res)) {
+    return;
+  }
+
+  // If the request does not have a name
+  if (!req.body.taskName) {
+    res.status(400).json({ error: "Missing Task name" });
+    return;
+  }
+
+  try {
+    // Create a new task
+    const task = await prisma.task.create({
+      data: {
+        task_name: req.body.taskName,
+        task_description: req.body.taskDescription,
+        scheduled_at: req.body.scheduledAt ? new Date(req.body.scheduledAt) : undefined,
+        ends_at: req.body.endsAt ? new Date(req.body.endsAt) : undefined,
+        goal: {
+          connect: { goal_id: parseInt(req.params.goalId) },
+        },
+      },
+    });
+
+    res.status(201).json(task); // Created
+    console.log("Task created: ", task);
+  } catch (err) {
+    if (err.code === "P2025") {
+      res.status(404).json({ error: "Goal not found" });
+      return;
+    }
+    res.status(400).json(err); // Error when creating the task
+  }
+});
+
+
+/**
+ * Update a Task
+ */
+router.put("/:goalId/tasks/:taskId/", async (req, res) => {
+  // Check if the user has a valid token
+  if (!authorizeToken(req, res)) {
+    return;
+  }
+
+  try {
+    // Update the task
+    const task = await prisma.task.update({
+      where: {
+        task_id: parseInt(req.params.taskId),
+        goal_id: parseInt(req.params.goalId),
+      },
+      data: {
+        task_name: req.body.taskName || undefined,
+        task_description: req.body.taskDescription || undefined,
+        scheduled_at: req.body.scheduledAt ? new Date(req.body.scheduledAt) : undefined,
+        ends_at: req.body.endsAt ? new Date(req.body.endsAt) : undefined,
+        committed_at: req.body.committedAt ? new Date(req.body.committedAt) : undefined,
+      },
+    });
+
+    // task successfully updated
+    res.sendStatus(204);
+    console.log("Task updated: ", task);
+  } catch (err) {
+    // if the task does not exist
+    if (err.code === "P2025") {
+      res.status(404).json({ error: "Task not found" });
+      return;
+    }
+
+    res.status(400).json(err); // Error when updating the task
+  }
+});
+
+
+/**
+ * delete a task
+ */ 
+router.delete("/:goalId/tasks/:taskId/", async (req, res) => {
+  // Check if the user has a valid token
+  if (!authorizeToken(req, res)) {
+    return;
+  }
+
+  try {
+    // Delete the task
+    const task = await prisma.task.delete({
+      where: {
+        task_id: parseInt(req.params.taskId),
+        goal_id: parseInt(req.params.goalId),
+      },
+    });
+
+    // task successfully deleted
+    res.sendStatus(204);
+    console.log("Task deleted: ", task);
+  } catch (err) {
+    // if the task does not exist
+    if (err.code === "P2025") {
+      res.status(404).json({ error: "Task not found" });
+      return;
+    }
+
+    res.status(400).json(err); // Error when deleting the task
+  }
+});
+
+
+/**
+ * TODO: get a habit
+ */
+
 
 
 /**
