@@ -1,5 +1,14 @@
 // TODO: Do we want to move the habit and task endpoints to their own files?
-// would then need to change some of the request params to be a part of the request
+//       would then need to change some of the request params to be a part of the request
+
+// TODO: trim any strings before setting them so that we don't have any extra whitespace in the database 
+//       this probably is something we should do in the frontend mainly, but we should maybe do it for names
+//       and descriptions in the backend as well
+
+// TODO: change POST/PUT checking to check for undefined instead of just falsy or null 
+//       so that we can POST/PUT empty strings or a null value in the database
+
+// TODO: make sure that we are being consistent with what gets returned in the response
 
 const router = require("express").Router();
 const { PrismaClient } = require('@prisma/client');
@@ -122,7 +131,7 @@ router.get("/:goalId/", async (req, res) => {
   if (!authorizeToken(req, res)) {
     return;
   }
-
+  
   try {
     // Get the goal
     const goal = await prisma.goal.findUnique({
@@ -252,8 +261,35 @@ router.delete("/:goalId/", async (req, res) => {
 
 
 /**
- * TODO: get a task
+ * get a task
  */
+router.get("/:goalId/tasks/:taskId/", async (req, res) => {
+  // Check if the user has a valid token
+  if (!authorizeToken(req, res)) {
+    return;
+  }
+  
+  try {
+    // Get the task
+    const task = await prisma.task.findUnique({
+      where: {
+        task_id: parseInt(req.params.taskId),
+        goal_id: parseInt(req.params.goalId),
+      },
+    });
+
+    // if the task does not exist
+    if (!task) {
+      res.status(404).json({ error: "Task not found" });
+      return;
+    }
+
+    res.json(task);
+    console.log("Task retrieved: ", task);
+  } catch (err) {
+    res.status(400).json(err); // Error when getting the task
+  }
+});
 
 
 /**
@@ -371,9 +407,44 @@ router.delete("/:goalId/tasks/:taskId/", async (req, res) => {
 
 
 /**
- * TODO: get a habit
+ * get a habit
  */
+// TODO: Do we want a query param to not include the commits of the habit?
+router.get("/:goalId/habits/:habitId/", async (req, res) => {
+  // Check if the user has a valid token
+  if (!authorizeToken(req, res)) {
+    return;
+  }
+  
+  try {
+    // Get the habit
+    const habit = await prisma.habit.findUnique({
+      where: {
+        habit_id: parseInt(req.params.habitId),
+        goal_id: parseInt(req.params.goalId),
+      },
+      include: {
+        commits: {
+          select: {
+            habit_commit_id: true,
+            committed_at: true,
+          }
+        },
+      },
+    });
 
+    // if the habit does not exist
+    if (!habit) {
+      res.status(404).json({ error: "Habit not found" });
+      return;
+    }
+
+    res.json(habit);
+    console.log("Habit retrieved: ", habit);
+  } catch (err) {
+    res.status(400).json(err); // Error when getting the habit
+  }
+});
 
 
 /**
