@@ -111,7 +111,7 @@ router.post("/", async (req, res) => {
 
 
 /**
- * TODO: Get a goal and all of its tasks and habits
+ * Get a goal and all of its tasks and habits
  */
 // TODO: Add Query Parameters to filter what to include in the response
 router.get("/:goalId/", async (req, res) => {
@@ -299,19 +299,90 @@ router.post("/:goalId/habits/", async (req, res) => {
     res.status(201).json(habit); // Created
     console.log("Habit created: ", habit);
   } catch (err) {
+    if (err.code === "P2025") {
+      res.status(404).json({ error: "Goal not found" });
+      return;
+    }
     res.status(400).json(err); // Error when creating the habit
   }
 });
 
 
 /**
- * TODO: Update a habit
+ * Update a habit
  */ 
+// TODO: Figure out how to properly handle the start and end times for the habits
+//       Do we need to deal with timezones?
+router.put("/:goalId/habits/:habitId/", async (req, res) => {
+  // Check if the user has a valid token
+  if (!authorizeToken(req, res)) {
+    return;
+  }
+
+  try {
+    // Update the habit
+    const habit = await prisma.habit.update({
+      where: {
+        habit_id: parseInt(req.params.habitId),
+        goal_id: parseInt(req.params.goalId),
+      },
+      data: {
+        habit_name: req.body.habitName || undefined,
+        habit_description: req.body.habitDescription || undefined,
+        start_at: req.body.startAt ? new Date(req.body.startAt) : undefined,
+        ends_at: req.body.endsAt ? new Date(req.body.endsAt) : undefined,
+        frequency: req.body.frequency || undefined,
+        days_of_week: req.body.daysOfWeek || undefined,
+        deployed_at: req.body.deployedAt ? new Date(req.body.deployedAt) : undefined,
+      },
+    });
+
+    // habit successfully updated
+    res.sendStatus(204);
+    console.log("Habit updated: ", habit);
+  } catch (err) {
+    // if the habit does not exist
+    if (err.code === "P2025") {
+      res.status(404).json({ error: "Habit not found" });
+      return;
+    }
+
+    res.status(400).json(err); // Error when updating the habit
+  }
+});
 
 
 /**
- * TODO: delete a habit
+ * delete a habit
  */ 
+router.delete("/:goalId/habits/:habitId/", async (req, res) => {  
+  // Check if the user has a valid token
+  if (!authorizeToken(req, res)) {
+    return;
+  }
+
+  try {
+    // Delete the habit
+    const habit = await prisma.habit.delete({
+      where: {
+        habit_id: parseInt(req.params.habitId),
+        goal_id: parseInt(req.params.goalId),
+      },
+    });
+
+    // habit successfully deleted
+    res.sendStatus(204);
+    console.log("Habit deleted: ", habit);
+  } catch (err) {
+    // if the habit does not exist
+    if (err.code === "P2025") {
+      res.status(404).json({ error: "Habit not found" });
+      return;
+    }
+
+    res.status(400).json(err); // Error when deleting the habit
+  }
+});
 
 
 /**
