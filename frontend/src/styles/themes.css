@@ -1,0 +1,7 @@
+/* This file contains the css variables that control the color for the entire application */
+:root {
+  --main-bg-color: #1F1F20;
+  --secondary-bg-color: #404044;
+  --main-border-color: #454550;
+  --main-text-color: #E0E0E0;
+}

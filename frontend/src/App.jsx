@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import logo from './logo.svg';
 import './App.css';
 import { getDebuggingDuck } from './api/debuggingDuckApi';
+import Titlebar from "./components/Titlebar";
 
 
 function App() {
@@ -17,12 +18,15 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        {duckMessage && <p>{duckMessage}</p>}
-      </header>
-    </div>
+    <>
+      <Titlebar />
+      <div className="App">
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          {duckMessage && <p>{duckMessage}</p>}
+        </header>
+      </div>
+    </>
   );
 }
 

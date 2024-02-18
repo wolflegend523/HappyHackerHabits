@@ -1,0 +1,41 @@
+.titlebar {
+  background-color: var(--main-bg-color);
+  height: 2rem;
+  padding: 0 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 0.85rem;
+  color: var(--main-text-color);
+  border-bottom: 1px solid var(--main-border-color);
+}
+
+.icon {
+  height: 3vmin;
+}
+
+.title {
+  flex: 1;
+  margin-right: auto;
+  margin-left: 1rem;
+}
+
+.titlebarButtons {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-left: auto;
+}
+
+.titlebarButton {
+  background-color: var(--main-bg-color);
+  border: none;
+  color: var(--main-text-color);
+  padding: 0.25rem;
+  margin: 0 0.25rem;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+}
