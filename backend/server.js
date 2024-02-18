@@ -3,6 +3,7 @@
 
 const express = require("express");
 const cors = require("cors");
+const router = require("./router");
 
 const app = express();
 
@@ -23,11 +24,9 @@ app.use('/api/users/:userId', (req, res, next) => {
   next();
 });
 
-// Create API endpoints
-app.use("/api/debuggingduck", require("./api/debuggingDuckApi"));
-app.use("/api/users/:userId/goals", require("./api/goalApi"));
-app.use("/api/users/:userId/quotes", require("./api/quoteApi"));
-app.use("/api/users", require("./api/userApi"));
+
+// use the router to define the applications routes/endpoints
+router(app);
 
 // Start up the server
 const port = process.env.PORT || 8000;

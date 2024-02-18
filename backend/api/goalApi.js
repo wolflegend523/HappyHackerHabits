@@ -12,7 +12,7 @@
 
 const router = require("express").Router();
 const { PrismaClient } = require('@prisma/client');
-const { authorizeToken } = require("../authToken");
+const { authorizeToken } = require("../middleware/authentication");
 
 // prisma client to interact with the database
 const prisma = new PrismaClient();
