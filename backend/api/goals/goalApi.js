@@ -12,7 +12,7 @@
 
 const router = require("express").Router();
 const { PrismaClient } = require('@prisma/client');
-const { authorizeToken } = require("../middleware/authentication");
+const { authorizeToken } = require("../../middleware/authentication");
 
 // prisma client to interact with the database
 const prisma = new PrismaClient();
@@ -21,9 +21,6 @@ const prisma = new PrismaClient();
 /**
  * Get goals of a user
  * TODO: Add Query Parameters to filter the goals
- * TODO: Add Query Parameters to filter what to include in the response
- * TODO: think about how to best determine if a habit should be included 
- *       in the response regarding its schedule (monthly weekly daily, ect)
  */
 router.get("/", async (req, res) => {
   // Check if the user has a valid token
@@ -31,18 +28,15 @@ router.get("/", async (req, res) => {
     return;
   }
 
-  // initial query parameter thoughts TODO: figure it out
-  // const GoalStatus = req.query.status; // DEPLOYED or UNDEPLOYED or ALL (if not provided, show all goals)
-  // const queryHabits = req.query.habits; // NONE or COMMITTED or UNCOMMITTED or ALL (if not provided, show all habits)
-  // const queryTasks = req.query.tasks; // NONE or COMMITTED or UNCOMMITTED or ALL (if not provided, show all tasks)
-  // const queryDate = req.query.date; // YYYY-MM-DD (if not provided, show all days)
-
+  // get Query Parameters
+  const queryStatus = req.query.status;
 
   try {
     // Get all goals of the user
     const goals = await prisma.goal.findMany({
       where: {
         user_id: req.userId,
+        deployed_at: queryStatus === "deployed" ? { not: null } : queryStatus === "notDeployed" ? null : undefined,
       },
       select: {
         goal_id: true,
@@ -52,32 +46,6 @@ router.get("/", async (req, res) => {
         deployed_at: true,
       },
     });
-
-    // some initial thoughts on how to filter the goals TODO: figure it out
-    // const goals2 = await prisma.goal.findMany({
-    //   where: {
-    //     user_id: req.userId,
-    //     deployed_at: queryGoals === "DEPLOYED" ? { not: null } : queryGoals === "UNDEPLOYED" ? null : undefined,
-    //   },
-    //   select: {
-    //     goal_id: true,
-    //     goal_name: true,
-    //     goal_description: true,
-    //     created_at: true,
-    //     deployed_at: true,
-    //     habits: {
-    //       where: {
-
-    //       },
-    //     },
-    //     tasks: {
-    //       where: {
-    //         scheduled_at: queryDate ? { gte: new Date(queryDate), lt: new Date(queryDate + "T23:59:59") } : undefined,
-    //         committed_at: (queryTasks === "COMMITTED" && queryDate) ? { gte: new Date(queryDate), lt: new Date(queryDate + "T23:59:59") } :  queryTasks === "COMMITTED" ? {not: null} : queryTasks === "UNCOMMITTED" ? null : undefined,
-    //       },
-    //     },
-    //   },
-    // });
 
     res.json(goals);
     console.log("Goals retrieved: ", goals);
@@ -131,6 +99,9 @@ router.get("/:goalId/", async (req, res) => {
   if (!authorizeToken(req, res)) {
     return;
   }
+
+  // get Query Parameters
+  const queryDate = req.query.date;
   
   try {
     // Get the goal

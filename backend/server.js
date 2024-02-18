@@ -15,6 +15,8 @@ app.use(cors());
 
 // Add the userID from the URL to the request object
 // so that the API endpoints can use it
+//TODO: move this to middleware (either in the middleware folder or individual API files)
+//      this doesn't really belong here, but I haven't gotten it to work elsewhere
 app.use('/api/users/:userId', (req, res, next) => {
   req.userId = req.params.userId;
   // If the user id is a number, convert it to a number

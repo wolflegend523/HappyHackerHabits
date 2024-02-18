@@ -1,7 +1,7 @@
 const bcrypt = require("bcryptjs");
 const router = require("express").Router();
 const { PrismaClient } = require('@prisma/client');
-const {createToken, authorizeToken} = require("../middleware/authentication");
+const {createToken, authorizeToken} = require("../../middleware/authentication");
 
 // prisma client to interact with the database
 const prisma = new PrismaClient();
