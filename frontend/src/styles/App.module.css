@@ -6,8 +6,9 @@
     'explorer editor'
     'explorer terminal'
     'bottombar bottombar';
-  grid-template-columns: 1fr 4fr;
-  grid-template-rows: 2rem 2fr 1fr 2rem;
+  grid-template-columns: 1fr 6fr;
+  grid-template-rows: 1fr 18fr 6fr 1fr;
+  overflow: hidden;
 }
 
 .titlebar{
