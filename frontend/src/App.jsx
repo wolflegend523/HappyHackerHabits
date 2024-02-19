@@ -1,32 +1,19 @@
-import { useState, useEffect } from "react";
-import logo from './logo.svg';
-import './App.css';
-import { getDebuggingDuck } from './api/debuggingDuckApi';
 import Titlebar from "./components/Titlebar";
-
+import Explorer from "./components/Explorer";
+import Editor from "./components/Editor";
+import Terminal from "./components/Terminal";
+import Bottombar from "./components/Bottombar";
+import styles from './styles/App.module.css';
 
 function App() {
-  const [duckMessage, setDuckMessage] = useState(null);
-
-  useEffect(() => {
-    async function fetchDuck() {
-      const duck = await getDebuggingDuck();
-      setDuckMessage(duck.message);
-    }
-
-    fetchDuck();
-  }, []);
-
   return (
-    <>
-      <Titlebar />
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          {duckMessage && <p>{duckMessage}</p>}
-        </header>
-      </div>
-    </>
+    <div className={styles.app}>
+      <div className={styles.titlebar}><Titlebar /></div>
+      <div className={styles.explorer}><Explorer /></div>
+      <div className={styles.editor}><Editor /></div>
+      <div className={styles.terminal}><Terminal /></div>
+      <div className={styles.bottombar}><Bottombar /></div>
+    </div>
   );
 }
 

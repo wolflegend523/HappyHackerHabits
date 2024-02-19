@@ -1,0 +1,31 @@
+.app {
+  height: 100vh;
+  display: grid;
+  grid-template-areas:
+    'titlebar titlebar'
+    'explorer editor'
+    'explorer terminal'
+    'bottombar bottombar';
+  grid-template-columns: 1fr 4fr;
+  grid-template-rows: 2rem 2fr 1fr 2rem;
+}
+
+.titlebar{
+  grid-area: titlebar;
+}
+
+.explorer {
+  grid-area: explorer;
+}
+
+.editor {
+  grid-area: editor;
+}
+
+.terminal {
+  grid-area: terminal;
+}
+
+.bottombar {
+  grid-area: bottombar;
+}
