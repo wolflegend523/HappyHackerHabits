@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import ChevronRight from './icons/ChevronRight';
+import ChevronRight from '../icons/ChevronRight';
 import styles from '../styles/Explorer.module.css';
 
 const Explorer = () => {

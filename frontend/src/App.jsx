@@ -1,3 +1,5 @@
+import {Route, Routes } from "react-router-dom";
+import HomePage from "./pages";
 import Titlebar from "./components/Titlebar";
 import Explorer from "./components/Explorer";
 import Editor from "./components/Editor";
@@ -10,7 +12,15 @@ function App() {
     <div className={styles.app}>
       <div className={styles.titlebar}><Titlebar /></div>
       <div className={styles.explorer}><Explorer /></div>
-      <div className={styles.editor}><Editor /></div>
+
+      <div className={styles.editor}>
+        <Editor>
+          <Routes>
+            <Route path="/" element={<HomePage/>} />
+          </Routes>
+        </Editor>
+      </div>
+
       <div className={styles.terminal}><Terminal /></div>
       <div className={styles.bottombar}><Bottombar /></div>
     </div>

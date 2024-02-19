@@ -1,26 +1,11 @@
-import { useState, useEffect } from "react";
-import logo from './icons/logo.svg';
-import { getDebuggingDuck } from '../api/debuggingDuckApi';
 import styles from '../styles/Editor.module.css';
 
-function Editor() {
-  const [duckMessage, setDuckMessage] = useState(null);
-
-  useEffect(() => {
-    async function fetchDuck() {
-      const duck = await getDebuggingDuck();
-      setDuckMessage(duck.message);
-    }
-
-    fetchDuck();
-  }, []);
-
+const Editor = ({ children }) => {
   return (
     <div className={styles.editor}>
-      <p className={styles.content}>
-        <img src={logo} className={styles.logo} alt="logo" />
-        {duckMessage && <p>{duckMessage}</p>}
-      </p>
+      <main id="main-editor" className={styles.content}>
+        {children}
+      </main>
     </div>
   );
 }
