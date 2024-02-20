@@ -1,5 +1,6 @@
 import {Route, Routes } from "react-router-dom";
 import HomePage from "./pages";
+import Login from "./pages/login";
 import Titlebar from "./components/Titlebar";
 import Explorer from "./components/Explorer";
 import Editor from "./components/Editor";
@@ -17,6 +18,7 @@ function App() {
         <Editor>
           <Routes>
             <Route path="/" element={<HomePage/>} />
+            <Route path="/login" element={<Login/>} />
           </Routes>
         </Editor>
       </div>

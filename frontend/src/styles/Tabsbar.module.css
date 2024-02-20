@@ -1,0 +1,5 @@
+.tabs {
+  display: flex;
+  background: var(--main-bg-color);
+  overflow-x: auto;
+}
