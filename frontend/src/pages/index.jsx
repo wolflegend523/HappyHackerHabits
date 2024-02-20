@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import logo from '../icons/happyHackerLogoColor.svg';
-import { getDebuggingDuck } from '../api/debuggingDuckApi';
+import { getDebuggingDuck } from '../features/debuggingDuck/debuggingDuckApi';
 import style from '../styles/HomePage.module.css';
 
 const HomePage = () => {

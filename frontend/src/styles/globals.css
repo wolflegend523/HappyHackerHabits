@@ -12,6 +12,25 @@ code {
     monospace;
 }
 
+a {
+  color: var(--accent-color-2);
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+  font-size: 1rem;
+}
+
+a:hover {
+  background-color: var(--secondary-bg-color);
+  color: var(--accent-color-1);
+  transition: color .5s;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+}
+
 form label {
   display: block;
   margin-bottom: 0.5rem;
@@ -29,11 +48,11 @@ form input, form textarea {
   border: none;
   font-size: 1rem;
   padding: 0.75rem;
-  width: 100%;
+  width: 20vw;
   resize: none;
 }
 
- form input:focus, form textarea:focus {
+form input:focus, form textarea:focus {
   outline: 1px solid var(--accent-color-2);
 }
 
@@ -49,8 +68,7 @@ form button {
 }
 
 form button:hover {
-  background: var(--accent-color-2);
+  background-color: var(--accent-color-2);
   color: var(--main-bg-color);
+  transition: all .5s;
 }
-
-

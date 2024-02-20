@@ -10,8 +10,8 @@ const Titlebar = () => {
       <Link className={styles.title} to="/">Happy Hacker Habits</Link>
       </div>
       <div className={styles.titlebarButtons}>
-        <Link className={styles.titlebarButton} to="/login/">Sign in</Link>
-        <button className={styles.titlebarButton}>Settings</button>
+        <Link className={styles.titlebarButton} to="/login/">Login</Link>
+        <Link className={styles.titlebarButton} to="/signup/">Signup</Link>
       </div>
     </header>
   );

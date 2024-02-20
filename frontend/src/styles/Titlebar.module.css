@@ -37,6 +37,7 @@
 
 .title:hover, .titlebarButton:hover {
   background-color: var(--secondary-bg-color);
-  border-bottom: 1px solid var(--accent-color-2);
-  transition: border-bottom 1s;
+  color: var(--main-text-color);
+  border-bottom: 1px solid var(--main-text-color);
+  transition: border-bottom 2s;
 }
