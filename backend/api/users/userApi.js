@@ -37,6 +37,10 @@ router.post("/", async (req, res) => {
     res.sendStatus(201); // Created
     console.log("User created: ", user);
   } catch (err) {
+    if (err.code === "P2002") {
+      res.status(409).json({ error: "User already exists" });
+      return;
+    }
     res.status(400).json(err); // Error when creating the user
   }
 });
@@ -57,6 +61,7 @@ router.post("/logins/", async (req, res) => {
     const user = await prisma.user.findUnique({
       where: { email: req.body.email },
       select: {
+        email: true,
         user_id: true,
         passwordHash: true,
         profile: {
@@ -77,7 +82,7 @@ router.post("/logins/", async (req, res) => {
     if (bcrypt.compareSync(req.body.password, user.passwordHash)) {
       // send back a token and the user's profile
       const token = createToken(user.user_id);
-      res.json({ token: token, profile: user.profile });
+      res.json({ email: user.email, token: token, profile: user.profile });
       console.log("User logged in with token: ", token);
     // If the password is incorrect
     } else {

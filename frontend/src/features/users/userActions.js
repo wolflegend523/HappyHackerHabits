@@ -7,8 +7,7 @@ const registerUser = createAsyncThunk(
     if (!response.ok) {
       return rejectWithValue('Registration failed');
     }
-    const data = await response.json()
-    return data
+    return;
   }
 );
 

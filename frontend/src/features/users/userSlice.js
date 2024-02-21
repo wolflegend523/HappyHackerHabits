@@ -22,12 +22,8 @@ const userSlice = createSlice({
       state.error = null;
       state.success = null;
     });
-    builder.addCase(registerUser.fulfilled, (state, action) => {
+    builder.addCase(registerUser.fulfilled, (state) => {
       state.loading = false;
-      state.userEmail = action.payload.email;
-      state.userProfile = action.payload.profile;
-      state.userToken = action.payload.token;
-      state.userIsLoggedIn = true;
       state.error = null;
       state.success = 'User registered';
     });
