@@ -9,3 +9,9 @@
 - look at the readme in the backend directory for steps on building the backend
 - look at the readme in the frontend directory for steps on building the frontend
 
+
+## Major TODOs
+- save user state in local storage? so that it doesn't get removed during a refresh? 
+- update Prisma db and APIs to use camel case
+- update API to be more modularized 
+

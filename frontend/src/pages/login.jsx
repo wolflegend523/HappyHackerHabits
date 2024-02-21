@@ -2,11 +2,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector} from 'react-redux'
 import { loginUser } from '../features/users/userActions';
+import { resetStatus } from '../features/users/userSlice';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { loading, error, success } = useSelector(
+  const { loading, error, success, userIsLoggedIn } = useSelector(
     (state) => state.user
   );
   const dispatch = useDispatch();
@@ -14,10 +15,14 @@ const Login = () => {
 
   // redirect to home page if login is successful
   useEffect(() => {
-    if (success) {
-      navigate('/');
+    if (userIsLoggedIn) {
+      // navigate to the homepage after 1 second
+      setTimeout(() => {
+        dispatch(resetStatus());
+        navigate('/');
+      }, 1000);
     }
-  }, [navigate, success]);
+  }, [navigate, userIsLoggedIn]);
 
 
   // handle login form submission

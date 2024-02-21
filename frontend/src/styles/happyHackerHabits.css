@@ -56,18 +56,19 @@ form input:focus, form textarea:focus {
   outline: 1px solid var(--accent-color-2);
 }
 
-form button {
+button {
   background: var(--accent-color-1);
   color: var(--main-text-color);
   border: none;
   cursor: pointer;
   padding: 0.5rem 1rem;
+  margin: 0rem 0.5rem;
   font-size: 0.9rem;
   font-weight: bold;
   text-transform: uppercase;
 }
 
-form button:hover {
+button:hover {
   background-color: var(--accent-color-2);
   color: var(--main-bg-color);
   transition: all .5s;

@@ -1,9 +1,10 @@
 import { Link, useNavigate} from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector} from 'react-redux'
-import { registerUser } from '../features/users/userActions';
+import { registerUser} from '../features/users/userActions';
+import { resetStatus } from '../features/users/userSlice';
 
-const Login = () => {
+const Signup = () => {
   const [email, setEmail] = useState('');
   const [displayName, setDisplayName] = useState(''); 
   const [password, setPassword] = useState('');
@@ -17,7 +18,11 @@ const Login = () => {
   // redirect to the login page if registration is successful
   useEffect(() => {
     if (success) {
-      navigate('/login');
+      // navigate to the login page after 1 second
+      setTimeout(() => {
+        dispatch(resetStatus());
+        navigate('/login');
+      }, 1000);
     }
   }, [navigate, success]);
 
@@ -81,4 +86,4 @@ const Login = () => {
   );
 }
 
-export default Login;
+export default Signup;

@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { postUser, postUserLogin } from './userApi'
+import { postUser, postUserLogin, deleteUser } from './userApi'
 
 const registerUser = createAsyncThunk(
   'user/registerUser', async ({email, displayName, password}, { rejectWithValue }) => {
@@ -22,4 +22,14 @@ const loginUser = createAsyncThunk(
   }
 );
 
-export { registerUser, loginUser };
+const unregisterUser = createAsyncThunk(
+  'user/unregisterUser', async ({token}, { rejectWithValue }) => {
+    const response = await deleteUser(token);
+    if (!response.ok) {
+      return rejectWithValue('Unregister failed');
+    }
+    return;
+  }
+);
+
+export { registerUser, loginUser, unregisterUser };

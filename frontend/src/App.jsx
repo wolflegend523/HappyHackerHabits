@@ -1,14 +1,21 @@
+// react imports
 import {Route, Routes } from "react-router-dom";
+// app pages
 import HomePage from "./pages";
 import Login from "./pages/login";
 import Signup from "./pages/signup";
+import Profile from "./pages/profile";
+import PageNotFound from "./pages/404";
+// app components 
 import Titlebar from "./components/Titlebar";
 import Explorer from "./components/Explorer";
 import Editor from "./components/Editor";
 import Terminal from "./components/Terminal";
 import Bottombar from "./components/Bottombar";
+// app styles
 import styles from './styles/App.module.css';
 
+// App component
 function App() {
   return (
     <div className={styles.app}>
@@ -21,6 +28,8 @@ function App() {
             <Route path="/" element={<HomePage/>} />
             <Route path="/login" element={<Login/>} />
             <Route path="/signup" element={<Signup/>} />
+            <Route path="/profile" element={<Profile/>} />
+            <Route path="*" element={<PageNotFound/>} />
           </Routes>
         </Editor>
       </div>

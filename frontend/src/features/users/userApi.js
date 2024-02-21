@@ -24,4 +24,15 @@ async function postUserLogin(email, password) {
   return response;
 }
 
-export { postUser, postUserLogin };
+async function deleteUser(token) {
+  const response = await fetch(`${apiEndpoint}users/me/`, {
+    method: 'DELETE',
+    headers: {
+      'x-auth': token,
+    }
+  });
+
+  return response;
+}
+
+export { postUser, postUserLogin, deleteUser };

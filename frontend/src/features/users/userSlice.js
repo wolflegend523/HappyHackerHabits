@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { registerUser, loginUser } from './userActions';
+import { registerUser, loginUser, unregisterUser } from './userActions';
 
 const initialState = {
   userEmail: '',
@@ -14,7 +14,23 @@ const initialState = {
 const userSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {},
+  reducers: {
+    // logout user
+    logoutUser: (state) => {
+      state.userEmail = '';
+      state.userProfile = {};
+      state.userToken = '';
+      state.userIsLoggedIn = false;
+      state.loading = false;
+      state.error = null;
+      state.success = 'User Logged Out';
+    },
+    resetStatus: (state) => {
+      state.loading = false;
+      state.error = null;
+      state.success = null;
+    }
+  },
   extraReducers: (builder) => {
     // Register user
     builder.addCase(registerUser.pending, (state) => {
@@ -52,7 +68,29 @@ const userSlice = createSlice({
       state.error = action.error.message;
       state.success = null;
     });
+    // unregister user
+    builder.addCase(unregisterUser.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+      state.success = null;
+    });
+    builder.addCase(unregisterUser.fulfilled, (state) => {
+      state.loading = false;
+      state.userEmail = '';
+      state.userProfile = {};
+      state.userToken = '';
+      state.userIsLoggedIn = false;
+      state.error = null;
+      state.success = 'User Unregistered';
+    });
+    builder.addCase(unregisterUser.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message;
+      state.success = null;
+    });
   }
 });
+
+export const { logoutUser, resetStatus } = userSlice.actions;
 
 export default userSlice.reducer;
