@@ -22,7 +22,7 @@ const Login = () => {
         navigate('/');
       }, 1000);
     }
-  }, [navigate, userIsLoggedIn]);
+  }, [navigate, dispatch, userIsLoggedIn]);
 
 
   // handle login form submission

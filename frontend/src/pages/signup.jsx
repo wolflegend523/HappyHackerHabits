@@ -24,7 +24,7 @@ const Signup = () => {
         navigate('/login');
       }, 1000);
     }
-  }, [navigate, success]);
+  }, [navigate, dispatch, success]);
 
 
   // validate registration inputs

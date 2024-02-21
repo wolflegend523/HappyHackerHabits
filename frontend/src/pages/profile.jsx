@@ -18,14 +18,11 @@ const Profile = () => {
   // redirect to the 404 page if the user is not logged in and there is not success message
   // or to the home page if the user is not logged in and there is a success message
   useEffect(() => {
-    if (!userIsLoggedIn && !success) {
-      dispatch(resetStatus());
-      navigate('/404');
-    } else if (!userIsLoggedIn) {
-      dispatch(resetStatus());
+    if (!userIsLoggedIn) {
       navigate('/');
+      dispatch(resetStatus());
     }
-  }, [navigate, userIsLoggedIn]);
+  }, [navigate, dispatch, userIsLoggedIn]);
   
 
   // handle logout button click
@@ -39,7 +36,7 @@ const Profile = () => {
     dispatch(unregisterUser({token}));
   }
 
-  
+
   // render profile page
   return (
     <div>
