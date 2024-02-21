@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector} from 'react-redux'
 import { loginUser } from '../features/users/userActions';
 
@@ -10,12 +10,29 @@ const Login = () => {
     (state) => state.user
   );
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
+  // redirect to home page if login is successful
+  useEffect(() => {
+    if (success) {
+      navigate('/');
+    }
+  }, [navigate, success]);
+
+
+  // handle login form submission
   const handleLogin = async (e) => {
+    // prevent form from submitting
     e.preventDefault();
+    // validate email and password
+    if (!email || !password) {
+      return;
+    }
+    // dispatch login action
     dispatch(loginUser({email, password}));
   }
 
+  // render login form
   return (
     <div>
       <form onSubmit={handleLogin}>

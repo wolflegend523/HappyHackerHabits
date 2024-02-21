@@ -17,7 +17,7 @@ const Titlebar = () => {
       </div>
       <div className={styles.titlebarButtons}>
         {userIsLoggedIn && <Link className={styles.titlebarButton} to="/profile/">{userProfile.display_name}</Link>}
-        {userIsLoggedIn &&<Link className={styles.titlebarButton}>Setting</Link>}
+        {userIsLoggedIn &&<Link className={styles.titlebarButton}>Settings</Link>}
         {!userIsLoggedIn && <Link className={styles.titlebarButton} to="/login/">Login</Link>}
         {!userIsLoggedIn && <Link className={styles.titlebarButton} to="/signup/">Signup</Link>}
       </div>

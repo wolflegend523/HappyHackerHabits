@@ -25,7 +25,7 @@ const userSlice = createSlice({
     builder.addCase(registerUser.fulfilled, (state) => {
       state.loading = false;
       state.error = null;
-      state.success = 'User registered';
+      state.success = 'User Registered';
     });
     builder.addCase(registerUser.rejected, (state, action) => {
       state.loading = false;
@@ -45,7 +45,7 @@ const userSlice = createSlice({
       state.userToken = action.payload.token;
       state.userIsLoggedIn = true;
       state.error = null;
-      state.success = action.payload.profile.display_name + ' logged in';
+      state.success = action.payload.profile.display_name + ' Logged In';
     });
     builder.addCase(loginUser.rejected, (state, action) => {
       state.loading = false;

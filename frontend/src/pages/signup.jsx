@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { Link, useNavigate} from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector} from 'react-redux'
-import { registerUser, loginUser } from '../features/users/userActions';
+import { registerUser } from '../features/users/userActions';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -12,15 +12,38 @@ const Login = () => {
     (state) => state.user
   );
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    await dispatch(registerUser({email, displayName, password}));
+  // redirect to the login page if registration is successful
+  useEffect(() => {
     if (success) {
-      dispatch(loginUser({email, password}));
+      navigate('/login');
     }
+  }, [navigate, success]);
+
+
+  // validate registration inputs
+  const validRegistration = () => {
+    //TODO: validate inputs
+    return true;
   }
 
+
+  // handle registration form submission
+  const handleLogin = async (e) => {
+    // prevent form from submitting
+    e.preventDefault();
+
+    // validate account information
+    if (!validRegistration()) {
+      return;
+    }
+
+    // dispatch register action
+    dispatch(registerUser({email, displayName, password}));
+  }
+
+  // render registration form
   return (
     <div>
       <form onSubmit={handleLogin}>
