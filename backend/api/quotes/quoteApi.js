@@ -27,12 +27,12 @@ router.get("/daily/", async (req, res) => {
 
     const dbQuote = await prisma.quote.findFirst({
       select: {
-        quote_id: true,
-        quote_author: true,
-        quote_text: true,
+        quoteId: true,
+        quoteAuthor: true,
+        quoteText: true,
       },
       where: {
-        generated_at: {gte: todayNoTime, lt: tomorrowNoTime},
+        generatedAt: {gte: todayNoTime, lt: tomorrowNoTime},
       },
     });
 
@@ -52,14 +52,14 @@ router.get("/daily/", async (req, res) => {
     // save the quote in the database
     const newDbQuote = await prisma.quote.create({
       data: {
-        quote_author: newQuote.author,
-        quote_text: newQuote.content,
-        generated_at: today,
+        quoteAuthor: newQuote.author,
+        quoteText: newQuote.content,
+        generatedAt: today,
       },
       select: {
-        quote_id: true,
-        quote_author: true,
-        quote_text: true,
+        quoteId: true,
+        quoteAuthor: true,
+        quoteText: true,
       },
     });
 
@@ -84,14 +84,14 @@ router.get("/favorites/", async (req, res) => {
     // get the user's favorite quotes
     const favoriteQuotes = await prisma.quote.findMany({
       select: {
-        quote_id: true,
-        quote_author: true,
-        quote_text: true,
+        quoteId: true,
+        quoteAuthor: true,
+        quoteText: true,
       },
       where: {
-        users_who_saved: {
+        usersWhoSaved: {
           some: {
-            user_id: req.userId,
+            userId: req.userId,
           },
         },
       },
@@ -127,10 +127,10 @@ router.post("/favorites/", async (req, res) => {
     const favoriteQuote = await prisma.savedQuote.create({
       data: {
         quote: {
-          connect: { quote_id: req.body.quoteId },
+          connect: { quoteId: req.body.quoteId },
         },
         user: {
-          connect: { user_id: req.userId },
+          connect: { userId: req.userId },
         },
       },
     });
@@ -155,9 +155,9 @@ router.delete("/favorites/:quoteId/", async (req, res) => {
     // Delete the favorite quote
     const deletedFavoriteQuote = await prisma.savedQuote.delete({
       where: {
-        user_id_quote_id: {
-          user_id: req.userId,
-          quote_id: parseInt(req.params.quoteId),
+        userId_quoteId: {
+          userId: req.userId,
+          quoteId: parseInt(req.params.quoteId),
         },
       },
     });

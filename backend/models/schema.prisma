@@ -10,86 +10,101 @@ generator client {
 }
 
 model User {
-  user_id             Int       @id @default(autoincrement())
+  userId              Int       @id @default(autoincrement()) @map("user_id")
   email               String    @unique @db.VarChar(360)
-  passwordHash        String    @db.VarChar(64)
-  created_at          DateTime  @default(now())
-  email_confirmed_at  DateTime?
+  passwordHash        String    @db.VarChar(64) @map("password_hash")
+  createdAt           DateTime  @default(now()) @map("created_at")
+  emailConfirmedAt    DateTime? @map("email_confirmed_at")
   profile             Profile?
   savedQuotes         SavedQuote[]
   goals               Goal[]
+
+  @@map("user")
 }
 
 model Profile {
-  profile_id          Int       @id @default(autoincrement())
-  display_name        String    @db.VarChar(40)
-  user                User      @relation(fields: [user_id], references: [user_id])
-  user_id             Int       @unique
+  profileId          Int       @id @default(autoincrement()) @map("profile_id")
+  displayName        String?   @db.VarChar(40) @map("display_name")
+  user               User      @relation(fields: [userId], references: [userId])
+  userId             Int       @unique @map("user_id")
+
+  @@map("profile")
 }
 
 // TODO: should qoute text be unique? (we might run out of qoutes from the API though?)
 model Quote {
-  quote_id            Int       @id @default(autoincrement())
-  quote_text          String    @db.Text
-  quote_author        String    @db.Text
-  generated_at        DateTime  @default(now())
-  users_who_saved     SavedQuote[]
+  quoteId            Int       @id @default(autoincrement()) @map("quote_id")
+  quoteText          String    @db.Text @map("quote_text")
+  quoteAuthor        String    @db.Text @map("quote_author")
+  generatedAt        DateTime  @default(now()) @map("generated_at")
+  usersWhoSaved      SavedQuote[]
+
+  @@map("quote")
 }
 
 model SavedQuote {
-  user                User      @relation(fields: [user_id], references: [user_id])
-  user_id             Int
-  quote               Quote     @relation(fields: [quote_id], references: [quote_id])
-  quote_id            Int
-  saved_at            DateTime  @default(now())
+  user                User      @relation(fields: [userId], references: [userId])
+  userId              Int       @map("user_id")
+  quote               Quote     @relation(fields: [quoteId], references: [quoteId])
+  quoteId             Int       @map("quote_id")
+  savedAt             DateTime  @default(now()) @map("saved_at")
 
-  @@id([user_id, quote_id])
+  @@id([userId, quoteId])
+  @@map("saved_quote")
 }
 
 model Goal {
-  goal_id             Int       @id @default(autoincrement())
-  goal_name           String    @db.Text
-  goal_description    String?   @db.Text
-  created_at          DateTime  @default(now())
-  deployed_at         DateTime?
-  user                User      @relation(fields: [user_id], references: [user_id])
-  user_id             Int
-  tasks               Task[]
-  habits              Habit[]
+  goalId             Int       @id @default(autoincrement()) @map("goal_id")
+  goalName           String    @db.Text @map("goal_name")
+  goalDescription    String?   @db.Text @map("goal_description")
+  createdAt          DateTime  @default(now()) @map("created_at")
+  deployedAt         DateTime? @map("deployed_at")
+  user               User      @relation(fields: [userId], references: [userId])
+  userId             Int       @map("user_id")
+  tasks              Task[]
+  habits             Habit[]
+
+  @@map("goal")
 }
 
 model Task {
-  task_id             Int       @id @default(autoincrement())
-  task_name           String    @db.Text
-  task_description    String?   @db.Text
-  created_at          DateTime  @default(now())
-  scheduled_at        DateTime?
-  ends_at             DateTime?
-  committed_at        DateTime?
-  goal                Goal      @relation(fields: [goal_id], references: [goal_id])
-  goal_id             Int
+  taskId             Int       @id @default(autoincrement()) @map("task_id")
+  taskName           String    @db.Text @map("task_name")
+  taskDescription    String?   @db.Text @map("task_description")
+  createdAt          DateTime  @default(now()) @map("created_at")
+  scheduledAt        DateTime? @map("scheduled_at")
+  endsAt             DateTime? @map("ends_at")
+  committedAt        DateTime? @map("committed_at")
+  goal               Goal      @relation(fields: [goalId], references: [goalId])
+  goalId             Int       @map("goal_id")
+
+  @@map("task")
 }
 
 model Habit {
-  habit_id            Int             @id @default(autoincrement())
-  habit_name          String          @db.Text
-  habit_description   String?         @db.Text
-  created_at          DateTime        @default(now())
-  start_at            DateTime?       
-  ends_at             DateTime?       
-  frequency           HabitFrequency  @default(DAILY)
-  days_of_week        DayOfWeek[]
-  deployed_at         DateTime?  
-  goal                Goal            @relation(fields: [goal_id], references: [goal_id])
-  goal_id             Int
-  commits             HabitCommit[]
+  habitId            Int             @id @default(autoincrement()) @map("habit_id")
+  habitName          String          @db.Text @map("habit_name")
+  habitDescription   String?         @db.Text @map("habit_description")
+  createdAt          DateTime        @default(now()) @map("created_at")
+  startAt            DateTime?       @map("start_at")
+  endsAt             DateTime?       @map("ends_at")
+  frequency          HabitFrequency  @default(DAILY)
+  daysOfWeek         DayOfWeek[]
+  deployedAt         DateTime?       @map("deployed_at")
+  goal               Goal            @relation(fields: [goalId], references: [goalId])
+  goalId             Int             @map("goal_id")
+  commits            HabitCommit[]
+
+  @@map("habit")
 }
 
 model HabitCommit {
-  habit_commit_id     Int       @id @default(autoincrement())
-  habit               Habit     @relation(fields: [habit_id], references: [habit_id])
-  habit_id            Int
-  committed_at        DateTime  @default(now())
+  habitCommitId      Int       @id @default(autoincrement()) @map("habit_commit_id")
+  habit              Habit     @relation(fields: [habitId], references: [habitId])
+  habitId            Int       @map("habit_id")
+  committedAt        DateTime  @default(now()) @map("committed_at")
+
+  @@map("habit_commit")
 }
 
 enum DayOfWeek {
@@ -100,6 +115,8 @@ enum DayOfWeek {
   FRIDAY
   SATURDAY
   SUNDAY
+
+  @@map("day_of_week")
 }
 
 enum HabitFrequency {
@@ -107,4 +124,6 @@ enum HabitFrequency {
   WEEKLY
   MONTHLY
   YEARLY
+
+  @@map("habit_frequency")
 }

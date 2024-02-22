@@ -40,7 +40,7 @@ const Profile = () => {
   // render profile page
   return (
     <div>
-      <h1>{userIsLoggedIn && userProfile.display_name}</h1>
+      <h1>{userIsLoggedIn && userProfile.displayName}</h1>
       <button onClick={handleLogout}>Logout</button>
       <button onClick={handleDeleteAccount}>Delete Account</button>
       {loading && <div>Loading...</div>}

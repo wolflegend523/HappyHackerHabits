@@ -35,15 +35,15 @@ router.get("/", async (req, res) => {
     // Get all goals of the user
     const goals = await prisma.goal.findMany({
       where: {
-        user_id: req.userId,
-        deployed_at: queryStatus === "deployed" ? { not: null } : queryStatus === "notDeployed" ? null : undefined,
+        userId: req.userId,
+        deployedAt: queryStatus === "deployed" ? { not: null } : queryStatus === "notDeployed" ? null : undefined,
       },
       select: {
-        goal_id: true,
-        goal_name: true,
-        goal_description: true,
-        created_at: true,
-        deployed_at: true,
+        goalId: true,
+        goalName: true,
+        goalDescription: true,
+        createdAt: true,
+        deployedAt: true,
       },
     });
 
@@ -74,10 +74,10 @@ router.post("/", async (req, res) => {
     // Create a new goal
     const goal = await prisma.goal.create({
       data: {
-        goal_name: req.body.goalName,
-        goal_description: req.body.goalDescription,
+        goalName: req.body.goalName,
+        goalDescription: req.body.goalDescription,
         user: {
-          connect: { user_id: req.userId },
+          connect: { userId: req.userId },
         },
       },
     });
@@ -107,42 +107,42 @@ router.get("/:goalId/", async (req, res) => {
     // Get the goal
     const goal = await prisma.goal.findUnique({
       where: {
-        goal_id: parseInt(req.params.goalId),
+        goalId: parseInt(req.params.goalId),
       },
       select: {
-        goal_id: true,
-        goal_name: true,
-        goal_description: true,
-        created_at: true,
-        deployed_at: true,
+        goalId: true,
+        goalName: true,
+        goalDescription: true,
+        createdAt: true,
+        deployedAt: true,
         habits: {
           select: {
-            habit_id: true,
-            habit_name: true,
-            habit_description: true,
-            created_at: true,
-            start_at: true,
-            ends_at: true,
+            habitId: true,
+            habitName: true,
+            habitDescription: true,
+            createdAt: true,
+            startAt: true,
+            endsAt: true,
             frequency: true,
-            days_of_week: true,
-            deployed_at: true,
+            daysOfWeek: true,
+            deployedAt: true,
             commits: {
               select: {
-                habit_commit_id: true,
-                committed_at: true,
+                habitCommitId: true,
+                committedAt: true,
               }
             }
           },
         },
         tasks: {
           select: {
-            task_id: true,
-            task_name: true,
-            task_description: true,
-            created_at: true,
-            scheduled_at: true,
-            ends_at: true,
-            committed_at: true,
+            taskId: true,
+            taskName: true,
+            taskDescription: true,
+            createdAt: true,
+            scheduledAt: true,
+            endsAt: true,
+            committedAt: true,
           },
         },
       },
@@ -175,12 +175,12 @@ router.put("/:goalId/", async (req, res) => {
     // Update the goal
     const goal = await prisma.goal.update({
       where: {
-        goal_id: parseInt(req.params.goalId),
+        goalId: parseInt(req.params.goalId),
       },
       data: {
-        goal_name: req.body.goalName || undefined,
-        goal_description: req.body.goalDescription || undefined,
-        deployed_at: req.body.deployedAt ? new Date(req.body.deployedAt) : undefined,
+        goalName: req.body.goalName || undefined,
+        goalDescription: req.body.goalDescription || undefined,
+        deployedAt: req.body.deployedAt ? new Date(req.body.deployedAt) : undefined,
       },
     });
 
@@ -209,16 +209,41 @@ router.delete("/:goalId/", async (req, res) => {
   }
 
   try {
-    // Delete the goal
-    const goal = await prisma.goal.delete({
+    // Delete the goal's tasks'
+    const tasks = prisma.task.deleteMany({
       where: {
-        goal_id: parseInt(req.params.goalId),
+        goalId: parseInt(req.params.goalId),
       },
     });
 
+    // Delete the goal's habits and their commits
+    const habitCommits = prisma.habitCommit.deleteMany({
+      where: {
+        habit: {
+          goalId: parseInt(req.params.goalId),
+        },
+      },
+    });
+
+    const habits = prisma.habit.deleteMany({
+      where: {
+        goalId: parseInt(req.params.goalId),
+      },
+    });
+
+
+    // Delete the goal
+    const goal = prisma.goal.delete({
+      where: {
+        goalId: parseInt(req.params.goalId),
+      },
+    });
+
+    const deleteGoal = await prisma.$transaction([tasks, habitCommits, habits, goal]);
+
     // goal successfully deleted
     res.sendStatus(204);
-    console.log("Goal deleted: ", goal);
+    console.log("Goal deleted: ", deleteGoal);
   } catch (err) {
     // if the goal does not exist
     if (err.code === "P2025") {
@@ -244,8 +269,8 @@ router.get("/:goalId/tasks/:taskId/", async (req, res) => {
     // Get the task
     const task = await prisma.task.findUnique({
       where: {
-        task_id: parseInt(req.params.taskId),
-        goal_id: parseInt(req.params.goalId),
+        taskId: parseInt(req.params.taskId),
+        goalId: parseInt(req.params.goalId),
       },
     });
 
@@ -282,12 +307,12 @@ router.post("/:goalId/tasks/", async (req, res) => {
     // Create a new task
     const task = await prisma.task.create({
       data: {
-        task_name: req.body.taskName,
-        task_description: req.body.taskDescription,
-        scheduled_at: req.body.scheduledAt ? new Date(req.body.scheduledAt) : undefined,
-        ends_at: req.body.endsAt ? new Date(req.body.endsAt) : undefined,
+        taskName: req.body.taskName,
+        taskDescription: req.body.taskDescription,
+        scheduledAt: req.body.scheduledAt ? new Date(req.body.scheduledAt) : undefined,
+        endsAt: req.body.endsAt ? new Date(req.body.endsAt) : undefined,
         goal: {
-          connect: { goal_id: parseInt(req.params.goalId) },
+          connect: { goalId: parseInt(req.params.goalId) },
         },
       },
     });
@@ -317,15 +342,15 @@ router.put("/:goalId/tasks/:taskId/", async (req, res) => {
     // Update the task
     const task = await prisma.task.update({
       where: {
-        task_id: parseInt(req.params.taskId),
-        goal_id: parseInt(req.params.goalId),
+        taskId: parseInt(req.params.taskId),
+        goalId: parseInt(req.params.goalId),
       },
       data: {
-        task_name: req.body.taskName || undefined,
-        task_description: req.body.taskDescription || undefined,
-        scheduled_at: req.body.scheduledAt ? new Date(req.body.scheduledAt) : undefined,
-        ends_at: req.body.endsAt ? new Date(req.body.endsAt) : undefined,
-        committed_at: req.body.committedAt ? new Date(req.body.committedAt) : undefined,
+        taskName: req.body.taskName || undefined,
+        taskDescription: req.body.taskDescription || undefined,
+        scheduledAt: req.body.scheduledAt ? new Date(req.body.scheduledAt) : undefined,
+        endsAt: req.body.endsAt ? new Date(req.body.endsAt) : undefined,
+        committedAt: req.body.committedAt ? new Date(req.body.committedAt) : undefined,
       },
     });
 
@@ -357,8 +382,8 @@ router.delete("/:goalId/tasks/:taskId/", async (req, res) => {
     // Delete the task
     const task = await prisma.task.delete({
       where: {
-        task_id: parseInt(req.params.taskId),
-        goal_id: parseInt(req.params.goalId),
+        taskId: parseInt(req.params.taskId),
+        goalId: parseInt(req.params.goalId),
       },
     });
 
@@ -391,14 +416,14 @@ router.get("/:goalId/habits/:habitId/", async (req, res) => {
     // Get the habit
     const habit = await prisma.habit.findUnique({
       where: {
-        habit_id: parseInt(req.params.habitId),
-        goal_id: parseInt(req.params.goalId),
+        habitId: parseInt(req.params.habitId),
+        goalId: parseInt(req.params.goalId),
       },
       include: {
         commits: {
           select: {
-            habit_commit_id: true,
-            committed_at: true,
+            habitCommitId: true,
+            committedAt: true,
           }
         },
       },
@@ -439,14 +464,14 @@ router.post("/:goalId/habits/", async (req, res) => {
     // Create a new habit
     const habit = await prisma.habit.create({
       data: {
-        habit_name: req.body.habitName,
-        habit_description: req.body.habitDescription,
-        start_at: req.body.startAt ? new Date(req.body.startAt) : undefined,
-        ends_at: req.body.endsAt ? new Date(req.body.endsAt) : undefined,
+        habitName: req.body.habitName,
+        habitDescription: req.body.habitDescription,
+        startAt: req.body.startAt ? new Date(req.body.startAt) : undefined,
+        endsAt: req.body.endsAt ? new Date(req.body.endsAt) : undefined,
         frequency: req.body.frequency || undefined,
-        days_of_week: req.body.daysOfWeek,
+        daysOfWeek: req.body.daysOfWeek,
         goal: {
-          connect: { goal_id: parseInt(req.params.goalId) },
+          connect: { goalId: parseInt(req.params.goalId) },
         },
       },
     });
@@ -478,17 +503,17 @@ router.put("/:goalId/habits/:habitId/", async (req, res) => {
     // Update the habit
     const habit = await prisma.habit.update({
       where: {
-        habit_id: parseInt(req.params.habitId),
-        goal_id: parseInt(req.params.goalId),
+        habitId: parseInt(req.params.habitId),
+        goalId: parseInt(req.params.goalId),
       },
       data: {
-        habit_name: req.body.habitName || undefined,
-        habit_description: req.body.habitDescription || undefined,
-        start_at: req.body.startAt ? new Date(req.body.startAt) : undefined,
-        ends_at: req.body.endsAt ? new Date(req.body.endsAt) : undefined,
+        habitName: req.body.habitName || undefined,
+        habitDescription: req.body.habitDescription || undefined,
+        startAt: req.body.startAt ? new Date(req.body.startAt) : undefined,
+        endsAt: req.body.endsAt ? new Date(req.body.endsAt) : undefined,
         frequency: req.body.frequency || undefined,
-        days_of_week: req.body.daysOfWeek || undefined,
-        deployed_at: req.body.deployedAt ? new Date(req.body.deployedAt) : undefined,
+        daysOfWeek: req.body.daysOfWeek || undefined,
+        deployedAt: req.body.deployedAt ? new Date(req.body.deployedAt) : undefined,
       },
     });
 
@@ -517,17 +542,28 @@ router.delete("/:goalId/habits/:habitId/", async (req, res) => {
   }
 
   try {
-    // Delete the habit
-    const habit = await prisma.habit.delete({
+    // Delete the habit and its commits
+    const commits = prisma.habitCommit.deleteMany({
       where: {
-        habit_id: parseInt(req.params.habitId),
-        goal_id: parseInt(req.params.goalId),
+        habit: {
+          habitId: parseInt(req.params.habitId),
+          goalId: parseInt(req.params.goalId),
+        },
       },
     });
 
+    const habit = prisma.habit.delete({
+      where: {
+        habitId: parseInt(req.params.habitId),
+        goalId: parseInt(req.params.goalId),
+      },
+    });
+
+    const deleteHabit = await prisma.$transaction([commits, habit]);
+
     // habit successfully deleted
     res.sendStatus(204);
-    console.log("Habit deleted: ", habit);
+    console.log("Habit deleted: ", deleteHabit);
   } catch (err) {
     // if the habit does not exist
     if (err.code === "P2025") {
@@ -548,8 +584,8 @@ async function habitExists(habitId, goalId) {
   try {
     const habit = await prisma.habit.findUnique({
       where: {
-        habit_id: parseInt(habitId),
-        goal_id: parseInt(goalId),
+        habitId: parseInt(habitId),
+        goalId: parseInt(goalId),
       },
     });
 
@@ -580,14 +616,14 @@ router.get("/:goalId/habits/:habitId/commits/", async (req, res) => {
     // Get the habit's commit history
     const commits = await prisma.habitCommit.findMany({
       where: {
-        habit_id: parseInt(req.params.habitId),
+        habitId: parseInt(req.params.habitId),
         habit: {
-          goal_id: parseInt(req.params.goalId),
+          goalId: parseInt(req.params.goalId),
         },
       },
       select: {
-        habit_commit_id: true,
-        committed_at: true,
+        habitCommitId: true,
+        committedAt: true,
       },
     });
 
@@ -622,7 +658,7 @@ router.post("/:goalId/habits/:habitId/commits/", async (req, res) => {
     const commit = await prisma.habitCommit.create({
       data: {
         habit: {
-          connect: { habit_id: parseInt(req.params.habitId) },
+          connect: { habitId: parseInt(req.params.habitId) },
         },
       },
     });
@@ -652,10 +688,10 @@ router.delete("/:goalId/habits/:habitId/commits/:commitId/", async (req, res) =>
     // Delete the commit
     const commit = await prisma.habitCommit.delete({
       where: {
-        habit_commit_id: parseInt(req.params.commitId),
-        habit_id: parseInt(req.params.habitId),
+        habitCommitId: parseInt(req.params.commitId),
+        habitId: parseInt(req.params.habitId),
         habit: {
-          goal_id: parseInt(req.params.goalId),
+          goalId: parseInt(req.params.goalId),
         },
       },
     });

@@ -28,7 +28,7 @@ router.post("/", async (req, res) => {
         passwordHash: hashedPassword,
         profile: {
           create: { // default display name is the email
-            display_name: req.body.displayName || req.body.email,
+            displayName: req.body.displayName || req.body.email,
           },
         },
       },
@@ -62,11 +62,11 @@ router.post("/logins/", async (req, res) => {
       where: { email: req.body.email },
       select: {
         email: true,
-        user_id: true,
+        userId: true,
         passwordHash: true,
         profile: {
           select: {
-            display_name: true,
+            displayName: true,
           },
         },
       },
@@ -81,7 +81,7 @@ router.post("/logins/", async (req, res) => {
     // If the password is correct
     if (bcrypt.compareSync(req.body.password, user.passwordHash)) {
       // send back a token and the user's profile
-      const token = createToken(user.user_id);
+      const token = createToken(user.userId);
       res.json({ email: user.email, token: token, profile: user.profile });
       console.log("User logged in with token: ", token);
     // If the password is incorrect
@@ -116,7 +116,7 @@ router.delete("/:userId/", async (req, res) => {
     const deleteTasks = prisma.task.deleteMany({
       where: { 
         goal: {
-          user_id: req.userId,
+          userId: req.userId,
         },
       },
     });
@@ -126,7 +126,7 @@ router.delete("/:userId/", async (req, res) => {
       where: {
         habit: {
           goal: {
-            user_id: req.userId,
+            userId: req.userId,
           },
         },
       },
@@ -136,7 +136,7 @@ router.delete("/:userId/", async (req, res) => {
     const deleteHabits = prisma.habit.deleteMany({
       where: {
         goal: {
-          user_id: req.userId,
+          userId: req.userId,
         },
       },
     });
@@ -144,28 +144,28 @@ router.delete("/:userId/", async (req, res) => {
     // Delete the user's goals
     const deleteGoals = prisma.goal.deleteMany({
       where: {
-        user_id: req.userId,
+        userId: req.userId,
       },
     });
 
     // Delete the user's saved quotes
     const deleteSavedQuotes = prisma.savedQuote.deleteMany({
       where: {
-        user_id: req.userId,
+        userId: req.userId,
       },
     });
 
     // Delete the user's profile
     const deleteProfile = prisma.profile.delete({
       where: {
-        user_id: req.userId,
+        userId: req.userId,
       },
     });
 
     // Delete the user
     const deleteUser = prisma.user.delete({
       where: {
-        user_id: req.userId,
+        userId: req.userId,
       },
     });
 
