@@ -4,18 +4,45 @@
   color: var(--main-text-color);
   border-top: 1px solid var(--main-border-color);
   font-family: 'Source Sans Pro', sans-serif;
-  font-size: 1.5rem;
-  line-height: 2rem;
-  overflow: auto;
-  white-space: pre-wrap;
-  word-wrap: break-word;
 }
 
-.title {
+.terminalTabs {
+  display: flex;
+  justify-content: row;
+}
+
+.terminalTab {
   padding: 0.5rem 0.75rem;
+  margin-bottom: 0.5rem;
   font-weight: 300;
   text-transform: uppercase;
   font-size: 0.9rem;
   letter-spacing: 1px;
+  background-color: var(--main-bg-color);
+  color: var(--secondary-text-color);
+}
+
+.terminalTab:hover {
+  cursor: pointer;
+  background-color: var(--main-bg-color);
+  color: var(--main-text-color);
+}
+
+.activeTab {
+  border-bottom: 1px solid var(--accent-color-2);
+  color: var(--main-text-color);
+}
+
+.terminalView {
+  margin: 0;
+  padding-left: 1rem;
+  line-height: 2rem;
+  overflow: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New';
+}
+
+.terminalView p {
   margin: 0;
 }
