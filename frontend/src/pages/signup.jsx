@@ -52,26 +52,34 @@ const Signup = () => {
   return (
     <div>
       <form onSubmit={handleLogin}>
-        <label>Email</label>
+        <label htmlFor='email'>Email*</label>
         <input
+          name="email"
+          id="email"
           type="text"
           value={email}
           onChange={(e) => setEmail(e.target.value.trim())}
         />
-        <label>Display Name</label>
+        <label htmlFor='displayName'>Display Name &#40;optional&#41;</label>
         <input
+          name="displayName"
+          id="displayName"
           type="text"
           value={displayName}
           onChange={(e) => setDisplayName(e.target.value.trim())}
         />
-        <label>Password</label>
+        <label htmlFor='password'>Password*</label>
         <input
+          name="password"
+          id="password"
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value.trim())}
         />
-        <label>Confirm Password</label>
+        <label htmlFor='passwordConfirm'>Confirm Password*</label>
         <input
+          name="passwordConfirm"
+          id="passwordConfirm"
           type="password"
           value={passwordConfirm}
           onChange={(e) => setPasswordConfirm(e.target.value.trim())}

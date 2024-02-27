@@ -1,7 +1,9 @@
+import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector} from 'react-redux';
 import { readGoals } from '../features/goals/goalsActions';
 import ChevronRight from '../icons/ChevronRight';
+import NewFolder from '../icons/NewFolder';
 import styles from '../styles/Explorer.module.css';
 
 
@@ -49,6 +51,9 @@ const Explorer = () => {
               style={ goalsRootFolderOpen ? { transform: 'rotate(90deg)' } : {}}
             />
             Goals
+            <Link className={styles.newFolderButton} to="/addGoal">
+              <NewFolder/>
+            </Link>
           </label>
 
           <div className={styles.folders} style={ goalsRootFolderOpen ? { display: 'block' } : { display: 'none' }}>

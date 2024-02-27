@@ -11,7 +11,13 @@ const initialState = {
 const goalSlice = createSlice({
   name: 'goals',
   initialState,
-  reducers: {},
+  reducers: {
+    resetStatus: (state) => {
+      state.loading = false;
+      state.error = null;
+      state.success = null;
+    },
+  },
   extraReducers: (builder) => {
     // Create goal
     builder.addCase(createGoal.pending, (state) => {
@@ -117,5 +123,7 @@ const goalSlice = createSlice({
     });
   }
 });
+
+export const { resetStatus } = goalSlice.actions;
 
 export default goalSlice.reducer;

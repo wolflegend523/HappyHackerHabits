@@ -8,7 +8,8 @@ const createGoal = createAsyncThunk(
     if (!response.ok) {
       return rejectWithValue('Create goal failed');
     }
-    return;
+    const data = await response.json();
+    return data;
   }
 );
 

@@ -32,12 +32,12 @@
   cursor: pointer;
   align-items: center;
   justify-content: center;
+  font-family: 'Source Sans Pro', sans-serif;
   text-decoration: none;
 }
 
 .title:hover, .titlebarButton:hover {
-  background-color: var(--secondary-bg-color);
+  background-color: var(--main-hover-color);
   color: var(--main-text-color);
-  border-bottom: 1px solid var(--main-text-color);
-  transition: border-bottom 2s;
+  border-radius: 0.25rem;
 }

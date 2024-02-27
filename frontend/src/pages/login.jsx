@@ -41,14 +41,18 @@ const Login = () => {
   return (
     <div>
       <form onSubmit={handleLogin}>
-        <label>Email</label>
+        <label htmlFor='email'>Email*</label>
         <input
+          name="email"
+          id="email"
           type="text"
           value={email}
           onChange={(e) => setEmail(e.target.value.trim())}
         />
-        <label>Password</label>
+        <label htmlFor='password'>Password*</label>
         <input
+          name="password"
+          id="password"
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value.trim())}
