@@ -36,3 +36,24 @@
 .chevron {
   transition: transform 0.2s;
 }
+
+.folders {
+  padding: 0.5rem 0;
+  cursor: pointer;
+}
+
+.folder {
+  padding: 0.2rem 1rem;
+  display: flex;
+  align-items: center;
+  font-size: 0.875rem;
+}
+
+.folder p {
+  margin: 0;
+  margin-left: 5px;
+}
+
+.folder:hover {
+  background: var(--secondary-bg-color);
+}

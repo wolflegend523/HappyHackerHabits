@@ -101,13 +101,14 @@ router.get("/:goalId/", async (req, res) => {
   }
 
   // get Query Parameters
-  const queryDate = req.query.date;
+  const queryStatus = req.query.status;
   
   try {
     // Get the goal
     const goal = await prisma.goal.findUnique({
       where: {
         goalId: parseInt(req.params.goalId),
+        deployedAt: queryStatus === "deployed" ? { not: null } : queryStatus === "notDeployed" ? null : undefined,
       },
       select: {
         goalId: true,
@@ -116,6 +117,9 @@ router.get("/:goalId/", async (req, res) => {
         createdAt: true,
         deployedAt: true,
         habits: {
+          where: {
+            deployedAt: queryStatus === "deployed" ? { not: null } : queryStatus === "notDeployed" ? null : undefined,
+          },
           select: {
             habitId: true,
             habitName: true,
@@ -135,6 +139,9 @@ router.get("/:goalId/", async (req, res) => {
           },
         },
         tasks: {
+          where: {
+            committedAt: queryStatus === "deployed" ? { not: null } : queryStatus === "notDeployed" ? null : undefined,
+          },
           select: {
             taskId: true,
             taskName: true,
