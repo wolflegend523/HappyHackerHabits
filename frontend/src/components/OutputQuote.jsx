@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector} from 'react-redux'
 import { getDailyQuote } from '../features/quotes/quoteApi';
+import styles from '../styles/Terminal.module.css';
 
 // TODO: add more error checking/inform the user when quote fetch fails? 
 const OutputQuote = () => {
@@ -27,8 +28,17 @@ const OutputQuote = () => {
 
   return (
     <>
-      {!userIsLoggedIn && <p>&#91;Debugging Duck&#129414;&#93;$ Log in to see your daily quote</p>}
-      {(quote && userIsLoggedIn) && (<p>&#91;{quote.quoteAuthor}&#93;$ "{quote.quoteText}"</p>)}
+      {!userIsLoggedIn && 
+      <p>
+        <span className={styles.terminalPath}>&#91;Debugging Duck&#129414;&#93;</span>$
+        <span className={styles.terminalOutput}> Log in to see your daily quote and your goals</span> 
+      </p>}
+
+      {(quote && userIsLoggedIn) && 
+       (<p>
+          <span className={styles.terminalPath}>&#91;{quote.quoteAuthor}&#93;</span>$
+          <span className={styles.terminalOutput}> "{quote.quoteText}"</span>
+        </p>)}
     </>
   );
 }

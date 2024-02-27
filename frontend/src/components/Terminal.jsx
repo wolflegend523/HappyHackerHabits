@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import styles from '../styles/Terminal.module.css';
 import OutputQuote from './OutputQuote';
+import DebugFeelings from './DebugFeelings';
+import LogEmotions from './LogEmotions';
 
 
 const Terminal = () => {
@@ -35,10 +37,10 @@ const Terminal = () => {
             <OutputQuote />
           )}
           {activeTerminalView === 'Debug Feelings' && (
-            <p>&#91;Debugging Duck&#129414;&#93;$ Feature coming soon</p>
+            <DebugFeelings />
           )}
           {activeTerminalView === 'Log Emotions' && (
-            <p>&#91;Debugging Duck&#129414;&#93;$ Feature coming soon</p>
+            <LogEmotions />
           )}
         </div>  
     </div>

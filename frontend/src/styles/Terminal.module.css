@@ -36,7 +36,6 @@
 .terminalView {
   margin: 0;
   padding-left: 1rem;
-  line-height: 2rem;
   overflow: auto;
   white-space: pre-wrap;
   word-wrap: break-word;
@@ -45,4 +44,55 @@
 
 .terminalView p {
   margin: 0;
+}
+
+
+/* Terminal path (thing before the $) styling */
+
+.terminalPath {
+  color: var(--accent-color-3);
+}
+
+
+/* Terminal output styling and animation */
+
+.terminalOutput {
+  width: max-content;
+  color: var(--main-text-color);
+  position: relative;
+}
+
+.terminalOutput::before,
+.terminalOutput::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.terminalOutput::before {
+  background: var(--main-bg-color);
+  animation: typewriter 1s steps(24) 500ms forwards;
+}
+
+.terminalOutput::after {
+  margin-left: 0.4rem;
+  width: 0.25em;
+  background: var(--accent-color-3);
+  animation: typewriter 1s steps(24) 500ms forwards,
+    blink 750ms steps(24) infinite;
+}
+
+@keyframes typewriter {
+  to {
+    left: 100%;
+  }
+}
+
+@keyframes blink {
+  to {
+    background: transparent;
+  }
 }
