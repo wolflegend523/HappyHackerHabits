@@ -3,6 +3,30 @@ Happy Hacker Habits uses an express node.js server as its application tier and a
 PostgreSQL database managed using Prisma ORM as its data tier. It exposes RESTFul endpoints
 for the various features of the application.   
 
+
+## Table of Contents
+- [Directory Structure](#directory-structure)
+- [Running the Project Locally](#running-the-project-locally)
+- [Deploying the Project on Render](#deploying-the-project-on-render)
+
+
+## Directory Structure
+``` BASH
+.
+├── api                     # the routes, handlers, and application logic for each feature
+├── middleware              # middleware required by multiple features, like authenticating users
+├── models                  # prisma files for defining database models and recording past migrations
+├── node_modules            # the packages and dependencies that the project requires
+├── .env                    # manages environment-specific configuration settings
+├── .gitignore              # tells git which files (or patterns) it should ignore
+├── package-lock.json       # ensures same dependencies are installed consistently across different environments
+├── package.json            # manages a project's metadata and dependencies
+├── README.md               # project documentation 
+├── router.js               # manages the API routes into each feature 
+└── server.js               # creates server instance applies middleware required by entire app
+```
+
+
 ## Running the project locally
 This section describes the steps to run and develop the project locally. 
 
@@ -10,7 +34,7 @@ This section describes the steps to run and develop the project locally.
 To run the backend locally you need to [install node.js](https://nodejs.org/en/download). 
 Once you have node installed, you can install the project dependencies by running
 
-```
+``` BASH
 npm install
 ```
 
@@ -53,13 +77,16 @@ In order to configure the database you created to use the application schema, yo
 The following command migrates and synchronizes the prisma client with 
 your development database. 
 
-```
+``` BASH
 npx prisma migrate dev --name enter_a_migration_name_here
 ```
 
 ### Running the Server  
 After setting up the prerequisites you can start the server by running the following command:
 
-```
+``` BASH
 npm start
 ```
+
+## Deploying the Project on Render 
+TODO: add in deployment instructions 

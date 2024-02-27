@@ -1,3 +1,18 @@
+
+## Primary Project TODOs
+- integrate goals and tasks to the frontend 
+- add details to the welcome page 
+- add directory structure and table of content details to READMEs?
+
+
+## One Day Project TODOs
+- save user state in a cookie? so that it doesn't get removed during a refresh? 
+- update API code to be more modularized 
+- comment out more of the code, so it would be more easily reused and understood later 
+- more extensions: Flash card extension, mood log extension, notes extension 
+- have a sidebar for files, extensions, and other stuff? 
+
+
 ## Notes on Query Params for GET Goals
 - const GoalStatus = req.query.status; // DEPLOYED or UNDEPLOYED or ALL (if not provided, show all goals)
 - const queryHabits = req.query.habits; // NONE or COMMITTED or UNCOMMITTED or ALL (if not provided, show all habits)
