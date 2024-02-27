@@ -24,7 +24,12 @@
   display: flex;
   align-items: center;
   cursor: pointer;
-  padding: 0 0.5rem;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid var(--main-bg-color);
+}
+
+.heading:hover {
+  border: 1px solid var(--accent-color-2);
 }
 
 .checkbox {
@@ -38,20 +43,18 @@
 }
 
 .folders {
-  padding: 0.5rem 0;
   cursor: pointer;
 }
 
 .folder {
-  padding: 0.2rem 1rem;
+  padding: 0.15rem 0.5rem;
   display: flex;
   align-items: center;
   font-size: 0.875rem;
 }
 
-.folder p {
+.folder p, .folder label {
   margin: 0;
-  margin-left: 5px;
 }
 
 .folder:hover {

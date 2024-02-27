@@ -6,10 +6,11 @@ import styles from '../styles/Explorer.module.css';
 
 
 const Explorer = () => {
-  const [goalsOpen, setGoalsOpen] = useState(true);
+  const [goalsRootFolderOpen, setGoalsRootFolderOpen] = useState(true);
   const userIsLoggedIn = useSelector((state) => state.user.userIsLoggedIn);
   const userToken = useSelector((state) => state.user.userToken);
   const goals = useSelector((state) => state.goals.goals);
+  const [foldersOpen, setFoldersOpen] = useState(new Map());
   const dispatch = useDispatch();
 
   // get the goals from the server when the user logs in
@@ -18,6 +19,17 @@ const Explorer = () => {
       dispatch(readGoals({token: userToken}));
     }
   }, [userIsLoggedIn, userToken, dispatch]);
+
+  // set the folder open state when the goals change
+  useEffect(() => {
+    if (goals.length > 0) {
+      const newFoldersOpen = new Map();
+      goals.forEach((item) => {
+        newFoldersOpen.set(item.goalId, false);
+      });
+      setFoldersOpen(newFoldersOpen);
+    }
+  }, [goals]);
 
 
   return (
@@ -28,21 +40,38 @@ const Explorer = () => {
             type="checkbox"
             className={styles.checkbox}
             id="goals-checkbox"
-            checked={goalsOpen}
-            onChange={() => setGoalsOpen(!goalsOpen)}
+            checked={goalsRootFolderOpen}
+            onChange={() => setGoalsRootFolderOpen(!goalsRootFolderOpen)}
           />
           <label htmlFor="goals-checkbox" className={styles.heading}>
             <ChevronRight
               className={styles.chevron}
-              style={ goalsOpen ? { transform: 'rotate(90deg)' } : {}}
+              style={ goalsRootFolderOpen ? { transform: 'rotate(90deg)' } : {}}
             />
             Goals
           </label>
 
-          <div className={styles.folders} style={ goalsOpen ? { display: 'block' } : { display: 'none' }}>
+          <div className={styles.folders} style={ goalsRootFolderOpen ? { display: 'block' } : { display: 'none' }}>
             {goals.map((item) => (
               <div key={item.goalId} className={styles.folder}>
-                <p>{item.goalName}</p>
+                <input
+                  type="checkbox"
+                  className={styles.checkbox}
+                  id={item.goalId + '-checkbox'}
+                  checked={foldersOpen.get(item.goalId)}
+                  onChange={() => {
+                    const newFoldersOpen = new Map(foldersOpen);
+                    newFoldersOpen.set(item.goalId, !foldersOpen.get(item.goalId));
+                    setFoldersOpen(newFoldersOpen);
+                  }}
+                />
+                <label htmlFor={item.goalId + '-checkbox'} className={styles.folder}>
+                  <ChevronRight
+                    className={styles.chevron}
+                    style={foldersOpen.get(item.goalId) ? { transform: 'rotate(90deg)' } : {}}
+                  />
+                  {item.goalName}
+                </label>
               </div>
             ))}
           </div>
