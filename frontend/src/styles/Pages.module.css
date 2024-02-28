@@ -81,3 +81,10 @@
   background-color: var(--accent-color-2);
   color: var(--main-bg-color);
 }
+
+.formErrorMessage {
+  color: var(--main-text-color);
+  text-decoration: wavy underline;
+  text-decoration-color: var(--accent-color-4);
+  margin-left : 1rem;
+}

@@ -6,13 +6,24 @@ import { resetStatus } from '../features/users/userSlice';
 import styles from '../styles/Pages.module.css';
 
 const Signup = () => {
+  // user inputs
   const [email, setEmail] = useState('');
   const [displayName, setDisplayName] = useState(''); 
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
+
+  // error messages for user inputs
+  const [emailError, setEmailError] = useState('');
+  const [displayNameError, setDisplayNameError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [passwordConfirmError, setPasswordConfirmError] = useState('');
+
+  // get user status from the store
   const { loading, error, success } = useSelector(
     (state) => state.user
   );
+
+  // get dispatch and navigate functions
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -30,8 +41,37 @@ const Signup = () => {
 
   // validate registration inputs
   const validRegistration = () => {
-    //TODO: validate inputs
-    return true;
+    let valid = true;
+
+    if (!email) {
+      setEmailError('Email is required');
+      valid = false;
+    } else {
+      setEmailError('');
+    }
+
+    if (displayName && displayName.length > 40) {
+      setDisplayNameError('Display name must be 40 characters or less');
+      valid = false;
+    } else {
+      setDisplayNameError('');
+    }
+
+    if (!password) {
+      setPasswordError('Password is required');
+      valid = false;
+    } else {
+      setPasswordError('');
+    }
+
+    if (password !== passwordConfirm) {
+      setPasswordConfirmError('Passwords do not match');
+      valid = false;
+    } else {
+      setPasswordConfirmError('');
+    }
+
+    return valid;
   }
 
 
@@ -62,6 +102,7 @@ const Signup = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value.trim())}
           />
+          <span className={styles.formErrorMessage}>{emailError}</span>
         </div>
 
         <div>
@@ -73,6 +114,7 @@ const Signup = () => {
             value={displayName}
             onChange={(e) => setDisplayName(e.target.value.trim())}
           />
+          <span className={styles.formErrorMessage}>{displayNameError}</span>
         </div>
 
         <div>
@@ -84,6 +126,7 @@ const Signup = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value.trim())}
           />
+          <span className={styles.formErrorMessage}>{passwordError}</span>
         </div>
 
         <div>
@@ -95,6 +138,7 @@ const Signup = () => {
             value={passwordConfirm}
             onChange={(e) => setPasswordConfirm(e.target.value.trim())}
           />
+          <span className={styles.formErrorMessage}>{passwordConfirmError}</span>
         </div>
 
         <button type="submit">Create Account</button>

@@ -71,7 +71,7 @@
   background-clip:padding-box,text;
   background-repeat:no-repeat;
   animation: 
-   blink .7s infinite steps(1),   
+   blink .5s infinite steps(1),   
    typewriter calc(var(--n)*.04s) steps(var(--n)) forwards;
 }
 

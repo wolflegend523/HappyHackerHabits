@@ -45,7 +45,7 @@ const userSlice = createSlice({
     });
     builder.addCase(registerUser.rejected, (state, action) => {
       state.loading = false;
-      state.error = action.error.message;
+      state.error = action.payload;
       state.success = null;
     });
     // Login user
@@ -65,7 +65,7 @@ const userSlice = createSlice({
     });
     builder.addCase(loginUser.rejected, (state, action) => {
       state.loading = false;
-      state.error = action.error.message;
+      state.error = action.payload;
       state.success = null;
     });
     // unregister user
@@ -85,7 +85,7 @@ const userSlice = createSlice({
     });
     builder.addCase(unregisterUser.rejected, (state, action) => {
       state.loading = false;
-      state.error = action.error.message;
+      state.error = action.payload;
       state.success = null;
     });
   }

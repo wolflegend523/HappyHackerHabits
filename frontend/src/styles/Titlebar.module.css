@@ -52,7 +52,7 @@
   display: none;
   position: absolute;
   right: 0;
-  background-color: var(--main-bg-color);
+  background-color: var(--secondary-bg-color);
   z-index: 1;
   border: 1px solid var(--main-border-color);
   border-radius: 0.25rem;
@@ -61,7 +61,7 @@
 
 .titlebarDropdownContent button {
   color: var(--main-text-color);
-  background-color:  var(--main-bg-color);
+  background-color:  var(--secondary-bg-color);
   text-decoration: none;
   display: block;
   outline: none;

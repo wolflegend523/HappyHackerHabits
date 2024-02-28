@@ -59,7 +59,8 @@ const AddGoal = () => {
       <h1>Add Goal</h1>
 
       <form onSubmit={handleAddGoal}>
-        <label htmlFor='goalName'>Goal Name*</label>
+        <div>
+        <label htmlFor='goalName'>Goal Name* :</label>
         <input
           type="text"
           name="goalName"
@@ -67,8 +68,9 @@ const AddGoal = () => {
           value={goalName}
           onChange={(e) => setGoalName(removeLeadingWhiteSpace(e.target.value))}
         />
+        </div>
 
-        <label htmlFor='goalDescription'>Goal Description &#40;optional&#41;</label>
+        <label htmlFor='goalDescription'>Goal Description &#40;optional&#41; :</label>
         <textarea
           name="goalDescription"
           id="goalDescription"
