@@ -17,6 +17,9 @@ const goalSlice = createSlice({
       state.error = null;
       state.success = null;
     },
+    clearGoals: (state) => {
+      state.goals = [];
+    },
   },
   extraReducers: (builder) => {
     // Create goal
@@ -124,6 +127,6 @@ const goalSlice = createSlice({
   }
 });
 
-export const { resetStatus } = goalSlice.actions;
+export const { resetStatus, clearGoals } = goalSlice.actions;
 
 export default goalSlice.reducer;

@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector} from 'react-redux'
 import { unregisterUser} from '../features/users/userActions';
 import { logoutUser, resetStatus } from '../features/users/userSlice';
+import { clearGoals } from '../features/goals/goalsSlice';
 import styles from '../styles/Pages.module.css';
 
 const Profile = () => {
@@ -28,6 +29,7 @@ const Profile = () => {
   // handle logout button click
   const handleLogout = () => {
     dispatch(logoutUser());
+    dispatch(clearGoals());
   }
 
   

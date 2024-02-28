@@ -3,15 +3,19 @@
 - integrate goals and tasks to the frontend 
 - clear all the goals when the user logs out 
 - add details to the welcome page 
-- add directory structure and table of content details to READMEs?
+- add pictures of the end app to readme. and deployment info 
+- comment out more of the code, so it would be more easily reused and understood later 
+- make it mobile friendly 
+- add sidebar? 
 
 
 ## One Day Project TODOs
 - save user state in a cookie? so that it doesn't get removed during a refresh? 
 - update API code to be more modularized 
-- comment out more of the code, so it would be more easily reused and understood later 
 - more extensions: Flash card extension, mood log extension, notes extension 
 - have a sidebar for files, extensions, and other stuff? 
+- allow sub goals? might need to restructure the db on that one 
+- deploy on AWS
 
 
 ## Notes on Query Params for GET Goals

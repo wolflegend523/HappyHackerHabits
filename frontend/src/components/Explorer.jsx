@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector} from 'react-redux';
 import { readGoals } from '../features/goals/goalsActions';
@@ -14,6 +14,7 @@ const Explorer = () => {
   const goals = useSelector((state) => state.goals.goals);
   const [foldersOpen, setFoldersOpen] = useState(new Map());
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // get the goals from the server when the user logs in
   useEffect(() => {
@@ -32,6 +33,15 @@ const Explorer = () => {
       setFoldersOpen(newFoldersOpen);
     }
   }, [goals]);
+
+
+  // change the chevron and navigate to the goal page when a goal is clicked
+  const handleGoalClick = (goalId) => {
+    const newFoldersOpen = new Map(foldersOpen);
+    newFoldersOpen.set(goalId, !foldersOpen.get(goalId));
+    setFoldersOpen(newFoldersOpen);
+    navigate(`/goals/${goalId}`);
+  }
 
 
   return (
@@ -65,9 +75,7 @@ const Explorer = () => {
                   id={item.goalId + '-checkbox'}
                   checked={foldersOpen.get(item.goalId)}
                   onChange={() => {
-                    const newFoldersOpen = new Map(foldersOpen);
-                    newFoldersOpen.set(item.goalId, !foldersOpen.get(item.goalId));
-                    setFoldersOpen(newFoldersOpen);
+                    handleGoalClick(item.goalId);
                   }}
                 />              
                 <label htmlFor={item.goalId + '-checkbox'} className={styles.folder}>
@@ -75,7 +83,7 @@ const Explorer = () => {
                     className={styles.chevron}
                     style={foldersOpen.get(item.goalId) ? { transform: 'rotate(90deg)' } : {}}
                   />
-                  <Link to={`/goals/${item.goalId}`}>{item.goalName}</Link>
+                  {item.goalName}
                 </label>
               </div>
             ))}

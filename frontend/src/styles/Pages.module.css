@@ -54,6 +54,8 @@
 .page form input:focus, .page form textarea:focus {
   outline: none;
   background-color: var(--secondary-bg-color);
+  border-bottom: 1px solid var(--main-border-color);
+  border-top: 1px solid var(--main-border-color);
 }
 
 .page form input:hover, .page form textarea:hover {
