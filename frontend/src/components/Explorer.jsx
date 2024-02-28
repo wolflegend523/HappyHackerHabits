@@ -69,13 +69,13 @@ const Explorer = () => {
                     newFoldersOpen.set(item.goalId, !foldersOpen.get(item.goalId));
                     setFoldersOpen(newFoldersOpen);
                   }}
-                />
+                />              
                 <label htmlFor={item.goalId + '-checkbox'} className={styles.folder}>
                   <ChevronRight
                     className={styles.chevron}
                     style={foldersOpen.get(item.goalId) ? { transform: 'rotate(90deg)' } : {}}
                   />
-                  {item.goalName}
+                  <Link to={`/goals/${item.goalId}`}>{item.goalName}</Link>
                 </label>
               </div>
             ))}

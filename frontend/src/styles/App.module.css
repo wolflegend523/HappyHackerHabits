@@ -17,6 +17,7 @@
 
 .explorer {
   grid-area: explorer;
+  position: relative;
 }
 
 .editor {
@@ -25,6 +26,7 @@
 
 .terminal {
   grid-area: terminal;
+  position: relative;
 }
 
 .bottombar {

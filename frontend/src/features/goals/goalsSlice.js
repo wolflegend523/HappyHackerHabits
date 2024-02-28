@@ -90,7 +90,7 @@ const goalSlice = createSlice({
     });
     builder.addCase(updateGoal.fulfilled, (state, action) => {
       state.goals = state.goals.map((goal) => {
-        if (goal._id === action.meta.arg.goalId) {
+        if (goal.goalId === parseInt(action.meta.arg.goalId)) {
           return action.payload;
         }
         return goal;
@@ -111,7 +111,7 @@ const goalSlice = createSlice({
       state.success = null;
     });
     builder.addCase(removeGoal.fulfilled, (state, action) => {
-      state.goals = state.goals.filter((goal) => goal._id !== action.meta.arg.goalId);
+      state.goals = state.goals.filter((goal) => goal.goalId !== parseInt(action.meta.arg.goalId));
       state.loading = false;
       state.error = null;
       state.success = 'Goal Removed';

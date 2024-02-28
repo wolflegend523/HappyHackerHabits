@@ -6,6 +6,7 @@ import Login from "./pages/login";
 import Signup from "./pages/signup";
 import Profile from "./pages/profile";
 import AddGoal from "./pages/addGoal";
+import Goal from "./pages/goal";
 import PageNotFound from "./pages/404";
 // app components 
 import Titlebar from "./components/Titlebar";
@@ -31,6 +32,7 @@ function App() {
             <Route path="/signup" element={<Signup/>} />
             <Route path="/profile" element={<Profile/>} />
             <Route path="/addGoal" element={<AddGoal/>} />
+            <Route path="/goals/:goalId" element={<Goal/>} />
             <Route path="*" element={<PageNotFound/>} />
           </Routes>
         </Editor>

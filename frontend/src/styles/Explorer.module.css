@@ -5,6 +5,11 @@
   font-family: 'Source Sans Pro', sans-serif;
   border-right: 1px solid var(--main-border-color);
   border-top: 1px solid var(--main-border-color);
+  border-bottom: 1px solid var(--main-border-color);
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: absolute;
+  width: 100%;
 }
 
 .title {
@@ -62,6 +67,18 @@
   cursor: pointer;
 }
 
+.folders a {
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--main-text-color);
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: .9rem;
+}
+
+.folder a:hover {
+  background: var(--main-hover-color);
+}
+
 .folder {
   padding: 0.15rem 0.5rem;
   display: flex;
@@ -71,7 +88,11 @@
 
 .folder p, .folder label {
   margin: 0;
+  display: inline-block;
+  white-space: nowrap;
+  overflow-x: hidden;
 }
+
 
 .folder:hover {
   background: var(--main-hover-color);
