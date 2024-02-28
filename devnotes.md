@@ -1,6 +1,7 @@
 
 ## Primary Project TODOs
 - integrate goals and tasks to the frontend 
+- clear all the goals when the user logs out 
 - add details to the welcome page 
 - add directory structure and table of content details to READMEs?
 

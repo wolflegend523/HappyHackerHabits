@@ -1,17 +1,10 @@
 .editor {
-  text-align: center;
   height: 100%;
   background-color: var(--secondary-bg-color); 
-  border-top: 1px solid var(--main-border-color);
+  overflow-y: scroll;
 }
 
 .content {
-  display: flex;
-  margin: 0;
-  height: 100%;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  margin: 1rem 3rem;
+  height: 90%;
 }

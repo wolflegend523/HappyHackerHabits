@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector} from 'react-redux'
 import { registerUser} from '../features/users/userActions';
 import { resetStatus } from '../features/users/userSlice';
+import styles from '../styles/Pages.module.css';
 
 const Signup = () => {
   const [email, setEmail] = useState('');
@@ -50,46 +51,59 @@ const Signup = () => {
 
   // render registration form
   return (
-    <div>
+    <div className={styles.page}>
       <form onSubmit={handleLogin}>
-        <label htmlFor='email'>Email*</label>
-        <input
-          name="email"
-          id="email"
-          type="text"
-          value={email}
-          onChange={(e) => setEmail(e.target.value.trim())}
-        />
-        <label htmlFor='displayName'>Display Name &#40;optional&#41;</label>
-        <input
-          name="displayName"
-          id="displayName"
-          type="text"
-          value={displayName}
-          onChange={(e) => setDisplayName(e.target.value.trim())}
-        />
-        <label htmlFor='password'>Password*</label>
-        <input
-          name="password"
-          id="password"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value.trim())}
-        />
-        <label htmlFor='passwordConfirm'>Confirm Password*</label>
-        <input
-          name="passwordConfirm"
-          id="passwordConfirm"
-          type="password"
-          value={passwordConfirm}
-          onChange={(e) => setPasswordConfirm(e.target.value.trim())}
-        />
+        <div>
+          <label htmlFor='email'>Email* :</label>
+          <input
+            name="email"
+            id="email"
+            type="text"
+            value={email}
+            onChange={(e) => setEmail(e.target.value.trim())}
+          />
+        </div>
+
+        <div>
+          <label htmlFor='displayName'>Display Name &#40;optional&#41; :</label>
+          <input
+            name="displayName"
+            id="displayName"
+            type="text"
+            value={displayName}
+            onChange={(e) => setDisplayName(e.target.value.trim())}
+          />
+        </div>
+
+        <div>
+        <label htmlFor='password'>Password* :</label>
+          <input
+            name="password"
+            id="password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value.trim())}
+          />
+        </div>
+
+        <div>
+        <label htmlFor='passwordConfirm'>Confirm Password* :</label>
+          <input
+            name="passwordConfirm"
+            id="passwordConfirm"
+            type="password"
+            value={passwordConfirm}
+            onChange={(e) => setPasswordConfirm(e.target.value.trim())}
+          />
+        </div>
+
         <button type="submit">Create Account</button>
+
       </form>
       <Link to ="/login">Already have an account? Login here</Link>
-      {loading && <div>Loading...</div>}
-      {error && <div>Error: {error}</div>}
-      {success && <div>Success: {success}</div>}
+      {loading && <p>Loading...</p>}
+      {error && <p>Error: {error}</p>}
+      {success && <p>Success: {success}</p>}
     </div>
   );
 }

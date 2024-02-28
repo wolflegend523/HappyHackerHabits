@@ -3,16 +3,21 @@
   display: grid;
   grid-template-areas:
     'titlebar titlebar'
+    'explorer tabsbar'
     'explorer editor'
     'explorer terminal'
     'bottombar bottombar';
   grid-template-columns: 1fr 6fr;
-  grid-template-rows: 1fr 18fr 6fr 1fr;
+  grid-template-rows: 1fr 1fr 18fr 6fr 1fr;
   overflow: hidden;
 }
 
 .titlebar{
   grid-area: titlebar;
+}
+
+.tabsbar {
+  grid-area: tabsbar;
 }
 
 .explorer {

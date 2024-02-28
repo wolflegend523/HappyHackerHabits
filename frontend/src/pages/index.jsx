@@ -1,15 +1,11 @@
-import logo from '../icons/happyHackerLogoColor.svg';
-import style from '../styles/HomePage.module.css';
+import styles from '../styles/Pages.module.css';
 
 const HomePage = () => {
 
   return (
-    <>
-      <img src={logo} className={style.logo} alt="logo" />
-      <p>
-        <code>Welcome to Happy Hacker Habits!</code>
-      </p>
-    </>
+    <div className={styles.page}>
+      <p>Welcome to Happy Hacker Habits!</p>
+    </div>
   );
 }
 

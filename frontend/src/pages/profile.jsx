@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector} from 'react-redux'
 import { unregisterUser} from '../features/users/userActions';
 import { logoutUser, resetStatus } from '../features/users/userSlice';
-
+import styles from '../styles/Pages.module.css';
 
 const Profile = () => {
   const { loading, error, success, userIsLoggedIn, userProfile} = useSelector(
@@ -39,13 +39,13 @@ const Profile = () => {
 
   // render profile page
   return (
-    <div>
+    <div className={styles.page}>
       <h1>{userIsLoggedIn && userProfile.displayName}</h1>
       <button onClick={handleLogout}>Logout</button>
       <button onClick={handleDeleteAccount}>Delete Account</button>
-      {loading && <div>Loading...</div>}
-      {error && <div>Error: {error}</div>}
-      {success && <div>Success: {success}</div>}
+      {loading && <p>Loading...</p>}
+      {error && <p>Error: {error}</p>}
+      {success && <p>Success: {success}</p>}
     </div>
   );
 }

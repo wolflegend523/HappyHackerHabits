@@ -2,6 +2,7 @@
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateGoal, removeGoal } from '../features/goals/goalsActions';
+import styles from '../styles/Pages.module.css';
 
 const Goal = () => {
   // helper function to find a goal by its id
@@ -36,7 +37,7 @@ const Goal = () => {
   }
 
   return (
-    <div>
+    <div className={styles.page}>
       <h1>{goal && goal.goalName}</h1>
       <p>{goal && goal.goalDescription}</p>
       

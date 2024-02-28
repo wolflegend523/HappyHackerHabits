@@ -2,4 +2,5 @@
   display: flex;
   background: var(--main-bg-color);
   overflow-x: auto;
+  border-top: 1px solid var(--main-border-color);
 }

@@ -2,6 +2,7 @@ import { Link, useNavigate} from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector} from 'react-redux'
 import { createGoal } from '../features/goals/goalsActions';
+import styles from '../styles/Pages.module.css';
 
 const AddGoal = () => {
   const [goalName, setGoalName] = useState('');
@@ -54,7 +55,7 @@ const AddGoal = () => {
 
   // render add goal page
   return (
-    <div>
+    <div className={styles.page}>
       <h1>Add Goal</h1>
 
       <form onSubmit={handleAddGoal}>
@@ -80,9 +81,9 @@ const AddGoal = () => {
 
       <Link to="/">Go back to Welcome Page</Link>
 
-      {loading && <div>Loading...</div>}
-      {error && <div>Error: {error}</div>}
-      {success && <div>Success: {success}</div>}
+      {loading && <p>Loading...</p>}
+      {error && <p>Error: {error}</p>}
+      {success && <p>Success: {success}</p>}
     </div>
   );
 }

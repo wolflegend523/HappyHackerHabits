@@ -15,7 +15,10 @@
 
 .terminalTab {
   padding: 0.5rem 0.75rem;
+  margin: 0 0.5rem;
   margin-bottom: 0.5rem;
+  font-family: 'Source Sans Pro', sans-serif;
+  border : none;
   font-weight: 300;
   text-transform: uppercase;
   font-size: 0.9rem;

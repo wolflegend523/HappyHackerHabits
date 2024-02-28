@@ -10,6 +10,7 @@ import Goal from "./pages/goal";
 import PageNotFound from "./pages/404";
 // app components 
 import Titlebar from "./components/Titlebar";
+import Tabsbar from './components/Tabsbar';
 import Explorer from "./components/Explorer";
 import Editor from "./components/Editor";
 import Terminal from "./components/Terminal";
@@ -23,6 +24,7 @@ function App() {
     <div className={styles.app}>
       <div className={styles.titlebar}><Titlebar /></div>
       <div className={styles.explorer}><Explorer /></div>
+      <div className={styles.tabsbar}><Tabsbar /></div>
 
       <div className={styles.editor}>
         <Editor>
