@@ -27,6 +27,7 @@ const Profile = () => {
   
 
   // handle logout button click
+  // TODO: this should be a helper function
   const handleLogout = () => {
     dispatch(logoutUser());
     dispatch(clearGoals());

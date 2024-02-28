@@ -1,13 +1,29 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector} from 'react-redux'
+import { logoutUser } from '../features/users/userSlice';
+import { clearGoals } from '../features/goals/goalsSlice';
 import logo from '../icons/happyHackerLogoColor.svg';
 import styles from '../styles/Titlebar.module.css';
-import {useSelector} from 'react-redux'
 
 
 const Titlebar = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const { userIsLoggedIn, userProfile } = useSelector(
     (state) => state.user
   );
+
+  // handle logout button click
+  // TODO: this should be a helper function
+  const handleLogout = () => {
+    dispatch(logoutUser());
+    dispatch(clearGoals());
+  }
+
+  const handleProfile = () => {
+    navigate("/profile");
+  }
 
   return (
     <header className={styles.titlebar}>
@@ -16,7 +32,13 @@ const Titlebar = () => {
       <Link className={styles.title} to="/">Happy Hacker Habits</Link>
       </div>
       <div className={styles.titlebarButtons}>
-        {userIsLoggedIn && <Link className={styles.titlebarButton} to="/profile/">{userProfile.displayName}</Link>}
+        {userIsLoggedIn && <div className={styles.titlebarDropdown}>
+          <Link className={styles.titlebarButton} to="/profile/">{userProfile.displayName}</Link>
+          <div className={styles.titlebarDropdownContent}> 
+            <button onClick={handleProfile}>Profile</button>
+            <button onClick={handleLogout}>Logout</button>
+          </div>
+        </div>}
         {userIsLoggedIn &&<Link className={styles.titlebarButton}>Settings</Link>}
         {!userIsLoggedIn && <Link className={styles.titlebarButton} to="/login/">Login</Link>}
         {!userIsLoggedIn && <Link className={styles.titlebarButton} to="/signup/">Signup</Link>}
