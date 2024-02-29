@@ -1,42 +1,53 @@
-/* style the explorer container (height, border, background)*/
+/* style the explorer container (size, border, background)*/
 .explorer {
-  background: var(--main-bg-color);
   height: 100%;
+  width: 100%;
+  background: var(--main-bg-color);
   color: var(--main-text-color);
   font-family: 'Source Sans Pro', sans-serif;
   border-right: 1px solid var(--main-border-color);
   border-top: 1px solid var(--main-border-color);
   border-bottom: 1px solid var(--main-border-color);
+  /* overflow and absolute position so that folder names don't overflow into editor */
   overflow-x: hidden;
+  overflow-y: hidden;
   position: absolute;
-  width: 100%;
-}
-
-/* style the "Explorer" title to stay at the top during a scroll */
-.titleContainer {
-  position: sticky;
-  top: 0;
-  background: var(--main-bg-color);
-  z-index: 10;
+  /* flex container so sections have flexible placement and scrolling work */
+  display: flex;
+  flex-direction: column;
 }
 
 .title {
-  padding: 0.5rem 0.75rem;
   font-weight: 300;
-  text-transform: uppercase;
   font-size: 0.9rem;
   letter-spacing: 1px;
+  text-transform: uppercase;
   margin: 0;
+  padding: 0.5rem 0.75rem;
 }
 
 /* make everything but the title scrollable */
-/* TODO: I made it kinda work, but the scroll bar still looks like it goes up the whole explored
-   component, would be cool if it looked more like VS codes scrollbar*/
+/* make it a flex container so the different sections have more flexible placement*/
 .explorerContent {
   overflow-y: auto; 
   overflow-x: hidden;
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
+}
+
+/* create section borders that look like VS code's explorer */
+.explorerSection {
+  border-top: 1px solid var(--main-border-color);
+}
+
+.explorerSection:first-child {
+  border-top: none;
+}
+
+/* make the last section go to the bottom - till it is opened and changed in the jsx file */
+.explorerSection:last-child {
+  margin-top: auto;
 }
 
 /* style the main project headers within the explorer */
@@ -50,6 +61,7 @@
   cursor: pointer;
   padding: 0.25rem 0.5rem;
   border: 1px solid var(--main-bg-color);
+  height: 1.5rem;
 }
 
 .heading:hover {
@@ -64,7 +76,7 @@
 }
 
 /* TODO: for whatever reason for folders the chevron is not centered
-   only barely noticeable but it would be cool to fix */
+   only barely noticeable but it would be cool to fix one day */
 .chevron {
   transition: transform 0.2s;
 }

@@ -58,7 +58,8 @@ const Goal = () => {
           {goal && <p>Status: {goal.deployedAt ? <>deployed on {goal.deployedAt}</> : <>in progress</>}</p>}
           
           {goal && <button onClick={() => setEditMode(true)} className={styles.accent2}>Edit Goal</button>}
-          {goal && <button onClick={handleDeployGoal} className={styles.accent3}>Deploy Goal</button>}
+          {(goal && !goal.deployedAt) && <button onClick={handleDeployGoal} className={styles.accent3}>Deploy Goal</button>}
+          {/* add a way to Undeploy a deployed goal */}
           {goal && <button onClick={handleRemoveGoal} className={styles.accent4}>Delete Goal</button>}
         </>
       }

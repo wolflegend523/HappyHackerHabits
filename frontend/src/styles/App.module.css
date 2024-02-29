@@ -20,7 +20,9 @@
 
 /* each of the components in the grid are styled in their own module
    but need to be defined relative here for some of the 
-   overflow/scroll styling to work properly */
+   overflow/scroll styling to work properly. Their z-indexes need to be 
+   specified so that outlining works (chooses which outlines will be on top and 
+   which will be on bottom) */
 
 /* TODO: try to allow the user to resize the components
    limited research tells me that might warrant moving this 
@@ -29,29 +31,35 @@
 .titlebar {
   grid-area: titlebar;
   position: relative;
+  z-index: 1;
 }
 
 .tabsbar {
   grid-area: tabsbar;
   position: relative;
+  z-index: 2;
 }
 
 .explorer {
   grid-area: explorer;
   position: relative;
+  z-index: 3;
 }
 
 .editor {
   grid-area: editor;
   position: relative;
+  z-index: 1;
 }
 
 .terminal {
   grid-area: terminal;
   position: relative;
+  z-index: 2;
 }
 
 .bottombar {
   grid-area: bottombar;
   position: relative;
+  z-index: 1;
 }
