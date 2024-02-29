@@ -22,7 +22,9 @@
    but need to be defined relative here for some of the 
    overflow/scroll styling to work properly */
 
-/* TODO: try to allow the user to resize the components */
+/* TODO: try to allow the user to resize the components
+   limited research tells me that might warrant moving this 
+   to a separate component */
 
 .titlebar {
   grid-area: titlebar;

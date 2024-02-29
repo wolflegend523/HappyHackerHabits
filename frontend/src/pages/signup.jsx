@@ -142,7 +142,7 @@ const Signup = () => {
           <span className={styles.formErrorMessage}>{passwordConfirmError}</span>
         </div>
 
-        <button type="submit">Create Account</button>
+        <button type="submit" className={styles.accent2}>Create Account</button>
 
       </form>
       <Link to ="/login">Already have an account? Login here</Link>

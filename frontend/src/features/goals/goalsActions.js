@@ -44,7 +44,8 @@ const updateGoal = createAsyncThunk(
     if (!response.ok) {
       return rejectWithValue('Update goal failed');
     }
-    return;
+    const data = await response.json();
+    return data;
   }
 );
 

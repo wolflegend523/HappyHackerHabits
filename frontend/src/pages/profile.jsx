@@ -31,6 +31,7 @@ const Profile = () => {
   const handleLogout = () => {
     dispatch(logoutUser());
     dispatch(clearGoals());
+    navigate("/");
   }
 
   
@@ -44,8 +45,8 @@ const Profile = () => {
   return (
     <div className={styles.page}>
       <h1>{userIsLoggedIn && userProfile.displayName}</h1>
-      <button onClick={handleLogout}>Logout</button>
-      <button onClick={handleDeleteAccount}>Delete Account</button>
+      <button onClick={handleLogout} className={styles.accent2}>Logout</button>
+      <button onClick={handleDeleteAccount} className={styles.accent4}>Delete Account</button>
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}
       {success && <p>Success: {success}</p>}

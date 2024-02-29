@@ -19,6 +19,7 @@ const Titlebar = () => {
   const handleLogout = () => {
     dispatch(logoutUser());
     dispatch(clearGoals());
+    navigate("/");
   }
 
   const handleProfile = () => {

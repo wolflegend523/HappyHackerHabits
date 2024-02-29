@@ -70,24 +70,28 @@ const Explorer = () => {
 
           <div className={styles.folders} style={ goalsRootFolderOpen ? { display: 'block' } : { display: 'none' }}>
             {goals.map((item) => (
-              <div key={item.goalId} className={styles.folder}>
-                <input
-                  type="checkbox"
-                  className={styles.checkbox}
-                  id={item.goalId + '-checkbox'}
-                  checked={foldersOpen.get(item.goalId)}
-                  onChange={() => {
-                    handleGoalClick(item.goalId);
-                  }}
-                />              
-                <label htmlFor={item.goalId + '-checkbox'} className={styles.folder}>
-                  <ChevronRight
-                    className={styles.chevron}
-                    style={foldersOpen.get(item.goalId) ? { transform: 'rotate(90deg)' } : {}}
-                  />
-                  {item.goalName}
-                </label>
-              </div>
+              <>
+              { !item.deployedAt &&
+                <div key={item.goalId} className={styles.folder}>
+                  <input
+                    type="checkbox"
+                    className={styles.checkbox}
+                    id={item.goalId + '-checkbox'}
+                    checked={foldersOpen.get(item.goalId)}
+                    onChange={() => {
+                      handleGoalClick(item.goalId);
+                    }}
+                  />              
+                  <label htmlFor={item.goalId + '-checkbox'} className={styles.folder}>
+                    <ChevronRight
+                      className={styles.chevron}
+                      style={foldersOpen.get(item.goalId) ? { transform: 'rotate(90deg)' } : {}}
+                    />
+                    {item.goalName}
+                  </label>
+                </div>
+              }
+              </>
             ))}
           </div>
       </div>

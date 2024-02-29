@@ -192,7 +192,7 @@ router.put("/:goalId/", async (req, res) => {
     });
 
     // goal successfully updated
-    res.sendStatus(204);
+    res.status(201).json(goal);
     console.log("Goal updated: ", goal);
   } catch (err) {
     // if the goal does not exist

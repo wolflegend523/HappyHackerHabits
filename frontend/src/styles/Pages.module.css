@@ -19,6 +19,12 @@
   margin-bottom: 0.5rem;
 }
 
+.page .floatColumnContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+}
+
 /* link styling */
 .page a {
   color: var(--accent-color-2);
@@ -40,8 +46,7 @@
   justify-content: left;
 }
 
-
-.page form label {
+.page label {
   margin-right: 1rem;
   margin-bottom: 0.5rem;
   text-transform: uppercase;
@@ -50,7 +55,7 @@
   font-size: 0.8rem;
 }
 
-.page form input, .page form textarea {
+.page input, .page textarea {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New';
   margin-bottom: 0.5rem;
   background: var(--main-bg-color);
@@ -58,26 +63,36 @@
   border: none;
   font-size: 1rem;
   padding: 0.5rem;
-  width: 20vw;
-  resize: none;
   border: 1px solid var(--secondary-bg-color);
 }
 
-.page form input:focus, .page form textarea:focus {
+.page input {
+  width: 40%;
+}
+
+.page textarea {
+  width: 50%;
+  height: 10vh;
+  resize: none;
+}
+
+.page input:focus, .page textarea:focus {
   outline: none;
   background-color: var(--secondary-bg-color);
   border-bottom: 1px solid var(--main-border-color);
   border-top: 1px solid var(--main-border-color);
 }
 
-.page form input:hover, .page form textarea:hover {
+.page input:hover, .page textarea:hover {
   border: 1px solid var(--main-border-color);
 }
 
+/* button styling */
+
 .page button {
-  background: var(--accent-color-1);
-  color: var(--main-text-color);
-  border: none;
+  background: var(--secondary-bg-color);
+  color: var(--accent-color-1);
+  border: 3px solid var(--accent-color-1);
   cursor: pointer;
   padding: 0.5rem 0rem;
   margin-bottom: 0.5rem;
@@ -90,7 +105,40 @@
 }
 
 .page button:hover {
+  background-color: var(--accent-color-1);
+  color: var(--main-bg-color);
+}
+
+.page button.accent2 {
+  background: var(--secondary-bg-color);
+  color: var(--accent-color-2);
+  border: 3px solid var(--accent-color-2);
+}
+
+.page button.accent2:hover {
   background-color: var(--accent-color-2);
+  color: var(--main-bg-color);
+}
+
+.page button.accent3 {
+  background: var(--secondary-bg-color);
+  color: var(--accent-color-3);
+  border: 3px solid var(--accent-color-3);
+}
+
+.page button.accent3:hover {
+  background-color: var(--accent-color-3);
+  color: var(--main-bg-color);
+}
+
+.page button.accent4 {
+  background: var(--secondary-bg-color);
+  color: var(--accent-color-4);
+  border: 3px solid var(--accent-color-4);
+}
+
+.page button.accent4:hover {
+  background-color: var(--accent-color-4);
   color: var(--main-bg-color);
 }
 

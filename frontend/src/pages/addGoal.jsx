@@ -7,6 +7,7 @@ import styles from '../styles/Pages.module.css';
 const AddGoal = () => {
   const [goalName, setGoalName] = useState('');
   const [goalDescription, setGoalDescription] = useState(''); 
+  const [goalNameError, setGoalNameError] = useState('');
   const {userIsLoggedIn, userToken } = useSelector(
     (state) => state.user
   );
@@ -30,14 +31,17 @@ const AddGoal = () => {
     // prevent form from submitting
     e.preventDefault();
 
-    //  remove any trailing whitespace from the goal name and description
-    setGoalName(removeTrailingWhiteSpace(goalName));
-    setGoalDescription(removeTrailingWhiteSpace(goalDescription));
+    // remove any trailing whitespace from the goal name and description
+    // TODO: this isn't working (there is a space at the end of the goal name and description)
+    setGoalName(removeLeadingAndTrailingWhiteSpace(goalName));
+    setGoalDescription(removeLeadingAndTrailingWhiteSpace(goalDescription));
 
     // validate goal name
     if (!goalName) {
+      setGoalNameError('Goal name is required');
       return;
     }
+    setGoalNameError('');
 
     // dispatch add goal action
     dispatch(createGoal({name: goalName, description: (goalDescription ? goalDescription : null), token: userToken}));
@@ -48,8 +52,8 @@ const AddGoal = () => {
   const removeLeadingWhiteSpace = (str) => {
     return str.replace(/^\s+/, '');
   }
-  const removeTrailingWhiteSpace = (str) => {
-    return str.replace(/\s+$/, '');
+  const removeLeadingAndTrailingWhiteSpace = (str) => {
+    return str.trim();
   }
 
 
@@ -68,6 +72,7 @@ const AddGoal = () => {
           value={goalName}
           onChange={(e) => setGoalName(removeLeadingWhiteSpace(e.target.value))}
         />
+        <span className={styles.formErrorMessage}>{goalNameError}</span>
         </div>
 
         <label htmlFor='goalDescription'>Goal Description &#40;optional&#41; :</label>
@@ -78,7 +83,7 @@ const AddGoal = () => {
           onChange={(e) => setGoalDescription(removeLeadingWhiteSpace(e.target.value))}
         />
 
-        <button type="submit">Add Goal</button>
+        <button type="submit" className={styles.accent2}>Add Goal</button>
       </form>
 
       <Link to="/">Go back to Welcome Page</Link>

@@ -64,7 +64,7 @@ const Login = () => {
           />
         </div>
 
-        <button type="submit">Login</button>
+        <button type="submit" className={styles.accent2}>Login</button>
       </form>
       <Link to="/signup">New? create an account here</Link>
       {loading && <p>Loading...</p>}
