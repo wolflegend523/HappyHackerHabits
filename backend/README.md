@@ -1,16 +1,16 @@
-# Happy Hacker Habits Backend
+# Happy Hacker Habits Backend 👩‍💻
 Happy Hacker Habits uses an express node.js server as its application tier and a 
 PostgreSQL database managed using Prisma ORM as its data tier. It exposes RESTFul endpoints
 for the various features of the application.   
 
 
-## Table of Contents
+## Table of Contents 🗃️
 - [Directory Structure](#directory-structure)
 - [Running the Project Locally](#running-the-project-locally)
 - [Deploying the Project on Render](#deploying-the-project-on-render)
 
 
-## Directory Structure
+## Directory Structure 📁
 ``` BASH
 .
 ├── api                     # the routes, handlers, and application logic for each feature
@@ -27,7 +27,7 @@ for the various features of the application.
 ```
 
 
-## Running the project locally
+## Running the project locally ⌨️
 This section describes the steps to run and develop the project locally. 
 
 ### Installing Project Dependencies
@@ -48,7 +48,7 @@ There are many options for creating a PostgreSQL database:
   and [create a database](https://www.postgresql.org/docs/current/manage-ag-createdb.html) 
   on you local machine.
 - use a database cloud service like [Render PostgreSQL](https://docs.render.com/databases) 
-  or [AWS RDS](https://aws.amazon.com/rds/)
+  or [AWS RDS](https://aws.amazon.com/rds/).
 
 
 ### Creating Environment Variables  
@@ -88,5 +88,21 @@ After setting up the prerequisites you can start the server by running the follo
 npm start
 ```
 
-## Deploying the Project on Render 
-TODO: add in deployment instructions 
+## Deploying the Project on Render 🖥️
+To deploy Happy Hacker's data tier (or a different PostgreSQL Database) on Render:
+- [Create a Render account](https://dashboard.render.com/register/).
+- [Create a **PostgreSQL Database** on Render](https://docs.render.com/databases) 
+- Define the name, region, and version of PostgreSQL you would like to use, then click **Create Database**
+- Use the password, and URL information under **"Connections"** in the "Info" menu to connect to the database 
+- Use [Prisma migrate](https://www.prisma.io/docs/orm/prisma-migrate/getting-started) to synchronize the database with your application schema 
+
+To deploy Happy Hacker's application tier (or a different express server) on Render:
+- [Create a Render account](https://dashboard.render.com/register/).
+- Fork this repository, or create a GitHub repository with the express server you want to deploy.
+- [Create a **Web Service** on Render](https://docs.render.com/deploy-node-express-app) 
+  and choose the repository/directory you want to deploy.
+- For **Build Command** enter **"yarn"** and for **Start Command** enter **"node server.js"**
+- Add **DATABASE_PASSWORD**, **DATABASE_PORT**, **DATABASE_URL**, and **DATABASE_USER** environment variables, 
+  with values that point to your deployed PostgreSQL database
+- Add a **JWT_SECRET** environment variable, set to some secret for the application to 
+  use to authenticate users. (can be anything)

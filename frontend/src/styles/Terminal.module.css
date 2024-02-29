@@ -69,8 +69,9 @@
 }
 
 /* Terminal output animation styling (will look like it is being typed */
+/* TODO: try to set n dynamically so that we aren't hacking this animation */
 .terminalOutput {
-  --n: 1000;
+  --n: 1000; /* this is supposed to be the number of characters, to make it work, but if you set it to a ridiculous number, it still works */
   color:#0000;
   background:
     linear-gradient(-90deg, var(--accent-color-3) 5px,#0000 0) 10px 0, /* cursor part of animation */

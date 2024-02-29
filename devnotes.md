@@ -5,7 +5,7 @@ here are the things we hope to get done before the project is "due"
 - comment out more of the code, so it would be more easily reused and understood later 
 - integrate goals into frontend 
 - add details to the welcome page 
-- add pictures of the end app to readme, and deployment info, and tech stack description? 
+- add pictures of the end app to readme?
 - make it mobile friendly?
 - add sidebar? 
 

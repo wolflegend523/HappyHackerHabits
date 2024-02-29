@@ -1,15 +1,15 @@
-# Happy Hacker Habits Frontend
+# Happy Hacker Habits Frontend 👩‍💻
 Happy Hacker Habits uses a React app as its presentation tier. It calls RESTFul APIs exposed by the backend
 to display various features of the application. It uses Redux to manage application state needed by many 
 different components. 
 
-## Table of Contents
+## Table of Contents 🗃️
 - [Directory Structure](#directory-structure)
 - [Running the Project Locally](#running-the-project-locally)
 - [Deploying the Project on Render](#deploying-the-project-on-render)
 
 
-## Directory Structure 
+## Directory Structure 📁
 ``` BASH
 .
 ├── node_modules            # the packages and dependencies that the project requires
@@ -31,7 +31,7 @@ different components.
 ```
 
 
-## Running the project locally
+## Running the project locally ⌨️
 This section describes the steps to run and develop the project locally. 
 
 ### Installing Project Dependencies
@@ -62,5 +62,14 @@ After setting up the prerequisites you can start the react app by running the fo
 npm start
 ```
 
-## Deploying the Project on Render 
-TODO: add in deployment instructions
+## Deploying the Project on Render 🖥️
+To deploy Happy Hacker's presentation tier (or a different React app) on Render:
+- [Create a Render account](https://dashboard.render.com/register/).
+- Fork this repository, or create a GitHub repository with the react app you want to deploy.
+- [Create a **static Site** on Render](https://docs.render.com/deploy-create-react-app) 
+  and choose the repository/directory you want to deploy.
+- For **Build Command** enter **"npm run build"** and for **publish directory** enter **"build"**
+- Add a **REACT_APP_BACKEND_API_BASE_URL** environment variable, 
+  with a value pointing to your deployed backend's base url. (If you are deploying the backend on Render 
+  it will look similar to: https://happy-hacker-habits-application-tier.onrender.com/api/)
+
