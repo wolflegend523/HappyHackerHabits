@@ -1,4 +1,5 @@
 /* This file contains the css declarations that apply to the entire application */
+/* there should be minimal styling done here because it could end up messing with the individual components */
 
 body {
   margin: 0;

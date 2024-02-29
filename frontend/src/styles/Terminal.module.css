@@ -1,3 +1,4 @@
+/* styling the terminal container */
 .terminal {
   height: 100%;
   background-color: var(--main-bg-color);
@@ -9,6 +10,9 @@
   overflow-y: auto;
 }
 
+/* style the terminal tabs to look like VS code terminal tabs*/
+/* TODO: The tabs need to be made unable to overflow to multiple 
+   lines when it gets too small somehow (but want to keep it usable somehow still...)*/
 .terminalTabs {
   display: flex;
   justify-content: row;
@@ -39,6 +43,7 @@
   color: var(--main-text-color);
 }
 
+/* make content in the terminal wrap around and overflow to next line + look like code */
 .terminalView {
   margin: 0;
   padding-left: 1rem;
@@ -48,24 +53,28 @@
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New';
 }
 
+/* remove paragraph margins in the terminal */
 .terminalView p {
   margin: 0;
 }
 
 
-/* Terminal path (thing before the $) styling */
+/*TODO: will probably need another style for the content that is already 
+  in the terminal and comes before the newest output (and need to keep the path coloring somehow?) */
 
+
+/* Terminal path (thing before the $) styling */
 .terminalPath {
   color: var(--accent-color-3);
 }
 
-
+/* Terminal output animation styling (will look like it is being typed */
 .terminalOutput {
   --n: 1000;
   color:#0000;
   background:
-    linear-gradient(-90deg, var(--accent-color-3) 5px,#0000 0) 10px 0,
-    linear-gradient(var(--main-text-color) 0 0) 0 0;
+    linear-gradient(-90deg, var(--accent-color-3) 5px,#0000 0) 10px 0, /* cursor part of animation */
+    linear-gradient(var(--main-text-color) 0 0) 0 0; /* text part of animation */
   background-size: calc(var(--n)*1ch) 200%;
   -webkit-background-clip:padding-box,text;
   background-clip:padding-box,text;
@@ -74,7 +83,6 @@
    blink .5s infinite steps(1),   
    typewriter calc(var(--n)*.04s) steps(var(--n)) forwards;
 }
-
 
 @keyframes typewriter {
   from {background-size:0 200%}

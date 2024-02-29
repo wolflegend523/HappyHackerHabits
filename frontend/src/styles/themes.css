@@ -1,4 +1,4 @@
-/* This file contains the css variables that control the color for the entire application */
+/* This file contains the css variables that control the colors used in application */
 :root {
   --main-bg-color: #1c1c1e;
   --secondary-bg-color: #232325;
@@ -11,3 +11,5 @@
   --accent-color-3: #76e0bb;
   --accent-color-4: #c977db;
 }
+
+/* TODO: more "themes" could be defined below to allow different color palette settings*/

@@ -1,10 +1,14 @@
+/* give the editor a scroll bar all the time, like in VS code
+   define hight so that the "editor" fills all the space available to it 
+   and the scroll/styling appears all the way down the component */
 .editor {
   height: 100%;
   background-color: var(--secondary-bg-color); 
   overflow-y: scroll;
 }
 
+/* give some margins to the content so that page elements
+   don't touch the edges of the screen. */
 .content {
   margin: 1rem 3rem;
-  height: 90%;
 }

@@ -29,6 +29,7 @@ const Signup = () => {
 
   // redirect to the login page if registration is successful
   useEffect(() => {
+    // TODO: change to if user has been created 
     if (success) {
       // navigate to the login page after 1 second
       setTimeout(() => {

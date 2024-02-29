@@ -1,3 +1,10 @@
+// this is the schema for the happy hacker habits app - which defines the
+// data model for the app. Uses Prisma ORM and is written in Prisma's schema language
+
+// important note: the migration files should be pushed to the repo
+// to preserve the history of the database schema and ensure that future 
+// migrations run correctly
+
 //TODO: add useful comments to the schema
 
 datasource db {

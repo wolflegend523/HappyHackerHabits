@@ -1,3 +1,5 @@
+/* style the explorer container (height, border, background)*/
+/* TODO: make the folders scrollable but not the whole explorer container*/
 .explorer {
   background: var(--main-bg-color);
   height: 100%;
@@ -7,11 +9,12 @@
   border-top: 1px solid var(--main-border-color);
   border-bottom: 1px solid var(--main-border-color);
   overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: auto; 
   position: absolute;
   width: 100%;
 }
 
+/* style the "Explorer" title */
 .title {
   padding: 0.5rem 0.75rem;
   font-weight: 300;
@@ -21,6 +24,7 @@
   margin: 0;
 }
 
+/* style the main project headers within the explorer */
 .heading {
   text-transform: uppercase;
   font-weight: bold;
@@ -37,16 +41,19 @@
   border: 1px solid var(--accent-color-2);
 }
 
+/* style the checkbox and chevron for the "folders" that can be opened/closed */
 .checkbox {
   position: absolute;
   opacity: 0;
   z-index: -1;
 }
 
+/* TODO: for whatever reason for folders the chevron is not centered */
 .chevron {
   transition: transform 0.2s;
 }
 
+/* style the "new folder" button */
 .newFolderButton {
   padding: 0.125rem 0.125rem;
   width: 1rem;
@@ -63,10 +70,12 @@
   border-radius: 0.25rem;
 }
 
+/* style the "folders" within the explorer that can be opened */
 .folders {
   cursor: pointer;
 }
 
+/* TODO: check if the "a" styling is still needed */
 .folders a {
   cursor: pointer;
   text-decoration: none;
@@ -86,6 +95,12 @@
   font-size: 0.875rem;
 }
 
+.folder:hover {
+  background: var(--main-hover-color);
+}
+
+/* make it so that folder names will not wrap and will 
+   not display past the explorer component*/
 .folder p, .folder label {
   margin: 0;
   display: inline-block;
@@ -93,7 +108,3 @@
   overflow-x: hidden;
 }
 
-
-.folder:hover {
-  background: var(--main-hover-color);
-}

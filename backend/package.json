@@ -2,18 +2,19 @@
   "name": "happy-hacker-habits-backend",
   "version": "1.0.0",
   "description": "the backend for a programming themed habit tracker: Happy Hacker Habits!",
-  "main": "server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "private": true,
+  "author": "Cordelia Notbohm",
+  "license": "MIT",
   "keywords": [
     "habit",
     "self-care",
     "programming",
     "hacker"
   ],
-  "author": "",
-  "license": "ISC",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
   "dependencies": {
     "@prisma/client": "^5.10.2",
     "bcryptjs": "^2.4.3",

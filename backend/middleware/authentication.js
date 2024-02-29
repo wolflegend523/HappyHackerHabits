@@ -1,3 +1,4 @@
+/* all of the JWT logic for creating and checking tokens*/
 const jwt = require("jwt-simple");
 
 // Secret for encoding and decoding JWTs

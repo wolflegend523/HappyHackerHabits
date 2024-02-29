@@ -18,7 +18,9 @@ import Bottombar from "./components/Bottombar";
 // app styles
 import styles from './styles/App.module.css';
 
-// App component
+/* main component of the application*/
+// handles the layout of the application TODO: should app be reposible for the layout?
+// handles the routing of the application TODO: should app be responsible for routing?
 function App() {
   return (
     <div className={styles.app}>
@@ -26,6 +28,8 @@ function App() {
       <div className={styles.explorer}><Explorer /></div>
       <div className={styles.tabsbar}><Tabsbar /></div>
 
+      {/* pages are displayed inside the editor component */}
+      {/* Routes define which page should be displayed currently */}
       <div className={styles.editor}>
         <Editor>
           <Routes>

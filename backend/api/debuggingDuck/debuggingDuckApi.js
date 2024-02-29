@@ -1,5 +1,7 @@
 const router = require("express").Router();
 
+// TODO: replace this with the actual debugging duck API
+
 /**
  * Get the debugging ducks welcome message
  */

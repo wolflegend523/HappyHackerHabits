@@ -1,3 +1,4 @@
+/* styling for the title bar container*/
 .titlebar {
   background-color: var(--main-bg-color);
   height: 100%;
@@ -10,11 +11,14 @@
   border-bottom: 1px solid var(--main-border-color);
 }
 
+/* styling for main application icon */
+/* TODO: Looks weird when screen gets too small, maybe been a min height or something*/
 .icon {
   padding: 0 0.5rem;
   height: 3vmin;
 }
 
+/* puts the titlebarButtons on the right side of the titlebar */
 .titlebarButtons {
   flex: 1;
   display: flex;
@@ -23,6 +27,7 @@
   margin-left: auto;
 }
 
+/* makes all the titlebar "buttons" look like VS Code buttons */
 .title, .titlebarButton {
   background-color: var(--main-bg-color);
   border: none;
@@ -36,18 +41,21 @@
   text-decoration: none;
 }
 
+/* styling for the titlebar buttons when hovered over */
 .title:hover, .titlebarButton:hover {
   background-color: var(--main-hover-color);
   color: var(--main-text-color);
   border-radius: 0.25rem;
 }
 
-/* profile dropdown styling */
+
+/* styling that makes a dropdown menu that looks like VS code titlebar dropdowns */
 .titlebarDropdown {
   position: relative;
   display: inline-block;
 }
 
+/* content is hidden by default and appears to the right of the dropdown label */
 .titlebarDropdownContent {
   display: none;
   position: absolute;
@@ -59,6 +67,7 @@
   margin-top: 0.25rem; 
 }
 
+/* style each button within the dropdown*/
 .titlebarDropdownContent button {
   color: var(--main-text-color);
   background-color:  var(--secondary-bg-color);
@@ -72,6 +81,7 @@
   margin: 0 0.25rem ;
 }
 
+/* margins are just on the outside of the buttons (not in between buttons) */
 .titlebarDropdownContent button:first-child {
   margin-top: 0.25rem;
 }
@@ -80,12 +90,14 @@
   margin-bottom: 0.25rem;
 }
 
+/* TODO: is the "a" styling still needed? */
 .titlebarDropdownContent a:hover, .titlebarDropdownContent button:hover{
   background-color: var(--accent-color-1);
   color: var(--main-text-color);
   border-radius: 0.25rem;
 }
 
+/* show the dropdown content when hovering over the titlebarDropdown */
 .titlebarDropdown:hover .titlebarDropdownContent {
   display: block;
 }

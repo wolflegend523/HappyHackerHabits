@@ -1,3 +1,4 @@
+/* style the tabsbar container*/
 .tabs {
   display: flex;
   background: var(--main-bg-color);

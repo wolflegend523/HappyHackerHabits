@@ -1,5 +1,5 @@
 /**
- * Define the routes for the application
+ * Define the main routes for the application -> sends to individual feature routes
  */
 const router = (app) => {
   app.use("/api/debuggingduck", require("./api/debuggingDuck/debuggingDuckApi"));

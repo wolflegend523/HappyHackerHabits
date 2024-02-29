@@ -1,3 +1,5 @@
+/* styling each individual tab on the tabs bar */
+/* TODO: eventually add a close button and styles for closing tabs */
 .tab {
   padding: 0.5rem 1.25rem;
   margin: 0;
@@ -14,6 +16,7 @@
   padding-left: 5px;
 }
 
+/* give the active tab a different background color and border */
 .active {
   border-top: 2px solid var(--accent-color-2);
   background: var(--secondary-bg-color);

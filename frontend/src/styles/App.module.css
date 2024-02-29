@@ -1,3 +1,9 @@
+/* this file styles the layout of the entire application 
+   TODO: if this job is moved to another component these declarations would move too */
+
+/* use a grid to layout all the main components of the app
+   avoid any overflow so that the app itself never scrolls 
+   (individual components can scroll but not the whole app) */
 .app {
   height: 100vh;
   display: grid;
@@ -12,7 +18,14 @@
   overflow: hidden;
 }
 
-.titlebar{
+/* each of the components in the grid are styled in their own module
+   but need to be defined relative here for some of the "overflow" 
+   styling to work properly */
+
+/* TODO: try making all the components have relative positioning */
+/* TODO: try to allow the user to resize the components */
+
+.titlebar {
   grid-area: titlebar;
 }
 
