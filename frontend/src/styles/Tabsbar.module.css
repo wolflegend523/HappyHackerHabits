@@ -4,4 +4,6 @@
   background: var(--main-bg-color);
   overflow-x: auto;
   border-top: 1px solid var(--main-border-color);
+  border-left: 1px solid var(--main-border-color);
+  height: 100%;
 }

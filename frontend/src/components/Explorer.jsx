@@ -46,8 +46,10 @@ const Explorer = () => {
 
   return (
     <div className={styles.explorer}>
-      <p className={styles.title}>Explorer</p>
-      <div>
+      <div className={styles.titleContainer}>
+        <p className={styles.title}>Explorer</p>
+      </div>
+      <div className={styles.explorerContent}>
         <input
             type="checkbox"
             className={styles.checkbox}

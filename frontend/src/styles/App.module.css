@@ -19,18 +19,19 @@
 }
 
 /* each of the components in the grid are styled in their own module
-   but need to be defined relative here for some of the "overflow" 
-   styling to work properly */
+   but need to be defined relative here for some of the 
+   overflow/scroll styling to work properly */
 
-/* TODO: try making all the components have relative positioning */
 /* TODO: try to allow the user to resize the components */
 
 .titlebar {
   grid-area: titlebar;
+  position: relative;
 }
 
 .tabsbar {
   grid-area: tabsbar;
+  position: relative;
 }
 
 .explorer {
@@ -40,6 +41,7 @@
 
 .editor {
   grid-area: editor;
+  position: relative;
 }
 
 .terminal {
@@ -49,4 +51,5 @@
 
 .bottombar {
   grid-area: bottombar;
+  position: relative;
 }

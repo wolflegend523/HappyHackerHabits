@@ -4,6 +4,7 @@
 .editor {
   height: 100%;
   background-color: var(--secondary-bg-color); 
+  border-left: 1px solid var(--main-border-color);
   overflow-y: scroll;
 }
 

@@ -12,10 +12,9 @@
 }
 
 /* styling for main application icon */
-/* TODO: Looks weird when screen gets too small, maybe been a min height or something*/
 .icon {
   padding: 0 0.5rem;
-  height: 3vmin;
+  height: 1.25rem;
 }
 
 /* puts the titlebarButtons on the right side of the titlebar */
@@ -90,8 +89,7 @@
   margin-bottom: 0.25rem;
 }
 
-/* TODO: is the "a" styling still needed? */
-.titlebarDropdownContent a:hover, .titlebarDropdownContent button:hover{
+.titlebarDropdownContent button:hover{
   background-color: var(--accent-color-1);
   color: var(--main-text-color);
   border-radius: 0.25rem;

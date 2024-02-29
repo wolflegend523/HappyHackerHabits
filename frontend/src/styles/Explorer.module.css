@@ -1,5 +1,4 @@
 /* style the explorer container (height, border, background)*/
-/* TODO: make the folders scrollable but not the whole explorer container*/
 .explorer {
   background: var(--main-bg-color);
   height: 100%;
@@ -9,12 +8,18 @@
   border-top: 1px solid var(--main-border-color);
   border-bottom: 1px solid var(--main-border-color);
   overflow-x: hidden;
-  overflow-y: auto; 
   position: absolute;
   width: 100%;
 }
 
-/* style the "Explorer" title */
+/* style the "Explorer" title to stay at the top during a scroll */
+.titleContainer {
+  position: sticky;
+  top: 0;
+  background: var(--main-bg-color);
+  z-index: 10;
+}
+
 .title {
   padding: 0.5rem 0.75rem;
   font-weight: 300;
@@ -22,6 +27,16 @@
   font-size: 0.9rem;
   letter-spacing: 1px;
   margin: 0;
+}
+
+/* make everything but the title scrollable */
+/* TODO: I made it kinda work, but the scroll bar still looks like it goes up the whole explored
+   component, would be cool if it looked more like VS codes scrollbar*/
+.explorerContent {
+  overflow-y: auto; 
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 /* style the main project headers within the explorer */
@@ -48,7 +63,8 @@
   z-index: -1;
 }
 
-/* TODO: for whatever reason for folders the chevron is not centered */
+/* TODO: for whatever reason for folders the chevron is not centered
+   only barely noticeable but it would be cool to fix */
 .chevron {
   transition: transform 0.2s;
 }
@@ -73,19 +89,6 @@
 /* style the "folders" within the explorer that can be opened */
 .folders {
   cursor: pointer;
-}
-
-/* TODO: check if the "a" styling is still needed */
-.folders a {
-  cursor: pointer;
-  text-decoration: none;
-  color: var(--main-text-color);
-  font-family: 'Source Sans Pro', sans-serif;
-  font-size: .9rem;
-}
-
-.folder a:hover {
-  background: var(--main-hover-color);
 }
 
 .folder {
