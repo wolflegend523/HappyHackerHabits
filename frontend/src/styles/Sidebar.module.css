@@ -1,0 +1,32 @@
+.sidebar {
+  background-color: var(--main-bg-color);
+  height: 100.1%; /* right now with is making the sidebar actually 100% of the height of the app TODO: figure out why?*/
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--main-border-color);
+  color: var(--secondary-text-color);
+  font-size: 0.8rem;
+}
+
+.iconContainer {
+  cursor: pointer;
+  width: 100%;
+}
+
+.iconContainer:hover {
+  color: var(--main-text-color);
+}
+
+.active {
+  border-left: 2px solid var(--accent-color-2);
+}
+
+.icon {
+  height: 1.75rem;
+  width: 1.75rem;
+  padding: .75rem 0;
+  display: block;
+  margin: 0 auto;
+}

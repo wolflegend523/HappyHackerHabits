@@ -7,12 +7,12 @@
   font-family: 'Source Sans Pro', sans-serif;
   border-right: 1px solid var(--main-border-color);
   border-top: 1px solid var(--main-border-color);
-  border-bottom: 1px solid var(--main-border-color);
+  border: 1px solid var(--main-border-color);
   /* overflow and absolute position so that folder names don't overflow into editor */
   overflow-x: hidden;
   overflow-y: hidden;
   position: absolute;
-  /* flex container so sections have flexible placement and scrolling work */
+  /* flex container so sections have flexible section placement and scrolling work */
   display: flex;
   flex-direction: column;
 }
@@ -26,11 +26,11 @@
   padding: 0.5rem 0.75rem;
 }
 
-/* make everything but the title scrollable */
-/* make it a flex container so the different sections have more flexible placement*/
 .explorerContent {
+  /* make everything but the title scrollable */
   overflow-y: auto; 
   overflow-x: hidden;
+  /* make it a flex container so the different sections have more flexible placement*/
   flex-grow: 1;
   display: flex;
   flex-direction: column;
@@ -75,8 +75,6 @@
   z-index: -1;
 }
 
-/* TODO: for whatever reason for folders the chevron is not centered
-   only barely noticeable but it would be cool to fix one day */
 .chevron {
   transition: transform 0.2s;
 }
@@ -87,7 +85,8 @@
   width: 1rem;
   height: 1rem;
   margin: 0;
-  margin-left: 1rem;
+  margin-left: auto;
+  margin-right: 0.5rem;
   background: var(--main-bg-color);
   color: var(--main-text-color);
 }
@@ -104,7 +103,7 @@
 }
 
 .folder {
-  padding: 0.15rem 0.5rem;
+  padding: 0.25rem 0rem 0.25rem 1rem;
   display: flex;
   align-items: center;
   font-size: 0.875rem;
@@ -114,10 +113,13 @@
   background: var(--main-hover-color);
 }
 
+/* TODO: for whatever reason for folders the chevron is not centered
+   only barely noticeable but it would be cool to fix one day 
+   these declaration are what do it, but they are needed */
+
 /* make it so that folder names will not wrap and will 
    not display past the explorer component*/
 .folder p, .folder label {
-  margin: 0;
   display: inline-block;
   white-space: nowrap;
   overflow-x: hidden;

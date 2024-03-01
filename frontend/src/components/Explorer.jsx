@@ -87,7 +87,7 @@ const Explorer = () => {
                       handleGoalClick(item.goalId);
                     }}
                   />              
-                  <label htmlFor={item.goalId + '-checkbox'} className={styles.folder}>
+                  <label htmlFor={item.goalId + '-checkbox'}>
                     <ChevronRight
                       className={styles.chevron}
                       style={foldersOpen.get(item.goalId) ? { transform: 'rotate(90deg)' } : {}}
@@ -133,7 +133,7 @@ const Explorer = () => {
                       handleGoalClick(item.goalId);
                     }}
                   />
-                  <label htmlFor={item.goalId + '-checkbox'} className={styles.folder}>
+                  <label htmlFor={item.goalId + '-checkbox'}>
                     <ChevronRight
                       className={styles.chevron}
                       style={foldersOpen.get(item.goalId) ? { transform: 'rotate(90deg)' } : {}}

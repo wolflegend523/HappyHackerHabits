@@ -8,12 +8,12 @@
   height: 100vh;
   display: grid;
   grid-template-areas:
-    'titlebar titlebar'
-    'explorer tabsbar'
-    'explorer editor'
-    'explorer terminal'
-    'bottombar bottombar';
-  grid-template-columns: 1fr 6fr;
+    'titlebar titlebar titlebar'
+    'sidebar explorer tabsbar'
+    'sidebar explorer editor'
+    'sidebar explorer terminal'
+    'bottombar bottombar bottombar';
+  grid-template-columns: 1fr 5fr 26fr;
   grid-template-rows: 1fr 1fr 18fr 6fr 1fr;
   overflow: hidden;
 }
@@ -31,7 +31,7 @@
 .titlebar {
   grid-area: titlebar;
   position: relative;
-  z-index: 1;
+  z-index: 4;
 }
 
 .tabsbar {
@@ -44,6 +44,12 @@
   grid-area: explorer;
   position: relative;
   z-index: 3;
+}
+
+.sidebar {
+  grid-area: sidebar;
+  position: relative;
+  z-index: 2;
 }
 
 .editor {
