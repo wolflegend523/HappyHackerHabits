@@ -61,7 +61,7 @@ const userSlice = createSlice({
       state.userToken = action.payload.token;
       state.userIsLoggedIn = true;
       state.error = null;
-      state.success = action.payload.profile.displayName + ' Logged In';
+      state.success = 'User Logged In';
     });
     builder.addCase(loginUser.rejected, (state, action) => {
       state.loading = false;

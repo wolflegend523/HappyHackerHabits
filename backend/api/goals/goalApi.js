@@ -185,9 +185,9 @@ router.put("/:goalId/", async (req, res) => {
         goalId: parseInt(req.params.goalId),
       },
       data: {
-        goalName: req.body.goalName || undefined,
-        goalDescription: req.body.goalDescription || undefined,
-        deployedAt: req.body.deployedAt ? new Date(req.body.deployedAt) : undefined,
+        goalName: req.body.goalName !== undefined ? req.body.goalName : undefined,
+        goalDescription: req.body.goalDescription !== undefined ? req.body.goalDescription : undefined,
+        deployedAt: req.body.deployedAt === null ? null : req.body.deployedAt !== undefined ? new Date(req.body.deployedAt) : undefined,
       },
     });
 

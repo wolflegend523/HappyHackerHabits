@@ -1,4 +1,4 @@
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useLocation} from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector} from 'react-redux';
 import { readGoals } from '../features/goals/goalsActions';
@@ -16,6 +16,8 @@ const Explorer = () => {
   const [foldersOpen, setFoldersOpen] = useState(new Map());
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+
 
   // get the goals from the server when the user logs in
   useEffect(() => {
@@ -77,7 +79,8 @@ const Explorer = () => {
             {goals.map((item) => (
               <>
               { !item.deployedAt &&
-                <div key={item.goalId} className={styles.folder}>
+                <div key={item.goalId}
+                     className={`${styles.folder} ${location.pathname === `/goals/${item.goalId}` && styles.active}`}>
                   <input
                     type="checkbox"
                     className={styles.checkbox}
@@ -123,7 +126,8 @@ const Explorer = () => {
             {goals.map((item) => (
               <>
               { item.deployedAt &&
-                <div key={item.goalId} className={styles.folder}>
+                <div key={item.goalId} 
+                     className={`${styles.folder} ${location.pathname === `/goals/${item.goalId}` && styles.active}`}>
                   <input
                     type="checkbox"
                     className={styles.checkbox}

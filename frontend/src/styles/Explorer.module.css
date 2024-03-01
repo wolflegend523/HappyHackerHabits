@@ -113,6 +113,10 @@
   background: var(--main-hover-color);
 }
 
+.active {
+  background: var(--main-hover-color);
+}
+
 /* TODO: for whatever reason for folders the chevron is not centered
    only barely noticeable but it would be cool to fix one day 
    these declaration are what do it, but they are needed */

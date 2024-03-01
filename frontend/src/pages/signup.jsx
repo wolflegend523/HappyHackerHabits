@@ -2,7 +2,6 @@ import { Link, useNavigate} from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector} from 'react-redux'
 import { registerUser} from '../features/users/userActions';
-import { resetStatus } from '../features/users/userSlice';
 import styles from '../styles/Pages.module.css';
 
 const Signup = () => {
@@ -29,11 +28,9 @@ const Signup = () => {
 
   // redirect to the login page if registration is successful
   useEffect(() => {
-    // TODO: change to if user has been created 
-    if (success) {
+    if (success && success === 'User Registered') {
       // navigate to the login page after 1 second
       setTimeout(() => {
-        dispatch(resetStatus());
         navigate('/login');
       }, 1000);
     }
@@ -44,22 +41,22 @@ const Signup = () => {
   const validRegistration = () => {
     let valid = true;
 
-    if (!email) {
-      setEmailError('Email is required');
+    if (!email || !email.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g)) {
+      setEmailError('Valid email is required');
       valid = false;
     } else {
       setEmailError('');
     }
 
     if (displayName && displayName.length > 40) {
-      setDisplayNameError('Display name must be 40 characters or less');
+      setDisplayNameError('Display name must be no longer than 40 characters');
       valid = false;
     } else {
       setDisplayNameError('');
     }
 
-    if (!password) {
-      setPasswordError('Password is required');
+    if (!password || password.length < 6) {
+      setPasswordError('Password must be at least 6 characters');
       valid = false;
     } else {
       setPasswordError('');
@@ -148,7 +145,7 @@ const Signup = () => {
       <Link to ="/login">Already have an account? Login here</Link>
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}
-      {success && <p>Success: {success}</p>}
+      {(success && success === 'User Registered') && <p>Success: {success}</p>}
     </div>
   );
 }

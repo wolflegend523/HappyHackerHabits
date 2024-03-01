@@ -21,7 +21,7 @@ const AddGoal = () => {
   // redirect to the login page if the user is not logged in
   useEffect(() => {
     if (!userIsLoggedIn) {
-      navigate('/login');
+      navigate('/login/');
     }
   }, [navigate, userIsLoggedIn]);
 
@@ -90,7 +90,7 @@ const AddGoal = () => {
 
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}
-      {success && <p>Success: {success}</p>}
+      {(success && success === 'Goal Created') && <p>Success: {success}</p>}
     </div>
   );
 }

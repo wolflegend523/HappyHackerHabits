@@ -45,6 +45,10 @@ const Goal = () => {
     dispatch(updateGoal({token, goalId, deployedAt: new Date()}));
   }
 
+  const handleUndeployGoal = () => {
+    dispatch(updateGoal({token, goalId, deployedAt: null}));
+  }
+
   const handleRemoveGoal = () => {
     dispatch(removeGoal({token, goalId}));
   }
@@ -59,7 +63,7 @@ const Goal = () => {
           
           {goal && <button onClick={() => setEditMode(true)} className={styles.accent2}>Edit Goal</button>}
           {(goal && !goal.deployedAt) && <button onClick={handleDeployGoal} className={styles.accent3}>Deploy Goal</button>}
-          {/* add a way to Undeploy a deployed goal */}
+          {(goal && goal.deployedAt) && <button onClick={handleUndeployGoal} className={styles.accent4}>Undeploy Goal</button>}
           {goal && <button onClick={handleRemoveGoal} className={styles.accent4}>Delete Goal</button>}
         </>
       }

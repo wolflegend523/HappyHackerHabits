@@ -2,7 +2,7 @@ import { useNavigate} from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector} from 'react-redux'
 import { unregisterUser} from '../features/users/userActions';
-import { logoutUser, resetStatus } from '../features/users/userSlice';
+import { logoutUser } from '../features/users/userSlice';
 import { clearGoals } from '../features/goals/goalsSlice';
 import styles from '../styles/Pages.module.css';
 
@@ -20,8 +20,7 @@ const Profile = () => {
   // or to the home page if the user is not logged in and there is a success message
   useEffect(() => {
     if (!userIsLoggedIn) {
-      navigate('/');
-      dispatch(resetStatus());
+      navigate('/login/');
     }
   }, [navigate, dispatch, userIsLoggedIn]);
   
@@ -49,7 +48,7 @@ const Profile = () => {
       <button onClick={handleDeleteAccount} className={styles.accent4}>Delete Account</button>
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}
-      {success && <p>Success: {success}</p>}
+      {(success && (success === 'User Registered' || success === 'User Logged Out')) && <p>Success: {success}</p>}
     </div>
   );
 }

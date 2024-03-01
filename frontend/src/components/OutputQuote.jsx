@@ -30,7 +30,7 @@ const OutputQuote = () => {
     <>
       {!userIsLoggedIn && 
       <p>
-        <span className={styles.terminalPath}>&#91;Debugging Duck&#129414;&#93;</span>$
+        <span className={styles.terminalPath}>&#91;Debugging Duck🦆&#93;</span>$
         <span className={styles.terminalOutput}> Log in to see your daily quote and your goals</span> 
       </p>}
 

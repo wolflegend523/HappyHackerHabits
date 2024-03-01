@@ -3,11 +3,9 @@
 here are the things we hope to get done before the project is "due"
 
 - comment out more of the code, so it would be more easily reused and understood later 
-- integrate goals into frontend 
 - add details to the welcome page 
 - add pictures of the end app to readme?
 - make it mobile friendly?
-- add sidebar? 
 
 
 # Project TODOs
@@ -28,6 +26,7 @@ Mostly just a brain dump so that I can try to stop thinking about it constantly.
 
 
 ## Frontend-Heavy Tasks
+- make the 'file/folder' that is in the editor look like it is being hovered/active 
 - integrate tasks and habits to the frontend
 - have a sidebar for files, extensions, and other stuff? 
 - allow users to resize component elements
