@@ -3,8 +3,10 @@
    and the scroll/styling appears all the way down the component */
 .editor {
   height: 100%;
+  width: 100%;
   background-color: var(--secondary-bg-color); 
   border-left: 1px solid var(--main-border-color);
+  position: absolute;
   overflow-y: scroll;
 }
 
@@ -12,4 +14,5 @@
    don't touch the edges of the screen. */
 .content {
   margin: 1rem 3rem;
+  height: 120%;
 }

@@ -1,5 +1,6 @@
 .sidebar {
   background-color: var(--main-bg-color);
+  position: absolute;
   height: 100.1%; /* right now with is making the sidebar actually 100% of the height of the app TODO: figure out why?*/
   width: 100%;
   display: flex;
