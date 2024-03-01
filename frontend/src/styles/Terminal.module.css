@@ -70,6 +70,7 @@
 
 /* Terminal output animation styling (will look like it is being typed */
 /* TODO: try to set n dynamically so that we aren't hacking this animation */
+/* animation from: https://dev.to/afif/a-multi-line-css-only-typewriter-effect-3op3 */
 .terminalOutput {
   --n: 1000; /* this is supposed to be the number of characters, to make it work, but if you set it to a ridiculous number, it still works */
   color:#0000;

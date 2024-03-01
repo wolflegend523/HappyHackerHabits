@@ -63,7 +63,7 @@
   z-index: 10;
   border: 1px solid var(--main-border-color);
   border-radius: 0.25rem;
-  margin-top: 0.25rem; 
+  margin-top: 0.15rem; 
 }
 
 /* style each button within the dropdown*/

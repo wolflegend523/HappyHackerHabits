@@ -13,7 +13,7 @@ const Sidebar = () => {
 
   const sidebarBottomItems = [
     { icon: <AccountIcon className={styles.icon}/>,  onClick: () => navigate('/profile') },
-    { icon: <SettingsIcon className={styles.icon}/>,  onClick: () => navigate('/settings') },
+    { icon: <SettingsIcon className={styles.icon}/>,  onClick: () => navigate('/') },
   ];
 
   return (

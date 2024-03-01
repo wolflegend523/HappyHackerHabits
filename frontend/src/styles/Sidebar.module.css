@@ -21,6 +21,7 @@
 
 .active {
   border-left: 2px solid var(--accent-color-2);
+  color: var(--main-text-color);
 }
 
 .icon {

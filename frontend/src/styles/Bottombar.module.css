@@ -3,6 +3,43 @@
   background-color: var(--main-bg-color);
   height: 100%;
   display: flex;
-  color: var(--main-text-color);
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--secondary-text-color);
   font-size: 0.8rem;
+}
+
+.container {
+  background-color: var(--main-bg-color);
+  display: flex;
+  align-items: center;
+}
+
+.section {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 0.75rem;
+  cursor: pointer;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+.section:hover {
+  background: var(--main-hover-color);
+  color: var(--main-text-color);
+}
+
+.bottombar p {
+  color: inherit;
+}
+
+.bottombar a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.icon {
+  margin-right: .25rem;
+  color: inherit;
 }
