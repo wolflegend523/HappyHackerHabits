@@ -41,7 +41,7 @@ const Signup = () => {
   const validRegistration = () => {
     let valid = true;
 
-    if (!email || !email.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g)) {
+    if (!email || !email.match(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g)) {
       setEmailError('Valid email is required');
       valid = false;
     } else {
@@ -90,7 +90,9 @@ const Signup = () => {
   // render registration form
   return (
     <div className={styles.page}>
-      <form onSubmit={handleLogin}>
+      <h1>Create an Account Here</h1>
+
+      <form onSubmit={handleLogin} className={styles.section}>
         <div>
           <label htmlFor='email'>Email* :</label>
           <input
@@ -100,7 +102,7 @@ const Signup = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value.trim())}
           />
-          <span className={styles.formErrorMessage}>{emailError}</span>
+          <span className={styles.errorMessage}>{emailError}</span>
         </div>
 
         <div>
@@ -112,7 +114,7 @@ const Signup = () => {
             value={displayName}
             onChange={(e) => setDisplayName(e.target.value.trim())}
           />
-          <span className={styles.formErrorMessage}>{displayNameError}</span>
+          <span className={styles.errorMessage}>{displayNameError}</span>
         </div>
 
         <div>
@@ -124,7 +126,7 @@ const Signup = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value.trim())}
           />
-          <span className={styles.formErrorMessage}>{passwordError}</span>
+          <span className={styles.errorMessage}>{passwordError}</span>
         </div>
 
         <div>
@@ -136,16 +138,19 @@ const Signup = () => {
             value={passwordConfirm}
             onChange={(e) => setPasswordConfirm(e.target.value.trim())}
           />
-          <span className={styles.formErrorMessage}>{passwordConfirmError}</span>
+          <span className={styles.errorMessage}>{passwordConfirmError}</span>
         </div>
 
         <button type="submit" className={styles.accent2}>Create Account</button>
-
       </form>
-      <Link to ="/login">Already have an account? Login here</Link>
-      {loading && <p>Loading...</p>}
-      {error && <p>Error: {error}</p>}
-      {(success && success === 'User Registered') && <p>Success: {success}</p>}
+
+      <div className={styles.section}>
+        {loading && <p>Loading...</p>}
+        {error && <p className={styles.errorMessage}>Error: {error}</p>}
+        {(success && success === 'User Registered') && <p className={styles.accent3}>Success: {success}</p>}
+      </div>
+
+      <Link to ="/login" className={styles.section}>Already have an account? --&gt; Login here</Link>
     </div>
   );
 }

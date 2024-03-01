@@ -1,4 +1,4 @@
-import { Link, useNavigate} from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector} from 'react-redux'
 import { createGoal } from '../features/goals/goalsActions';
@@ -43,6 +43,10 @@ const AddGoal = () => {
     }
     setGoalNameError('');
 
+    // reset the goal name and description
+    setGoalName('');
+    setGoalDescription('');
+
     // dispatch add goal action
     dispatch(createGoal({name: goalName, description: (goalDescription ? goalDescription : null), token: userToken}));
   }
@@ -60,9 +64,12 @@ const AddGoal = () => {
   // render add goal page
   return (
     <div className={styles.page}>
-      <h1>Add Goal</h1>
+      <h1>Add a Goal Here</h1>
 
-      <form onSubmit={handleAddGoal}>
+      <p className={styles.section}>Fill in the details below and then click "Add Goal" to create a new goal. 
+        It will then show up in the "Explorer" under "Goals".</p>
+
+      <form onSubmit={handleAddGoal} className={styles.section}>
         <div>
         <label htmlFor='goalName'>Goal Name* :</label>
         <input
@@ -72,7 +79,7 @@ const AddGoal = () => {
           value={goalName}
           onChange={(e) => setGoalName(removeLeadingWhiteSpace(e.target.value))}
         />
-        <span className={styles.formErrorMessage}>{goalNameError}</span>
+        <span className={styles.errorMessage}>{goalNameError}</span>
         </div>
 
         <label htmlFor='goalDescription'>Goal Description &#40;optional&#41; :</label>
@@ -86,11 +93,17 @@ const AddGoal = () => {
         <button type="submit" className={styles.accent2}>Add Goal</button>
       </form>
 
-      <Link to="/">Go back to Welcome Page</Link>
+      <div className={styles.section}>
+        {loading && <p>Loading...</p>}
+        {error && <p className={styles.errorMessage}>Error: {error}</p>}
+        {(success && success === 'Goal Created') && <p className={styles.accent3}>Success: {success}</p>}
+      </div>
 
-      {loading && <p>Loading...</p>}
-      {error && <p>Error: {error}</p>}
-      {(success && success === 'Goal Created') && <p>Success: {success}</p>}
+      {(success && success === 'Goal Created') && 
+        <p className={`${styles.section} ${styles.accent3}`}>
+        🦆 Great job, you made a goal! I am lazy, so you need to find it in the "Explorer" if you want to mess with it. 🦆
+      </p>
+      }
     </div>
   );
 }

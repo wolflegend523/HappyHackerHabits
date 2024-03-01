@@ -1,7 +1,6 @@
 
 # Primary Project TODOs
 here are the things we hope to get done before the project is "due"
-
 - comment out more of the code, so it would be more easily reused and understood later 
 - add details to the welcome page 
 - add pictures of the end app to readme?
@@ -26,9 +25,9 @@ Mostly just a brain dump so that I can try to stop thinking about it constantly.
 
 
 ## Frontend-Heavy Tasks
-- make the 'file/folder' that is in the editor look like it is being hovered/active 
 - integrate tasks and habits to the frontend
 - have a sidebar for files, extensions, and other stuff? 
+- allow some way of ordering the goals/tasks. by time? by something else? 
 - allow users to resize component elements
 - make it so the tabbar keeps track of the pages you have been on and allows you to go back to them? 
 - add more icons all over the place to make it look more like vs code

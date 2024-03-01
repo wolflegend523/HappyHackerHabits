@@ -4,7 +4,7 @@ const HomePage = () => {
 
   return (
     <div className={styles.page}>
-      <p>Welcome to Happy Hacker Habits!</p>
+      <h1>Welcome to Happy Hacker Habits!</h1>
     </div>
   );
 }

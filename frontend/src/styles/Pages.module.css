@@ -14,9 +14,18 @@
   margin-bottom: 1rem;
 }
 
+.page h1 {
+  color: var(--accent-color-2)
+}
+
+.page h1::before {
+  content: '# ';
+}
+
 .page p {
   font-size: 1rem;
-  margin-bottom: 0.5rem;
+  margin: 0;
+  padding: 0.15rem 0rem;
 }
 
 .page .floatColumnContainer {
@@ -25,15 +34,17 @@
   justify-content: left;
 }
 
+.page .section {
+  margin-bottom: 1.5rem;
+}
+
 /* link styling */
 .page a {
   color: var(--accent-color-2);
-  font-size: 1rem;
   margin-bottom: 0.5rem;
 }
 
 .page a:hover {
-  background-color: var(--secondary-bg-color);
   color: var(--accent-color-1);
 }
 
@@ -87,8 +98,7 @@
   border: 1px solid var(--main-border-color);
 }
 
-/* button styling */
-
+/* button styling with different button colors*/
 .page button {
   background: var(--secondary-bg-color);
   color: var(--accent-color-1);
@@ -144,9 +154,40 @@
 
 
 /* add squiggly "error" lines under form error messages */
-.formErrorMessage {
-  color: var(--main-text-color);
+.errorMessage {
+  /* TODO: what color looks best for the text color? pink like the squiggle? green? white? */
+  color: var(--accent-color-4);
   text-decoration: wavy underline;
   text-decoration-color: var(--accent-color-4);
-  margin-left : 1rem;
+}
+
+form .errorMessage {
+  margin-left: 1rem;
+}
+
+/* hidden warnings styling */
+.hiddenWarning {
+  display: none;
+}
+
+.hoverRevealsWarning:hover ~ .hiddenWarning {
+  display: block;
+}
+
+
+/* add some "code" colors elements */
+.page .accent1 {
+  color: var(--accent-color-1);
+}
+
+.page .accent2 {
+  color: var(--accent-color-2);
+}
+
+.page .accent3 {
+  color: var(--accent-color-3);
+}
+
+.page .accent4 {
+  color: var(--accent-color-4);
 }

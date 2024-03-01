@@ -39,11 +39,14 @@ const Login = () => {
   // render login form
   return (
     <div className={styles.page}>
+      <h1>Login Here</h1>
       {(success && success === 'User Registered') && 
-        <p>
-          Thanks for Creating an Account. I am Lazy, so you need to login yourself now:
-        </p>}
-      <form onSubmit={handleLogin}>
+        <p className={`${styles.section} ${styles.accent3}`}>
+          🦆 Thanks for creating an account! I am lazy, so you need to login yourself now. 🦆
+        </p>
+      }
+
+      <form onSubmit={handleLogin} className={styles.section}>
         <div>
           <label htmlFor='email'>Email* :</label>
           <input
@@ -68,10 +71,15 @@ const Login = () => {
 
         <button type="submit" className={styles.accent2}>Login</button>
       </form>
-      <Link to="/signup">New? create an account here</Link>
-      {loading && <p>Loading...</p>}
-      {error && <p>Error: {error}</p>}
-      {(success && success === 'User Logged In') && <p>Success: {success}</p>}
+
+      <div className={styles.section}>
+        {loading && <p>Loading...</p>}
+        {error && <p className={styles.errorMessage}>Error: {error}</p>}
+        {(success && success === 'User Logged In') && <p className={styles.accent3}>Success: {success}</p>}
+      </div>
+
+      <Link to="/signup" className={styles.section}>New? --&gt; create an account here</Link>
+
     </div>
   );
 }

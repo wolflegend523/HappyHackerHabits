@@ -26,20 +26,34 @@ const Titlebar = () => {
     navigate("/profile");
   }
 
+  const handleHome = () => {
+    navigate("/");
+  }
+
+  const handleGetLost = () => {
+    navigate("/404");
+  }
+
+
   return (
     <header className={styles.titlebar}>
       <img src={logo} alt="logo" className={styles.icon} />
       <div>
       <Link className={styles.title} to="/">Happy Hacker Habits</Link>
       </div>
+
       <div className={styles.titlebarButtons}>
+
         {userIsLoggedIn && <div className={styles.titlebarDropdown}>
           <Link className={styles.titlebarButton} to="/profile/">{userProfile.displayName}</Link>
           <div className={styles.titlebarDropdownContent}> 
+            <button onClick={handleHome}>Home</button>
             <button onClick={handleProfile}>Profile</button>
             <button onClick={handleLogout}>Logout</button>
+            <button onClick={handleGetLost}>Get Lost 🦆</button>
           </div>
         </div>}
+
         {userIsLoggedIn &&<Link className={styles.titlebarButton}>Settings</Link>}
         {!userIsLoggedIn && <Link className={styles.titlebarButton} to="/login/">Login</Link>}
         {!userIsLoggedIn && <Link className={styles.titlebarButton} to="/signup/">Signup</Link>}

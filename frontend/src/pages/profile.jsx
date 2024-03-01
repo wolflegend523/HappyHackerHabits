@@ -43,12 +43,33 @@ const Profile = () => {
   // render profile page
   return (
     <div className={styles.page}>
-      <h1>{userIsLoggedIn && userProfile.displayName}</h1>
-      <button onClick={handleLogout} className={styles.accent2}>Logout</button>
-      <button onClick={handleDeleteAccount} className={styles.accent4}>Delete Account</button>
-      {loading && <p>Loading...</p>}
-      {error && <p>Error: {error}</p>}
-      {(success && (success === 'User Registered' || success === 'User Logged Out')) && <p>Success: {success}</p>}
+      <h1>{userIsLoggedIn && userProfile.displayName}'s Profile</h1>
+      <div className={styles.section}>
+        <p>This is where you would be able to edit your account info, if I had implemented that.</p>
+        <p>I used the security best practices that I know when building this app.</p>
+        <p>But if you don't trust me/don't want me to have your data, you can delete your account below.</p>
+      </div>
+
+      <div className={styles.section}>
+       <button onClick={handleLogout} className={styles.accent2}>Logout</button>
+       <span>&lt;-- Done using the app?</span>
+      </div>
+
+      <div className={styles.section}>
+        <button onClick={handleDeleteAccount} className={`${styles.accent4} ${styles.hoverRevealsWarning}`}>Delete Account</button>
+        <span>&lt;-- Want your data erased?</span>
+        <div className={styles.hiddenWarning}>
+          <p> <span className={styles.errorMessage}>WARNING:</span> this is a destructive action and CANNNOT be undone. </p>
+          <p>It will NOT ask you to confirm your decision.</p>  
+          <p>All data regarding your account will be REMOVED. </p>
+        </div>
+      </div>
+
+      <div className={styles.section}>
+        {loading && <p>Loading...</p>}
+        {error && <p>Error: {error}</p>}
+        {(success && (success === 'User Registered' || success === 'User Logged Out')) && <p>Success: {success}</p>}
+      </div>
     </div>
   );
 }

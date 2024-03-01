@@ -38,7 +38,7 @@ async function getGoal(token, goalId) {
 }
 
 
-async function putGoal(token, goalId, name, description = null, deployedAt = null) {
+async function putGoal(token, goalId, name, description = undefined, deployedAt = undefined) {
   const response = await fetch(`${apiEndpoint}users/me/goals/${goalId}`, {
     method: 'PUT',
     headers: {
