@@ -2,8 +2,6 @@
 # Primary Project TODOs
 here are the things we hope to get done before the project is "due"
 - comment out more of the code, so it would be more easily reused and understood later 
-- add details to the welcome page 
-- add pictures of the end app to readme?
 - make it mobile friendly?
 
 
@@ -43,6 +41,7 @@ Mostly just a brain dump so that I can try to stop thinking about it constantly.
 - update the frontend public folder to have icons and stuff for mobile browsers and stuff (make it cool)
 - make sure the package.json files are as cool as they can be
 - make sure the .gitignore and .env files are also as cool as they can be
+- make sure the README is as cool as it can be
 - add github pages support and bug reports? 
 
 

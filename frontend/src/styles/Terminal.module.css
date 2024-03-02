@@ -20,6 +20,7 @@
   justify-content: row;
 }
 
+/* TODO: do the tabs need to be smaller? is there a way to make it easier to resize them? */
 .terminalTab {
   padding: 0.5rem;
   margin: 0 0.75rem;

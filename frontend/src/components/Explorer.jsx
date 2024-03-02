@@ -75,6 +75,7 @@ const Explorer = () => {
           </label>
 
           {/* Goals section of the explorer - where each of non-deployed goals are displayed */ }
+          {/* TODO: make it possible to click the folder background, not just the text, to open the folder */ }
           <div className={styles.folders} style={ goalsRootFolderOpen ? { display: 'block' } : { display: 'none' }}>
             {goals.map((item) => (
               <>
@@ -122,6 +123,7 @@ const Explorer = () => {
           </label>
 
           {/* Deployed Goals section of the explorer - where each of the deployed goals are displayed */ }
+          {/* TODO: make it possible to click the folder background, not just the text, to open the folder */ }
           <div className={styles.folders} style={ historyRootFolderOpen ? { display: 'block' } : { display: 'none' }}>
             {goals.map((item) => (
               <>

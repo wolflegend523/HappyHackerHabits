@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
+import NewFolder from '../icons/NewFolder';
 import styles from '../styles/Pages.module.css';
 
 const HomePage = () => {
@@ -36,21 +37,19 @@ const HomePage = () => {
       {userIsLoggedIn &&
         <div className={styles.section}>
           <h2 className={styles.accent3}>Getting Started 🖱️</h2>
-          <button onClick={() => navigate('/addGoal/') } className= {styles.accent3}>Add a Goal</button>
-        <span className= {styles.accent3}>
-          &lt;-- New to the app? Start by creating a goal! 🦆
-        </span> 
+          <p> New to the app? Start by creating a goal! Click the New Folder Icon <NewFolder /> to create a goal 🦆</p> 
         </div>
       }
 
       <div className={styles.section}>
         <h2>The "Explorer" 🗃️</h2>
         <p>The explorer section, found on the left side of the app, holds productivity tools.</p>
-        <p>Right now the explorer just has the ability to create goals.</p>
+        <p>Right now the explorer just allows you to create goals.</p>
         <p>In the future, habits, tasks, notes, and more will be added, and nested under goals.</p>
-        <p>Click on the "Goals" dropdown to view your goals.</p>
+        <p>Click on the "Goals" dropdown to view your current goals.</p>
+        <p>Click on the "History" dropdown to view your past goals.</p>
+        <p>Click on the New Folder Icon <NewFolder /> to create a new goal.</p>
         <p>Click on a goal to view its details.</p>
-        <p>Click on the new folder button to create a new goal.</p>
       </div>
 
       <div className={styles.section}>

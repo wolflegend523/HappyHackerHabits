@@ -29,8 +29,8 @@ This project was started as a final project for a web development course.
 
 
 ## Project Demo 🦆
-TODO: add pictures/gifs here
-
+Try out Happy Hacker at [https://happyhackerhabits.onrender.com/](https://happyhackerhabits.onrender.com/)
+![HomePage](Documentation/HomePage.png)
 
 ## Directory Structure 📁
 ``` BASH

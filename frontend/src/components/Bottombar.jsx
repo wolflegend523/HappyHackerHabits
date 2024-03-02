@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 // icon imports
 import ErrorIcon from '../icons/ErrorIcon';
 import WarningIcon from '../icons/WarningIcon';
@@ -20,22 +21,25 @@ const Bottombar = () => {
           <SourceControlIcon className={styles.icon} />
           <p>main</p>
         </a>
-        <div className={styles.section}>
-          <ErrorIcon className={styles.icon} />
-          <p className={styles.errorText}>0</p>&nbsp;&nbsp;
-          <WarningIcon className={styles.icon} />
-          <p>0</p>
-        </div>
+
+        <Link className={styles.section} to="/">
+            <ErrorIcon className={styles.icon} />
+            <p className={styles.errorText}>0</p>&nbsp;&nbsp;
+            <WarningIcon className={styles.icon} />
+            <p>0</p>
+        </Link>
       </div>
+
+
       <div className={styles.container}>
-        <div className={styles.section}>
+        <Link className={styles.section}>
           <CheckIcon className={styles.icon} />
           <p>Prettier</p>
-        </div>
-        <div className={styles.section}>
+        </Link>
+        <Link className={styles.section}>
           <BellIcon className={styles.icon}/>
           <p>Notifications</p>
-        </div>
+        </Link>
       </div>
     </footer>
   );
