@@ -11,7 +11,7 @@ const HomePage = () => {
     <div className={styles.page}>
       <div className={styles.section}>
         <h1>Welcome to Happy Hacker Habits! 👩‍💻</h1>
-        <p>A programming themed productivity/self-care application.</p>
+        <p>- A programming themed productivity/self-care application.</p>
       </div>
 
       {!userIsLoggedIn &&
@@ -37,27 +37,27 @@ const HomePage = () => {
       {userIsLoggedIn &&
         <div className={styles.section}>
           <h2 className={styles.accent3}>Getting Started 🖱️</h2>
-          <p> New to the app? Start by creating a goal! Click the New Folder Icon <NewFolder /> to create a goal 🦆</p> 
+          <p>- New to the app? Start by creating a goal! Click the New Folder Icon <NewFolder /> to create a goal 🦆</p> 
         </div>
       }
 
       <div className={styles.section}>
         <h2>The "Explorer" 🗃️</h2>
-        <p>The explorer section, found on the left side of the app, holds productivity tools.</p>
-        <p>Right now the explorer just allows you to create goals.</p>
-        <p>In the future, habits, tasks, notes, and more will be added, and nested under goals.</p>
-        <p>Click on the "Goals" dropdown to view your current goals.</p>
-        <p>Click on the "History" dropdown to view your past goals.</p>
-        <p>Click on the New Folder Icon <NewFolder /> to create a new goal.</p>
-        <p>Click on a goal to view its details.</p>
+        <p>- The explorer section, found on the left side of the app, holds productivity tools.</p>
+        <p>- Right now the explorer just allows you to create goals.</p>
+        <p>- In the future, habits, tasks, notes, and more will be added, and nested under goals.</p>
+        <p>- Click on the "Goals" dropdown to view your current goals.</p>
+        <p>- Click on the "History" dropdown to view your past goals.</p>
+        <p>- Click on the New Folder Icon <NewFolder /> to create a new goal.</p>
+        <p>- Click on a goal to view its details.</p>
       </div>
 
       <div className={styles.section}>
         <h2>The "Terminal" 💻</h2>
-        <p>The terminal section, found on the bottom of the app, holds self-care features.</p>
-        <p>Right now the terminal just provides a daily quote.</p>
-        <p>In the future emotion logging, an AI chatbot, and more will be added as other tabs.</p>
-        <p>Click on the "Output Quote" tab to view your daily quote.</p>
+        <p>- The terminal section, found on the bottom of the app, holds self-care features.</p>
+        <p>- Right now the terminal just provides a daily quote.</p>
+        <p>- In the future emotion logging, an AI chatbot, and more will be added as other tabs.</p>
+        <p>- Click on the "Output Quote" tab to view your daily quote.</p>
       </div>
     </div>
   );

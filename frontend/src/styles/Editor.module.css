@@ -16,3 +16,10 @@
   margin: 1rem 3rem;
   height: 120%;
 }
+
+/* media queries so that it is more mobile friendly */
+@media (max-width: 768px) {
+  .content {
+    margin: 1rem 1rem;
+  }
+}

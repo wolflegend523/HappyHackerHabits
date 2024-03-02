@@ -69,3 +69,16 @@
   position: relative;
   z-index: 1;
 }
+
+
+/* media queries so that it is more mobile friendly */
+@media screen and (max-width: 768px) {
+  .app {
+    grid-template-areas:
+      'titlebar titlebar titlebar'
+      'explorer explorer explorer'
+      'editor editor editor'
+      'terminal terminal terminal';
+      grid-template-rows: 1fr 7fr 20fr 7fr;
+  }
+}

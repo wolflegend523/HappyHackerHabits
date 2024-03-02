@@ -201,3 +201,19 @@ form .errorMessage {
 .page .accent4 {
   color: var(--accent-color-4);
 }
+
+
+/* media queries so that it is more mobile friendly */
+@media (max-width: 768px) {
+  .page input {
+    width: 90%;
+  }
+
+  .page textarea {
+    width: 90%;
+  }
+
+  .page button {
+    width: 90%;
+  }
+}

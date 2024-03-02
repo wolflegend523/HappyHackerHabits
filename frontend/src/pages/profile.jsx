@@ -45,10 +45,10 @@ const Profile = () => {
     <div className={styles.page}>
       <h1>{userIsLoggedIn && userProfile.displayName}'s Profile</h1>
       <div className={styles.section}>
-        <p>This is where you would be able to edit your account info, if I had implemented that.</p>
-        <p>I used some of the security best practices that I know when building this app.</p>
-        <p>But there are probably some vulnerabilities and I didn't have time to prioritize security. </p>
-        <p>If you are worried about that, you can delete your account below.</p>
+        <p>- This is where you would be able to edit your account info, if I had implemented that.</p>
+        <p>- I used some of the security best practices that I know when building this app.</p>
+        <p>- But there are probably some vulnerabilities and I didn't have time to prioritize security. </p>
+        <p>- If you are worried about that, you can delete your account below.</p>
       </div>
 
       <div className={styles.section}>
