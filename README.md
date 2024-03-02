@@ -30,7 +30,7 @@ This project was started as a final project for a web development course.
 
 ## Project Demo 🦆
 Try out Happy Hacker at [https://happyhackerhabits.onrender.com/](https://happyhackerhabits.onrender.com/)
-![HomePage](Documentation/HomePage.png)
+![HomePage](documentation/HomePage.png)
 
 ## Directory Structure 📁
 ``` BASH
