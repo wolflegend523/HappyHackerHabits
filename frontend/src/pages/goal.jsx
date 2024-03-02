@@ -15,12 +15,20 @@ const Goal = () => {
     }
   }
 
+  const makeDateReadable = (dateString) => {
+    if (!dateString) {
+      return null;
+    }
+    return new Date(dateString).toDateString();
+  }
+
   const { goalId } = useParams();
   const { goals } = useSelector((state) => state.goals);
   const goal = findGoal(goalId, goals);
+  const goalDeployedAt = makeDateReadable(goal ? goal.deployedAt : null);
   const token = useSelector((state) => state.user.userToken);
   const [editMode, setEditMode] = useState(false);
-  const [goalName, setGoalName] = useState(goal? goal.goalName : "");
+  const [goalName, setGoalName] = useState(goal ? goal.goalName : "");
   const [goalDescription, setGoalDescription] = useState(goal? goal.goalDescription: "");
 
   const dispatch = useDispatch();
@@ -78,7 +86,7 @@ const Goal = () => {
           <div className={styles.section}>
             <p>{goal.goalDescription}</p>
             <p>
-              <span className= {styles.accent3}>Status:</span> {goal.deployedAt ? <>deployed on {goal.deployedAt}</> : <>in progress</>}
+              <span className= {styles.accent3}>Status:</span> {goal.deployedAt ? <>deployed on {goalDeployedAt}</> : <>in progress</>}
             </p>
             <p>------------------------------------------------------------------</p>
           </div>
