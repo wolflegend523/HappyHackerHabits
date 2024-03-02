@@ -1,16 +1,16 @@
-# Happy Hacker Habits Backend 👩‍💻
+# Happy Hacker Habits Backend
 Happy Hacker Habits uses an express node.js server as its application tier and a 
 PostgreSQL database managed using Prisma ORM as its data tier. It exposes RESTFul endpoints
 for the various features of the application.   
 
 
-## Table of Contents 🗃️
-- [Directory Structure](#directory-structure-📁)
-- [Running the Project Locally](#running-the-project-locally-⌨️)
-- [Deploying the Project on Render](#deploying-the-project-on-render-🖥️)
+## Table of Contents
+- [Directory Structure](#directory-structure)
+- [Running the Project Locally](#running-the-project-locally)
+- [Deploying the Project on Render](#deploying-the-project-on-render)
 
 
-## Directory Structure 📁
+## Directory Structure
 ``` BASH
 .
 ├── api                     # the routes, handlers, and application logic for each feature
@@ -27,7 +27,7 @@ for the various features of the application.
 ```
 
 
-## Running the project locally ⌨️
+## Running the project locally
 This section describes the steps to run and develop the project locally. 
 
 ### Installing Project Dependencies
@@ -88,7 +88,7 @@ After setting up the prerequisites you can start the server by running the follo
 npm start
 ```
 
-## Deploying the Project on Render 🖥️
+## Deploying the Project on Render
 To deploy Happy Hacker's data tier (or a different PostgreSQL Database) on Render:
 - [Create a Render account](https://dashboard.render.com/register/).
 - [Create a **PostgreSQL Database** on Render](https://docs.render.com/databases) 

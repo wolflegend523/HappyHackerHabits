@@ -1,15 +1,15 @@
-# Happy Hacker Habits Frontend 👩‍💻
+# Happy Hacker Habits Frontend
 Happy Hacker Habits uses a React app as its presentation tier. It calls RESTFul APIs exposed by the backend
 to display various features of the application. It uses Redux to manage application state needed by many 
 different components. 
 
-## Table of Contents 🗃️
-- [Directory Structure](#directory-structure-📁)
-- [Running the Project Locally](#running-the-project-locally-⌨️)
-- [Deploying the Project on Render](#deploying-the-project-on-render-🖥️)
+## Table of Contents
+- [Directory Structure](#directory-structure)
+- [Running the Project Locally](#running-the-project-locally)
+- [Deploying the Project on Render](#deploying-the-project-on-render)
 
 
-## Directory Structure 📁
+## Directory Structure
 ``` BASH
 .
 ├── node_modules            # the packages and dependencies that the project requires
@@ -31,7 +31,7 @@ different components.
 ```
 
 
-## Running the project locally ⌨️
+## Running the project locally
 This section describes the steps to run and develop the project locally. 
 
 ### Installing Project Dependencies
@@ -62,7 +62,7 @@ After setting up the prerequisites you can start the react app by running the fo
 npm start
 ```
 
-## Deploying the Project on Render 🖥️
+## Deploying the Project on Render
 To deploy Happy Hacker's presentation tier (or a different React app) on Render:
 - [Create a Render account](https://dashboard.render.com/register/).
 - Fork this repository, or create a GitHub repository with the react app you want to deploy.
