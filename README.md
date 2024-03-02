@@ -15,12 +15,12 @@ Happy Hacker Habits is a programming themed habit-tracker/self-care app. Taking 
 
 
 ## Table of Contents 🗃️
-- [Project Origin](#project-origin)
-- [Project Demo](#project-demo)
-- [Directory Structure](#directory-structure)
-- [Setup and Deployment](#setup-and-deployment)
-- [License](#license)
-- [Acknowledgements](#acknowledgements)
+- [Project Origin](#project-origin-🖊️)
+- [Project Demo](#project-demo-🦆)
+- [Directory Structure](#directory-structure-📁)
+- [Setup and Deployment](#setup-and-deployment-⌨️)
+- [License](#license-🖱️)
+- [Acknowledgements](#acknowledgements-🖥️)
 
 
 ## Project Origin 🖊️

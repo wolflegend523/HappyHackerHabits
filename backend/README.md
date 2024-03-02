@@ -5,9 +5,9 @@ for the various features of the application.
 
 
 ## Table of Contents 🗃️
-- [Directory Structure](#directory-structure)
-- [Running the Project Locally](#running-the-project-locally)
-- [Deploying the Project on Render](#deploying-the-project-on-render)
+- [Directory Structure](#directory-structure-📁)
+- [Running the Project Locally](#running-the-project-locally-⌨️)
+- [Deploying the Project on Render](#deploying-the-project-on-render-🖥️)
 
 
 ## Directory Structure 📁
