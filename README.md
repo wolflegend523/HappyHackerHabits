@@ -35,8 +35,8 @@ Try out Happy Hacker at [https://happyhackerhabits.onrender.com/](https://happyh
 ## Directory Structure
 ``` BASH
 . 
-├── backend       # a node.js express application tier and a PostgreSQL data tier managed by Prisma ORM
-├── documentation # just a picture right now
+├── backend       # express.js application tier and a PostgreSQL data tier managed by Prisma ORM
+├── documentation # proposal, notes, and pictures
 └── frontend      # react app presentation tier
 ```
 
